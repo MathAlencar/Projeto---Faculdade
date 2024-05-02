@@ -1,0 +1,243 @@
+:root {
+    --primary-color: #d8d8d8;
+    --background-color-: #153d5a;
+    --section-one-justify-content: center;
+    --section-one-height-blocks: 15vh;
+    --section-one-width-blocks: auto;
+    --section-one-font-size-h1: 5vh;
+    --text-aligh-h1-h6: start;
+    --aligh-bottom: center;
+    --aligh-bottom-justify-content: baseline;
+    --height-bottom-enter: 8vh;
+    --widht-bottom-enter: 9rem;
+    --height-img-logo: 10vh;
+    --input-date-width: 27vw;
+    --input-date-height: 27vh;
+    --input-height: 4vh;
+    --input-width: 23vw;
+    --font-size-placeholder: 2vh;
+    --border-width-buttons: 0.2rem;
+    --font-size-buttons: 3vh;
+  }
+  
+  body {
+    background-color: var(--primary-color);
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box !important;
+    width: 100vw;
+  }
+  
+  /* Esqueleto da página */
+  .section-all {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 100vh;
+  }
+  
+  .section-all section:nth-child(1) {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    justify-content: var(--section-one-justify-content);
+    align-items: center;
+    height: auto;
+  }
+  
+  .section-all section:nth-child(2) {
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+  
+  
+  .content-section-02 {
+    background-color: var(--background-color-);
+    padding: 10vh 5vh;
+    border-radius: 25px 25px 25px 25px;
+    height: 60vh;
+    width: 30vw;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 15vh 11vh 11vh 0vh 20vh;
+    grid-template-areas:
+      "div"
+      "div"
+      "div"
+      "div"
+      "div";
+  }
+  
+  .content-section-02 div:nth-child(1) {
+    color: var(--primary-color);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--section-one-font-size-h1);
+  }
+  
+  .content-section-02 div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .content-section-02 div:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .content-section-02 div:nth-child(4) {
+    padding-right: 4vh;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+  
+  .content-section-02 div:nth-child(5) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Section 2: tela de cadastro*/
+  #img-icone {
+    height: 5vh;
+  }
+  
+  .input-date {
+    height: 7vh;
+    background-color: rgb(237, 237, 240);
+    border-radius: 0.8vw;
+    width: var(--input-date-width);
+  }
+  
+  .content-section-02 div:nth-child(1) h1 {
+    padding-top: 10px;
+    color: rgb(237, 237, 240);
+  }
+  
+  .content-section-02 div:nth-child(4) a {
+    color: rgb(237, 237, 240);
+    text-decoration: none;
+    font-size: 1.5vh;
+  }
+  
+  .content-section-02 div:nth-child(4) a:hover {
+    text-decoration: underline rgb(237, 237, 240);
+  }
+  
+  .content-section-02 div:nth-child(5) button {
+    height: var(--height-bottom-enter);
+    width: var(--widht-bottom-enter);
+    border-style: solid;
+    border-radius: 14px;
+    border-width: var(--border-width-buttons);
+    font-size: var(--font-size-buttons);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    background-color: #153d5a00;
+    color: white;
+    border-color: white;
+  }
+  
+  .content-section-02 div:nth-child(5) button:hover {
+    transition: 1s;
+    background-color: rgba(240, 248, 255, 0.185);
+    cursor: pointer;
+    scale: 1.02;
+  }
+  
+  .content-section-02 div input::placeholder {
+    letter-spacing: 0.5px;
+    font-size: var(--font-size-placeholder);
+  }
+  
+  .content-section-02 div input {
+    width: var(--input-width);
+    border: none;
+    outline: none;
+    height: var(--input-height);
+    padding-left: 0.5rem;
+    background-color: #153d5a00;
+  }
+  
+  
+  /* responsividade da página */
+  @media screen and (max-width: 1200px) {
+    .content-section-02 {
+      height: 50vh;
+      width: 50vw;
+      grid-template-columns: auto;
+      grid-template-rows: 12vh 10vh 10vh 0vh 20vh;
+      grid-template-areas:
+        "div"
+        "div"
+        "div"
+        "div"
+        "div";
+    }
+  
+    #img-icone {
+      height: 4vh;
+    }
+  
+    :root {
+      --section-one-height-blocks: 10vh;
+      --section-one-width-blocks: auto;
+      --section-one-justify-content: center;
+      --section-one-font-size-h1: 4vw;
+      --text-aligh-h1-h6: center;
+      --section-one-font-size-h6: 5vw;
+      --aligh-bottom: center;
+      --aligh-bottom-justify-content: center;
+      --widht-bottom-enter: 10rem;
+      --height-bottom-enter: 6vh;
+      --input-date-width: 40vw;
+      --input-width: 25vw;
+      --border-width-buttons: 0.2rem;
+      --font-size-buttons: 4vw;
+    }
+  
+    .content-section-02 div:nth-child(4) a {
+      padding-right: 3vh;
+    }
+  
+  }
+  
+  @media screen and (max-width: 500px) {
+    .content-section-02 {
+      width: 43vh;
+      background-color: var(--background-color-);
+      padding: 0vh 0vh;
+    }
+  
+    #img-icone {
+      height: 3vh;
+    }
+  
+    :root {
+      --input-date-width: 75vw;
+      --input-width: 60vw;
+    }
+  }
+  
+  @media screen and (max-width: 1200px) and (orientation: landscape) {
+    :root {
+      --section-one-font-size-h1: 5vh;
+      --input-date-width: 50vw;
+      --input-width: 40vw;
+      --input-height: 7vh;
+      --font-size-placeholder: 1rem;
+      --font-size-buttons: 2.5vh;
+    }
+  
+    .content-section-02 {
+      grid-template-rows: 15vh 10vh 10vh 0vh 20vh;
+    }
+  }
