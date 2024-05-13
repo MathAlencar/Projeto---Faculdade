@@ -48,6 +48,7 @@ buttonLogout.addEventListener('click', () => {
 
 // <-- FIM
 
+// Aqui estou impedindo do usuário apertar a tea F11
 
 document.addEventListener('keydown', function(event) {
     if (event.key === "F11") {

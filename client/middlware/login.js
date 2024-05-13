@@ -13,7 +13,7 @@ exports.login = (req, res, next) => {
         req.usuario = decode;
         next()
     } catch (error) {
-        return res.render('login.hbs', {
+        return res.render('00.login.hbs', {
             message: "Necessário relizar o login novamente"
         })
         

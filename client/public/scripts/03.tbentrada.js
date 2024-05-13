@@ -31,27 +31,6 @@ email.innerHTML = emailUSer;
 
 // <-- FIM 
 
-
-// Botões de eventos -->
-
-buttonLogout.addEventListener('click', () => {
-    fetch('/auth/logout', {
-        method: 'POST',
-    })
-    .then(response => {
-        window.location.href = '/login';
-    })
-    .catch(error => {
-        console.error('Erro ao fazer logout:', error);
-    });
-});
-
-buttonCadastro.addEventListener('click', () => {
-    window.location.href = '/tabela/produto/cadastrar'
-})
-
-// <-- FIM
-
 let lista = obterListaProdutos();
 construirTabela(lista);
 
@@ -60,24 +39,35 @@ function obterListaProdutos() {
     {
       id: 1,
       nome: "Aaaa",
+      data: new Date().toLocaleDateString(),
       quantidade: 5,
       preco: 50.0
     },
     {
       id: 2,
       nome: "Bbbb",
+      data: new Date().toLocaleDateString(),
       quantidade: 10,
       preco: 100.0
     },
     {
       id: 3,
       nome: "Cccc",
+      data: new Date().toLocaleDateString(),
       quantidade: 20,
       preco: 250.0
     },
   ];
 
+  atribuirValorTotal(listaProdutos);
+
   return listaProdutos;
+}
+
+function atribuirValorTotal(listaProdutos) {
+  for (let i = 0; i < listaProdutos.length; i++) {
+    listaProdutos[i].valorTotal = (listaProdutos[i].quantidade * listaProdutos[i].preco);
+  }
 }
 
 function construirTabela(listaProdutos) {
@@ -109,18 +99,24 @@ function construirTabela(listaProdutos) {
 
     let td_id = document.createElement('td');
     let td_nome = document.createElement('td');
+    let td_data = document.createElement('td');
     let td_quantidade = document.createElement('td');
     let td_preco = document.createElement('td');
+    let td_valor_total = document.createElement('td');
 
-    td_id.innerText = listaProdutos[i].id;
+    td_data.innerText = listaProdutos[i].data;    
     td_nome.innerText = listaProdutos[i].nome;
+    td_id.innerText = listaProdutos[i].id;
     td_quantidade.innerText = listaProdutos[i].quantidade;
     td_preco.innerText = listaProdutos[i].preco;
+    td_valor_total.innerText = listaProdutos[i].valorTotal;
 
-    row.appendChild(td_id);
+    row.appendChild(td_data);
     row.appendChild(td_nome);
+    row.appendChild(td_id);
     row.appendChild(td_quantidade);
     row.appendChild(td_preco);
+    row.appendChild(td_valor_total);
   }
 }
 
@@ -138,11 +134,33 @@ function buscarProduto() {
   construirTabela(listaFiltrada);
 }
 
+// Botões de eventos -->
+
+// Realiza o Logout da página
+buttonLogout.addEventListener('click', () => {
+    fetch('/auth/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
+
+// Vai para aba de cadastro de produto;
+buttonCadastro.addEventListener('click', () => {
+  window.location.href = '/entrada/pedido'
+})
+
+// <-- FIM
+
+
 // Aqui estou impedindo do usuário apertar a tea F11
 
 document.addEventListener('keydown', function(event) {
-  if (event.key === "F11") {
-      event.preventDefault();
-  }
-});
-
+    if (event.key === "F11") {
+        event.preventDefault();
+    }
+  });

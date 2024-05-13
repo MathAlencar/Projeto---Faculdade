@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="tabela_produtos_cadastrados.css">
-  <link rel="stylesheet" href="/02.tbprodutos.css">
+  <link rel="stylesheet" href="/style.padrao/00.css.padrao.css"><!-- CSS padrão -->
+    <link rel="stylesheet" href="/style.padrao/00.menu.padrao.css"> <!-- CSS do menu -->
+    <link rel="stylesheet" href="/style.pages/02.tb.css"> <!-- CSS do página -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -13,6 +14,7 @@
 </head>
 
 <body>
+  <main class="section-all">
   <header>
     <nav class="sidebar">
       <div class="logo">
@@ -28,21 +30,15 @@
         <li><a href="/entrada">
             <span class="material-icons">north_east</span> Entradas
           </a></li>
-        <li><a href="#">
+        <li><a href="/saida">
             <span class="material-icons">south_west</span> Saídas
           </a></li>
-        <li><a href="#">
+        <li><a href="/caixa">
             <span class="material-icons">attach_money</span> Abrir caixa
           </a></li>
-        <li><a href="#">
-            <span class="material-icons-outlined">check_circle</span> Pedidos realizados
-          </a></li>
-        <li><a href="#">
-            <span class="material-icons-outlined">leaderboard</span> Dashboard
-          </a></li>
-        <li><a href="/funcionarios/tabela_funcionarios_cadastrados.html">
-            <span class="material-icons">people</span> Ver funcionários
-          </a></li>
+          <li><a href="#"><span class="material-icons-outlined">check_circle</span> Pedidos realizados</a></li>
+        <li><a href="/dashboard"><span class="material-icons-outlined">leaderboard</span> Dashboard</a></li>
+        <li><a href="/funcionarios"><span class="material-icons">people</span> Ver funcionários</a></li>
       </ul>
       <div class="bottom-section">
         <div class="icon-end">
@@ -61,13 +57,12 @@
       </div>
     </nav>
   </header>
-
-
-  <main>
+   <article class="section-one">
+    <section class="section-main">
     <div class="content-header">
-      <h1>Produtos cadastrados</h1>
-      <a href="#">
-        <button>
+      <div><h1> Produtos cadastrados</h1></div>
+      <a href="#" id="resolvendoProblema">
+        <button class="button-pg" id="button-cadastrar">
           <span class="material-icons"> add </span>
           Novo produto</button>
       </a>
@@ -89,6 +84,8 @@
         </tbody>
       </table>
     </div>
+  </section>
+  </article>
   </main>
   <script src="/scripts/02.tbprodutos.js"></script>
 </body>

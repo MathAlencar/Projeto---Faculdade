@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.padrao/00.css.padrao.css"><!-- CSS padrão -->
     <link rel="stylesheet" href="/style.padrao/00.menu.padrao.css"> <!-- CSS do menu -->
-    <link rel="stylesheet" href="/style.pages/03.tb.css"> <!-- CSS da sua pagina -->
+    <link rel="stylesheet" href="/style.pages/08.tb.css"> <!-- CSS da sua pagina -->
     <!-- link do icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -23,12 +23,12 @@
                     <ul>
                         <li><a href="/menu"><span class="material-icons-outlined">home</span>Home</a></li>
                         <li><a href="/tabela/produto"><span class="material-icons">add_circle_outline</span> Cadastrar <br>produtos</a></li>
-                        <li><a href="/entrada" id="activate"><span class="material-icons">north_east</span> Entradas</a></li>
+                        <li><a href="/entrada"><span class="material-icons">north_east</span> Entradas</a></li>
                         <li><a href="/saida"><span class="material-icons">south_west</span> Saídas</a></li>
                         <li><a href="/caixa"><span class="material-icons">attach_money</span> Abrir caixa</a></li>
                         <li><a href="#"><span class="material-icons-outlined">check_circle</span> Pedidos realizados</a></li>
                         <li><a href="/dashboard"><span class="material-icons-outlined">leaderboard</span> Dashboard</a></li>
-                        <li><a href="/funcionarios"><span class="material-icons">people</span> Ver funcionários</a></li>
+                        <li><a href="/funcionarios" id="activate"><span class="material-icons">people</span> Ver funcionários</a></li>
                     </ul>
                     <div class="bottom-section">
                         <div class="icon-end">
@@ -47,30 +47,32 @@
                     </div>
                   </nav>
             </header>
-     <article class="section-one">
+      <article class="section-one">
     <section class="section-main">
     <div class="content-header">
-      <div><h1> Entrada produtos </h1></div>
+      <div><h1> Funcionários </h1></div>
       <a href="#" id="resolvendoProblema">
         <button class="button-pg" id="button-cadastrar">
           <span class="material-icons"> add </span>
-         Entrada </button>
+         Cadastrar <br> funcionário  </button>
       </a>
     </div>
 
-    <div>
-      <input type="text" id="searchbar" name="searchbar" placeholder="Pesquisar produto" onkeyup="buscarProduto()">
-    </div>
+    <form class="form" action="/chamada/especifica" method="GET">
+
+      <input type="email" id="searchbar" name="buscaFuncionario" placeholder="Pesquisar usuário pelo e-mail">
+      <button  id="buttonPesquisa"> PESQUISAR </button> 
+      <button  id="buttonEditar"> EDITAR </button> 
+
+    </form>
 
     <div class="content-table">
       <table>
         <thead>
-          <th>DATA ENTRADA</th>
-          <th>PRODUTO</th>
-          <th>QTD COMPRADA</th>
-          <th>CÓDIGO</th>
-          <th>PREÇO UNITÁRIO</th>
-          <th>VALOR TOTAL</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>CONTATO</th>
+          <th>STATUS</th>
         </thead>
         <tbody id="tbody">
         </tbody>
@@ -79,6 +81,6 @@
   </section>
   </article>
     </main>
-    <script src="/scripts/03.tbentrada.js"></script>
+    <script src="/scripts/08.funcionarios.js"></script>
 </body>
 </html>

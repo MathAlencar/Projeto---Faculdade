@@ -1,85 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/01.menu.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.pages/01.style.css"> <!-- CSS da sua pagina -->
+    <link rel="stylesheet" href="/style.padrao/00.css.padrao.css"> <!-- CSS padrão -->
+    <link rel="stylesheet" href="/style.padrao/00.menu.padrao.css"> <!-- CSS do menu -->
+
+    <!-- link do icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+
+    <title>Home</title>
 </head>
 
+ <!-- estrutura do html padrão -->
 <body>
-        <article class="section-all">
-            <header class="nav-header">
-            <nav class="sidebar">
-                <div class="logo">
-                  <img src="/imgs/logo.png" alt="Logo da Empresa">
-                </div>
+    <main class="section-all">  
+        <header class="nav-header">
+            <nav class="sidebar">        
+                <div class="logo"><img src="/imgs/logo.png" alt="Logo da Empresa"></div>
                 <ul>
-                  <li><a href="/menu" id="activate"><span class="material-icons-outlined">home</span>Home</a></li>
-                  <li><a href="/tabela/produto"><span class="material-icons-outlined">add_circle_outline</span> Cadastrar <br>produtos</a></li>
-                  <li><a href="/entrada"><span class="material-icons">north_east</span> Entradas</a></li>
-                  <li><a href="#"><span class="material-icons">south_west</span> Saídas</a></li>
-                  <li><a href="#"><span class="material-icons">attach_money</span> Abrir caixa</a></li>
-                  <li><a href="#"><span class="material-icons-outlined">check_circle</span> Pedidos realizados</a></li>
-                  <li><a href="#"><span class="material-icons-outlined">leaderboard</span> Dashboard</a></li>
-                  <li><a href="#"><span class="material-icons">people</span> Ver funcionários</a></li>
-              </ul>
+                    <li><a href="/menu" id="activate"><span class="material-icons-outlined">home</span>Home</a></li>
+                        <li><a href="/tabela/produto"><span class="material-icons">add_circle_outline</span> Cadastrar <br>produtos</a></li>
+                        <li><a href="/entrada"><span class="material-icons">north_east</span> Entradas</a></li>
+                        <li><a href="/saida"><span class="material-icons">south_west</span> Saídas</a></li>
+                        <li><a href="/caixa"><span class="material-icons">attach_money</span> Abrir caixa</a></li>
+                        <li><a href="#"><span class="material-icons-outlined">check_circle</span> Pedidos <br> realizados</a></li>
+                        <li><a href="/dashboard"><span class="material-icons-outlined">leaderboard</span> Dashboard</a></li>
+                        <li><a href="/funcionarios"><span class="material-icons">people</span> Ver funcionários</a></li>
+                </ul>
                 <div class="bottom-section">
-                  <div class="icon-end">
-                    <span class="material-icons">account_circle</span>
-                  </div>
-                  <p id="first"></p>
-                  <p id="second"></p>
-                  <div class="buttons-container">
-                    <button>
-                        <span class="material-icons" id="iconOne">settings</span>
-                    </button>
-                    <button id="buttonLogout">
-                        <span class="material-icons" id="iconTwo">logout</span> 
-                    </button>
+                    <div class="icon-end">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <p id="first">Nome</p>
+                    <p id="second">xxxx@gggg.ccc</p>
+                    <div class="buttons-container">
+                        <button>
+                            <span class="material-icons" id="iconOne">settings</span>
+                        </button>
+                        <button>
+                            <span class="material-icons" id="iconTwo">logout</span>
+                        </button>
+                    </div>
                 </div>
-
-                </div>
-          </nav>
+            </nav>
         </header>
 
-            <section class="section-one">
+        <article class="section-one">
+            <section class="section-main">  
+                <div><h1>Olá usuário!</h1><hr></hr></div>
+                <div><h4>Em breve atualização...</h4></div>
 
-                <div class="section-main">
-                    <div><h1><span class="material-icons">reply_all</span> Cadastrar funcionários</h1><hr></div>
-                    <div><h2>Dados do funcionário</h2></div>
-            
-                    <form class="form" action="/auth/menu" method="POST">
-                        
-                    <div><label for="name"> Nome:</label><input id="name" class="quebra-linha" type="text" placeholder="digite" name="name"
-                required></div>
-                       
-                        <div><label for="email"> E-mail:</label><input id="email" class="quebra-linha" type="email"
-                placeholder="xxxx@xxxx.com" required name="email"></div>
+                
 
-
-                        
-                        <div><label for="number"> Senha:</label><input id="number" class="quebra-linha" type="password"
-                        name="senha" placeholder="senha"></div>
-
-                       
-                        <div><label for="senhaconfirm"> Confirmar Senha:</label><input id="senhaconfirm" class="quebra-linha" type="password"
-                      name="confirmSenha" placeholder="confirmar senha"></div>
-                        <div><button>Cadastar funcionário</button></div>
-                          
-                    </form>
-                     {{#if message }}
-                            <h4 class="alert">{{message}}</h4>
-                        {{/if}}
-                </div>
             </section>
         </article>
-  </div>
-  <script src="/scripts/01.menu.js"></script>
+    </main>
 </body>
-
 </html>

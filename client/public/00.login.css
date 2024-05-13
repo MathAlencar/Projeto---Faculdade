@@ -1,193 +1,258 @@
-:root {
-    --primary-color: #d8d8d8;
-    --background-color-: #153d5a;
-    --section-one-justify-content: center;
-    --section-one-height-blocks: 15vh;
-    --section-one-width-blocks: auto;
-    --section-one-font-size-h1: 5vh;
-    --text-aligh-h1-h6: start;
-    --aligh-bottom: center;
-    --aligh-bottom-justify-content: baseline;
-    --height-bottom-enter: 8vh;
-    --widht-bottom-enter: 9rem;
-    --height-img-logo: 10vh;
-    --input-date-width: 27vw;
-    --input-date-height: 27vh;
-    --input-height: 4vh;
-    --input-width: 23vw;
-    --font-size-placeholder: 2vh;
-    --border-width-buttons: 0.2rem;
-    --font-size-buttons: 3vh;
+:root{
+  --primary-color: #E8E8E8;
+  --background-color-: #224864;
+  --section-one-justify-content: center;
+  --section-one-height-blocks: 15vh;
+  --section-one-width-blocks: auto;
+  --section-one-font-size-h1:52px;
+  --text-aligh-h1-h6: start;
+  --aligh-bottom: center;
+  --aligh-bottom-justify-content: baseline;
+  --height-bottom-enter: 8vh;
+  --widht-bottom-enter: 12rem;
+  --height-img-logo: 10vh;
+  --input-date-width: 35vw;
+  --input-date-height: 27vh;
+  --input-width: 31vw; 
+  --input-height: 4vh;   
+  --font-size-placeholder: 2vh;
+  --border-width-buttons: 0.2rem;
+  --font-size-buttons: 3vh;
+}
+
+body{
+  background-color: var(--primary-color);
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box !important;
+  width: 100vw;
+}
+
+/* Esqueleto da página */
+
+.section-bem-vindo{
+  margin: 0;
+  display: grid;
+  grid-template-columns: 40vw 60vw;
+  grid-template-rows: 100vh;
+  grid-template-areas:
+  "Section Section";
+}
+
+.section-bem-vindo section:nth-child(1){
+  line-height: 7vh;
+  background-color: var(--background-color-);
+  border-radius: 0px 20px 20px 0px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  justify-content: var(--section-one-justify-content);
+  align-items: center;
+  height: auto;
+}
+
+.section-bem-vindo section:nth-child(2){
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+/*SEÇÃO 1 - BOAS VINDAS */
+.content-section{
+  height: 70vh;
+  width: 28vw;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 13vh 25vh 25vh;
+  grid-template-areas:
+  "div"
+  "div"
+  "div";
+}
+
+.content-section div:nth-child(1){
+  height: var(--section-one-height-blocks);
+  width: 42vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-section div:nth-child(2){
+  height: var(--section-one-height-blocks);
+  width: var(--section-one-width-blocks);
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: var(--text-aligh-h1-h6);
+  font-size: var(--section-one-font-size-h1);
+}
+
+.content-section div:nth-child(3){
+  height: var(--section-one-height-blocks);
+  width: var(--section-one-width-blocks);
+  text-align: start;
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: var(--text-aligh-h1-h6);
+  font-size: 25px;
+}   
+
+
+
+/*SESSÃO 2 - login*/
+.content-section-02{
+  background-color: var(--primary-color);  
+  height:60vh;
+  width: 45vw;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 15vh 14vh 14vh 0vh 20vh;
+  grid-template-areas:
+  "div"
+  "div"
+  "div"
+  "div"
+  "div";
+}
+.content-section-02 div:nth-child(1){
+  color: var(--background-color-);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
+.content-section-02 div:nth-child(1){
+  color: var(--background-color-);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
+.section-all{
+  background-color: var(--primary-color);  
+  height:60vh;
+  width: 45vw;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 15vh 10vh 10vh 0vh ;
+  grid-template-areas:
+  "div"
+  "div"
+  "div"
+  "div"
+  "div";
+}
+.section-all div:nth-child(1){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-all div:nth-child(2){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-all div:nth-child(3){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* Section 1: tela de boas-vindas*/
+#img-logo{
+  height: 140px;
+  width: 159px;
+}
+
+
+/* Section 2: tela de cadastro*/
+
+
+.section-all div:nth-child(3) button{
+  height: var(--height-bottom-enter);
+  width: var(--widht-bottom-enter);
+  border-style: solid;
+  border-radius: 14px;
+  border-width: var(--border-width-buttons);
+  font-size: var(--font-size-buttons);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #153d5a00;
+  color: var(--background-color-);
+  border-color: var(--background-color-);
+}
+
+.section-all div:nth-child(3) button:hover{
+  transition: 1s;
+  background-color: rgba(49, 49, 49, 0.185);
+  cursor: pointer;
+  scale: 1.02;
+}
+
+.input-date{
+  height: 7vh;
+  background-color:  #C9D9E2;
+  border-radius: 16px;
+  width: var(--input-date-width);
+}
+
+.content-section-02 div input::placeholder{
+  letter-spacing: 0.5px;
+  font-size: var(--font-size-placeholder);
+}
+
+.content-section-02 div input{
+  width: var(--input-width);
+  border: none;
+  outline: none;
+  height: var(--input-height);
+  padding-left: 0.5rem;
+  background-color: #153d5a00;
+}
+.material-icons{
+  color: #0000009c;
+}
+
+
+/* responsividade da página */
+
+@media screen and (max-width: 1020px){
+  .section-bem-vindo{
+      margin: 0;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: 50vh 50vh;
+      grid-template-areas:
+      "Section"
+      "Section";
   }
-  
-  body {
-    background-color: var(--primary-color);
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box !important;
-    width: 100vw;
+  .section-bem-vindo section:nth-child(1){
+      background-color: var(--background-color-);
+      border-radius: 0px 0px 25px 25px;
   }
-  
-  /* Esqueleto da página */
-  .section-all {
-    margin: 0;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 100vh;
-  }
-  
-  .section-all section:nth-child(1) {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: flex;
-    justify-content: var(--section-one-justify-content);
-    align-items: center;
-    height: auto;
-  }
-  
-  .section-all section:nth-child(2) {
-    background-color: var(--primary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-  }
-  
-  
-  .content-section-02 {
-    background-color: var(--background-color-);
-    padding: 10vh 5vh;
-    border-radius: 25px 25px 25px 25px;
-    height: 60vh;
-    width: 30vw;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 15vh 11vh 11vh 0vh 20vh;
-    grid-template-areas:
+  .content-section-02{
+      height: 45vh;
+      width: 70vw;
+      grid-template-columns: auto;
+      grid-template-rows: 15vh 10vh 10vh 10vh 10vh 10vh 15vh;
+      grid-template-areas:
+      "div"
+      "div"
       "div"
       "div"
       "div"
       "div"
       "div";
   }
-  
-  .content-section-02 div:nth-child(1) {
-    color: var(--primary-color);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: var(--section-one-font-size-h1);
-  }
-  
-  .content-section-02 div:nth-child(2) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .content-section-02 div:nth-child(3) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .content-section-02 div:nth-child(4) {
-    padding-right: 4vh;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-  }
-  
-  .content-section-02 div:nth-child(5) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Section 2: tela de cadastro*/
-  #img-icone {
-    height: 5vh;
-  }
-  
-  .input-date {
-    height: 7vh;
-    background-color: rgb(237, 237, 240);
-    border-radius: 0.8vw;
-    width: var(--input-date-width);
-  }
-  
-  .content-section-02 div:nth-child(1) h1 {
-    padding-top: 10px;
-    color: rgb(237, 237, 240);
-  }
-  
-  .content-section-02 div:nth-child(4) a {
-    color: rgb(237, 237, 240);
-    text-decoration: none;
-    font-size: 1.5vh;
-  }
-  
-  .content-section-02 div:nth-child(4) a:hover {
-    text-decoration: underline rgb(237, 237, 240);
-  }
-  
-  .content-section-02 div:nth-child(5) button {
-    height: var(--height-bottom-enter);
-    width: var(--widht-bottom-enter);
-    border-style: solid;
-    border-radius: 14px;
-    border-width: var(--border-width-buttons);
-    font-size: var(--font-size-buttons);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: bold;
-    letter-spacing: 1px;
-    background-color: #153d5a00;
-    color: white;
-    border-color: white;
-  }
-  
-  .content-section-02 div:nth-child(5) button:hover {
-    transition: 1s;
-    background-color: rgba(240, 248, 255, 0.185);
-    cursor: pointer;
-    scale: 1.02;
-  }
-  
-  .content-section-02 div input::placeholder {
-    letter-spacing: 0.5px;
-    font-size: var(--font-size-placeholder);
-  }
-  
-  .content-section-02 div input {
-    width: var(--input-width);
-    border: none;
-    outline: none;
-    height: var(--input-height);
-    padding-left: 0.5rem;
-    background-color: #153d5a00;
-  }
-  
-  
-  /* responsividade da página */
-  @media screen and (max-width: 1200px) {
-    .content-section-02 {
-      height: 50vh;
-      width: 50vw;
-      grid-template-columns: auto;
-      grid-template-rows: 12vh 10vh 10vh 0vh 20vh;
-      grid-template-areas:
-        "div"
-        "div"
-        "div"
-        "div"
-        "div";
-    }
-  
-    #img-icone {
-      height: 4vh;
-    }
-  
-    :root {
+  :root{
       --section-one-height-blocks: 10vh;
       --section-one-width-blocks: auto;
       --section-one-justify-content: center;
@@ -196,48 +261,34 @@
       --section-one-font-size-h6: 5vw;
       --aligh-bottom: center;
       --aligh-bottom-justify-content: center;
-      --widht-bottom-enter: 10rem;
+      --widht-bottom-enter: 8rem;
       --height-bottom-enter: 6vh;
-      --input-date-width: 40vw;
-      --input-width: 25vw;
+      --height-img-logo: 7vw;
+      --input-date-width: 60vw;
+      --input-width: 40vw;
+      --width-button-cadastro: 15rem;
       --border-width-buttons: 0.2rem;
       --font-size-buttons: 4vw;
-    }
-  
-    .content-section-02 div:nth-child(4) a {
-      padding-right: 3vh;
-    }
-  
   }
-  
-  @media screen and (max-width: 500px) {
-    .content-section-02 {
-      width: 43vh;
-      background-color: var(--background-color-);
-      padding: 0vh 0vh;
-    }
-  
-    #img-icone {
-      height: 3vh;
-    }
-  
-    :root {
-      --input-date-width: 75vw;
-      --input-width: 60vw;
-    }
-  }
-  
-  @media screen and (max-width: 1200px) and (orientation: landscape) {
-    :root {
-      --section-one-font-size-h1: 5vh;
-      --input-date-width: 50vw;
-      --input-width: 40vw;
-      --input-height: 7vh;
+
+}
+
+@media screen and (max-width: 1020px) and (orientation: landscape){
+  :root{
+      --section-one-font-size-h1: 3vh;
+      --section-one-font-size-h6: 3vh;
+      --height-img-logo: 7vh;
+      --input-date-width: 42vw;
+      --input-width: 35vw;
+      --input-height: 6vh;
       --font-size-placeholder: 1rem;
       --font-size-buttons: 2.5vh;
-    }
-  
-    .content-section-02 {
-      grid-template-rows: 15vh 10vh 10vh 0vh 20vh;
-    }
   }
+}
+
+@media screen and (max-width: 660px) and (orientation: landscape){
+  :root{
+      --height-bottom-enter: 2rem;
+      --margin-top-button-cadastro:0;
+}
+}

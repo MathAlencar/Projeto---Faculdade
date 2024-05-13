@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/00.login.css">
+    <link rel="stylesheet" href="/style.mobile/login.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Login</title>
 </head>
@@ -12,26 +12,22 @@
         
     </header>
     <main>
-        <article class="section-bem-vindo">
+        <article class="section-all">
             <section class="content">
                 <div class="content-section">
                     <div>
                         <img src="https://s3-alpha-sig.figma.com/img/ab7d/9ece/a55a906b6ddf246619fbe52b1274337a?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cmPWDIe2hfMqdO5ikqUTOc9i2VJpBB4tdVZIXGZfcCI2FwEsppEs~eLqP4o8hHNZDxcBOIw1E7sgNY2m3qhzlxZi9aBX5-KRoBVwuRVVXu71GGjg2FLlUAPRqnXr8OCNUoVgDv6SpSMSUH9z1az7tnPbWM8IdqxP43pGyM6q4OmAFZJ5f8mdbzFEThGFEdLnrYtH9~YbNlKYQsobf4sHpoMb5jTptbPh39EauNcjQgpnEj2wa1cJsOwrLQQ1qoUh79N11bj8LOD2m28heJ8GaCrZaQieddGARlcaj6CfgmxveUhsMOzqbeF7JISPweJ7H6pWxM2EJx6Hv9E3VSck3g__" id="img-logo">
                     </div>
-                    <div><h1>Bem vindo <br>de volta!<br></h1></div>
-                    <div><h2>Acesse sua conta</h2></div>
                 </div>
             </section>
 
-            <section>
-                <div class="content-section-02">
+            <form class="radius">
+                <div class="content-section-02" action="/login/usuario" method="POST">
                     <div><h1>Login</h1></div>
-                    <form class="section-all" action="/login" method="POST">
-
                     <div>
                         <div class="input-date">
                             <span class="material-icons">email </span>
-                            <input type="email" placeholder="email" name="email"> 
+                            <input type="email" placeholder="email corporativo" name="email"> 
                         </div>
                     </div>
                     <div>
@@ -40,16 +36,13 @@
                             <input type="password" placeholder="senha" name="senha"> 
                         </div>
                     </div>
-                    
                     <div><button> Entrar </button></div>
 
                     {{#if message }}
                       <h4 class="alert">{{message}}</h4>
                     {{/if}}
 
-                  </form>
-            </section>
-         
+            </form>
         </article>
     </main>
     <footer>

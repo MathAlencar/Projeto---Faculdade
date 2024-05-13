@@ -3,7 +3,6 @@ const buttonLogout = document.getElementById('buttonLogout');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
 const cookie = document.cookie;
-const buttonCadastro = document.querySelector('#button-cadastrar');
 
 // Funções da página -->
 
@@ -46,39 +45,48 @@ buttonLogout.addEventListener('click', () => {
     });
 });
 
-buttonCadastro.addEventListener('click', () => {
-    window.location.href = '/tabela/produto/cadastrar'
-})
 
 // <-- FIM
-
-let lista = obterListaProdutos();
-construirTabela(lista);
 
 function obterListaProdutos() {
   let listaProdutos = [
     {
-      id: 1,
-      nome: "Aaaa",
+      id_produto: 1,
+      id_venda: 1,
+      nome_funcionario: "MATHEUS NASCIMENTO",
+      nome_produto: "COCA COLA",
+      data: new Date().toLocaleDateString(),
       quantidade: 5,
-      preco: 50.0
+      valor: 50.0,
+      forma_pagamento: "crédito"
     },
     {
-      id: 2,
-      nome: "Bbbb",
+      id_produto: 2,
+      id_venda: 2,
+      nome_funcionario: "MATHEUS NASCIMENTO",
+      nome_produto: "BOLINHO",
+      data: new Date().toLocaleDateString(),
       quantidade: 10,
-      preco: 100.0
+      valor: 100.0,
+      forma_pagamento: "crédito"
     },
     {
-      id: 3,
-      nome: "Cccc",
+      id_produto: 3,
+      id_venda: 3,
+      nome_funcionario: "MATHEUS NASCIMENTO",
+      nome_produto: "SALGADO",
+      data: new Date().toLocaleDateString(),
       quantidade: 20,
-      preco: 250.0
+      valor: 250.0,
+      forma_pagamento: "crédito"
     },
   ];
 
   return listaProdutos;
 }
+
+let lista = obterListaProdutos();
+construirTabela(lista);
 
 function construirTabela(listaProdutos) {
   const tbody = document.querySelector('#tbody');
@@ -107,30 +115,43 @@ function construirTabela(listaProdutos) {
       row.setAttribute('class', 'linha-impar');
     }
 
-    let td_id = document.createElement('td');
-    let td_nome = document.createElement('td');
+    let td_id_produto = document.createElement('td');
+    let td_id_venda = document.createElement('td');
+    let td_nome_funcionario = document.createElement('td');
+    let td_nome_produto = document.createElement('td');
+    let td_data = document.createElement('td');
     let td_quantidade = document.createElement('td');
-    let td_preco = document.createElement('td');
+    let td_valor = document.createElement('td');
+    let td_forma_pagamento = document.createElement('td');
 
-    td_id.innerText = listaProdutos[i].id;
-    td_nome.innerText = listaProdutos[i].nome;
+    td_id_produto.innerText = listaProdutos[i].id_produto;
+    td_id_venda.innerText = listaProdutos[i].id_venda;
+    td_nome_funcionario.innerText = listaProdutos[i].nome_funcionario;
+    td_nome_produto.innerText = listaProdutos[i].nome_produto;
+    td_data.innerText = listaProdutos[i].data;
     td_quantidade.innerText = listaProdutos[i].quantidade;
-    td_preco.innerText = listaProdutos[i].preco;
+    td_valor.innerText = listaProdutos[i].valor;
+    td_forma_pagamento.innerText = listaProdutos[i].forma_pagamento;
 
-    row.appendChild(td_id);
-    row.appendChild(td_nome);
+    row.appendChild(td_data);
+    row.appendChild(td_nome_funcionario);
+    row.appendChild(td_nome_produto);
+    row.appendChild(td_id_produto);
+    row.appendChild(td_id_venda);
     row.appendChild(td_quantidade);
-    row.appendChild(td_preco);
+    row.appendChild(td_valor);
+    row.appendChild(td_forma_pagamento);
   }
 }
 
-function buscarProduto() {
-  let input = document.getElementById('searchbar').value.toLowerCase();
+let input = document.getElementById('searchbar').value.toLowerCase();
+
+function buscarProduto(input) {
   let lista = obterListaProdutos();
   let listaFiltrada = [];
 
   for (let i = 0; i < lista.length; i++) {
-    if (lista[i].nome.toLowerCase().includes(input)) {
+    if (lista[i].nome_funcionario.toLowerCase().includes(input)) {
       listaFiltrada.push(lista[i]);
     }
   }
@@ -138,11 +159,12 @@ function buscarProduto() {
   construirTabela(listaFiltrada);
 }
 
-// Aqui estou impedindo do usuário apertar a tea F11
+buscarProduto(input);
+
+// Aqui estou impedindo do usuário apertar  F11
 
 document.addEventListener('keydown', function(event) {
-  if (event.key === "F11") {
-      event.preventDefault();
-  }
-});
-
+    if (event.key === "F11") {
+        event.preventDefault();
+    }
+  });

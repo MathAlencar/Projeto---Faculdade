@@ -1,0 +1,67 @@
+.content-header {
+    width: 68vw;
+    display: flex;
+    overflow: auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .content-table {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .content-table table {
+    width: 68vw;
+    box-shadow: 4px 4px 50px 0px #00000026;
+    border-collapse: collapse;
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    color: #7A7786;
+  }
+  
+  .content-table table th {
+    background-color: #F9F9F9;
+    padding: 2vh;
+  }
+  
+  .linha-par {
+    background-color: #F0F9FF;
+  }
+  
+  .linha-impar {
+    background-color: #FFFFFF;
+  }
+  
+  .button-pg{
+    background-color: #224864;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 10rem;
+  }
+
+#resolvendoProblema{
+    text-decoration: none;
+}
+
+#searchbar{
+    width: 30vw;
+    height: 7vh;
+    border-radius: 10px;
+    border-color: #00000026;
+    padding-left: 2vh;
+    font-size: 1.5rem;
+    outline: none;
+}
+
+#searchbar::placeholder{
+    color: #00000026;
+}
+
+

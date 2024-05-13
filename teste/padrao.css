@@ -1,0 +1,33 @@
+:root{
+  --primary-color: #E8E8E8;
+  --background-color-: #224864;
+  --border-width-buttons: 0.2rem;
+  --font-size-buttons: 3vh;
+  --font-family: 'Inter', sans-serif;
+  --font-family-buttom: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+/*Estrutura da pagina*/
+body{
+  font-family: var(--font-family);
+  background-color: #ffffff;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box !important;
+  width: 100vw;
+}
+
+.section-all{
+  display: grid;
+  grid-template-columns: 20%  80%;
+  grid-template-rows: 100vh;
+  grid-template-areas: 
+  "header" "article";
+}
+
+.section-all header:nth-child(1){
+  background-color: rgba(0, 0, 255, 0.141);
+}
+
+.section-all article:nth-child(2){
+  background-color: rgb(243, 243, 244);
+}

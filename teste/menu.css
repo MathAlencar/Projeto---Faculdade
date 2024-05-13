@@ -1,0 +1,42 @@
+:root {
+  --primary-color: #fff;
+  --background-color-: #224864;
+  --section-one-justify-content: center;
+  --section-one-height-blocks: 15vh;
+  --section-one-width-blocks: auto;
+  --section-one-font-size-h1: 5vh;
+  --section-one-font-size-h6: 5vh;
+  --text-aligh-h1-h6: start;
+  --aligh-bottom: center;
+  --aligh-bottom-justify-content: baseline;
+  --height-bottom-enter: 10vh;
+  --widht-bottom-enter: 20rem;
+  --height-img-logo: 10vh;
+  --margin-top-button-cadastro: 1rem;
+  --input-date-width: 30vw;
+  --input-height: 4vh;
+  --input-width: 25vw;
+  --font-size-placeholder: 2vh;
+  --width-button-cadastro: 30rem;
+  --border-width-buttons: 0.5rem;
+  --font-size-buttons: 3vh;
+}
+
+.sidebar {
+  box-shadow: 9px 0px 90px 6px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-rows: 20vh 60vh 20vh;
+  grid-template-areas: 
+  "header" "article";
+}
+
+.sidebar ul:nth-child(2) {
+  display: grid;
+  background-color: rgb(241, 232, 232);
+  grid-template-rows: ;
+}
+
+
+
+
+

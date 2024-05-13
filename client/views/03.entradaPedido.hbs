@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.padrao/00.css.padrao.css"><!-- CSS padrão -->
     <link rel="stylesheet" href="/style.padrao/00.menu.padrao.css"> <!-- CSS do menu -->
-    <link rel="stylesheet" href="/style.pages/03.tb.css"> <!-- CSS da sua pagina -->
+    <link rel="stylesheet" href="/style.pages/03.style.css"> <!-- CSS da sua pagina -->
     <!-- link do icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -47,37 +47,37 @@
                     </div>
                   </nav>
             </header>
-     <article class="section-one">
-    <section class="section-main">
-    <div class="content-header">
-      <div><h1> Entrada produtos </h1></div>
-      <a href="#" id="resolvendoProblema">
-        <button class="button-pg" id="button-cadastrar">
-          <span class="material-icons"> add </span>
-         Entrada </button>
-      </a>
-    </div>
+            <article class="section-one">
+                <section class="section-main">
+                    <div><h1><span class="material-icons">reply_all</span> Entrada de produtos</h1><hr></hr></div>
+                    <div><h2>Dados da entrada do produto</h2></div>
+            
+                    <div class="form">
+                        
+                        <div><label for="produto"> Selecione o produto:</label>
+                            <select id="produto">
+                            <option class="produtos" label="Doritos"></option><option value="produtos" label="Guaraná"></option>
+                            <option class="produtos" label="Coca-cola"></option><option value="produtos" label="Chettos"></option></select>
+                        </div>
+                       
+                        <div><label for="codigo"> Código:</label><input id="codigo" class="quebra-linha" type="number" placeholder="15" required></div>
 
-    <div>
-      <input type="text" id="searchbar" name="searchbar" placeholder="Pesquisar produto" onkeyup="buscarProduto()">
-    </div>
 
-    <div class="content-table">
-      <table>
-        <thead>
-          <th>DATA ENTRADA</th>
-          <th>PRODUTO</th>
-          <th>QTD COMPRADA</th>
-          <th>CÓDIGO</th>
-          <th>PREÇO UNITÁRIO</th>
-          <th>VALOR TOTAL</th>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-      </table>
-    </div>
-  </section>
-  </article>
+                        
+                        <div><label for="qtd"> Qtd comprada:</label><input id="qtd" class="quebra-linha" type="number" placeholder="R$ 2" required></div>
+
+                       
+                        <div><label for="valor-uni"> Preço unitario:</label><input id="valor-uni" class="quebra-linha" type="number" format="currency" precision="2" placeholder="R$ 5,50" required></div>
+
+
+                    
+                        <div><label for="valor-total"> Valor da compra:</label><input id="valor-total" class="quebra-linha" type="number"format="currency" precision="2" placeholder="R$ 11" required></div>
+
+
+                        <div><button>Salvar entrada</button></div>
+                    </div>
+            </section>
+        </article>
     </main>
     <script src="/scripts/03.tbentrada.js"></script>
 </body>
