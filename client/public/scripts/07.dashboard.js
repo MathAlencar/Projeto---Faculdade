@@ -1,4 +1,4 @@
-// Realizando a seleção de valores na página
+// Realizando a seleção de elementos da página
 const buttonLogout = document.getElementById('buttonLogout');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
@@ -21,7 +21,7 @@ function getCookie(name) {
 
 // <-- FIM
 
-// --> Definindo variáveis a serem usadas no front-end;
+// --> Definindo variáveis a serem usadas no front-end - Nome e E-mail;
 const nameUSer = getCookie('name'); 
 const emailUSer = getCookie('email');
 
@@ -31,8 +31,9 @@ email.innerHTML = emailUSer;
 // <-- FIM 
 
 
-// Botões de eventos -->
+// eventos da página -->
 
+// Realiza o logout do sistema
 buttonLogout.addEventListener('click', () => {
     fetch('/auth/logout', {
         method: 'POST',
@@ -46,11 +47,3 @@ buttonLogout.addEventListener('click', () => {
 });
 
 // <-- FIM
-
-// Aqui estou impedindo do usuário apertar a tela F11
-
-document.addEventListener('keydown', function(event) {
-    if (event.key === "F11") {
-        event.preventDefault();
-    }
-  });

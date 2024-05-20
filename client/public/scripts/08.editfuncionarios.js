@@ -2,7 +2,10 @@ const buttonApagar = document.querySelector('#apagarFuncionario');
 const button_atualizar = document.querySelector('#button_atualizar');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
-const cookie = document.cookie;
+const buttonLogout = document.getElementById('buttonLogout');
+
+
+
 
 // Funções da página -->
 
@@ -21,13 +24,19 @@ function getCookie(name) {
 
 // <-- FIM
 
-// --> Definindo variáveis a serem usadas no front-end;
+// --> Definindo variáveis a serem usadas no front-end - Nome e E-mail;
+
 const nameUSer = getCookie('name'); 
 const emailUSer = getCookie('email');
 
 nome.innerHTML = nameUSer;
 email.innerHTML = emailUSer;
 
+// <-- FIM 
+
+// eventos da página -->
+
+ // Deleta usuário com base no e-mail;
 buttonApagar.addEventListener('click', (e) => {
     e.preventDefault();
   
@@ -54,34 +63,54 @@ buttonApagar.addEventListener('click', (e) => {
 
   })
 
-
+// validando ainda
   button_atualizar.addEventListener('click', (e) => {
     e.preventDefault();
-  
-    const email = document.getElementById('email_edit').value;
+    
+    const form = document.querySelector('#formulario');
+    const formatandoDados = new FormData(form);
 
-    alert('teste')
-  
-    fetch(`/atualizando?email_user=${encodeURIComponent(email)}`, {
-        method: 'PATCH',
+    const dados = {
+        nome: formatandoDados.get('nome_user'),
+        sobrenome: formatandoDados.get('sobrenome_user'),
+        email: formatandoDados.get('email_user'),
+        telefone: formatandoDados.get('tel_user')
+
+    }
+
+    fetch('/atualizando', {
+        method: "PATCH",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email_user: email})
+        body: JSON.stringify(dados)
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Erro ao excluir o usuário');
+            throw new Error('Erro ao buscar os dados');
         }
         return response.json();
     })
     .then(data => {
-        console.log('DEU CERTO');
     })
     .catch(error => {
-        console.error('Erro ao excluir o usuário:', error);
+        console.error('Erro:', error);
     });
 
+})
 
-  })
+
+  // Realiza o logout do sistema
+  
+  buttonLogout.addEventListener('click', () => {
+    fetch('/auth/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
 

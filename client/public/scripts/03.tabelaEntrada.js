@@ -3,8 +3,7 @@ const buttonLogout = document.getElementById('buttonLogout');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
 const cookie = document.cookie;
-const buttonCadastro = document.querySelector('#cadastrar-produto');
-const teste = document.querySelector('#teste');
+const buttonEntrada = document.querySelector('#entradaProduto');
 
 // Funções da página -->
 
@@ -48,42 +47,62 @@ buttonLogout.addEventListener('click', () => {
     });
 });
 
-
-
-buttonCadastro.addEventListener('click', (e) => {
-      e.preventDefault();
-      const form = document.querySelector('#formularioProduto');
-      const formatandoDados = new FormData(form);
-
-      const dados = {
-        nome: formatandoDados.get('nome'),
-        codigo: formatandoDados.get('codigo'),
-        valor: formatandoDados.get('valor')
-      }
-
-      fetch('/cadastrando/produto', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dados)
-      })
-      .then ( response => {
-        if(!response.ok) {
-          throw new Error('Erro na envio de dados')
-        }
-
-        return response.json();
-      })
-      .then(data => {
-          console.log('Success:', data);
-      })
-      .catch(error => {
-          console.error('Erro:', error);
-      });
+fetch('/entradas/produtos')
+.then(response => {
+  if(!response.ok) {
+    throw new Error('Erro ao buscar os dados');
+  }
+  return response.json();
 })
+.then(data => {
+  construirTabela(data.entradas);
+})
+.catch(error => {
+  console.error("Erro:", error);
+});
 
 // <-- FIM
+
+// <-- FIM 
+
+let lista = obterListaProdutos();
+construirTabela(lista);
+
+function obterListaProdutos() {
+  let listaProdutos = [
+    {
+      id: 1,
+      nome: "Aaaa",
+      data: new Date().toLocaleDateString(),
+      quantidade: 5,
+      preco: 50.0
+    },
+    {
+      id: 2,
+      nome: "Bbbb",
+      data: new Date().toLocaleDateString(),
+      quantidade: 10,
+      preco: 100.0
+    },
+    {
+      id: 3,
+      nome: "Cccc",
+      data: new Date().toLocaleDateString(),
+      quantidade: 20,
+      preco: 250.0
+    },
+  ];
+
+  atribuirValorTotal(listaProdutos);
+
+  return listaProdutos;
+}
+
+function atribuirValorTotal(listaProdutos) {
+  for (let i = 0; i < listaProdutos.length; i++) {
+    listaProdutos[i].valorTotal = (listaProdutos[i].quantidade * listaProdutos[i].preco);
+  }
+}
 
 function construirTabela(listaProdutos) {
   const tbody = document.querySelector('#tbody');
@@ -94,7 +113,7 @@ function construirTabela(listaProdutos) {
 
   if (listaProdutos.length == 0) {
     let paragraph = document.createElement('p');
-    paragraph.innerText = "Nenhum produto encontrado!";
+    paragraph.innerText = "Nenhum pedido realizado!";
     tbody.appendChild(paragraph);
     return;
   }
@@ -114,17 +133,38 @@ function construirTabela(listaProdutos) {
 
     let td_id = document.createElement('td');
     let td_nome = document.createElement('td');
+    let td_data = document.createElement('td');
     let td_quantidade = document.createElement('td');
     let td_preco = document.createElement('td');
+    let td_valor_total = document.createElement('td');
 
-    td_id.innerText = listaProdutos[i].cod_Prd;
-    td_nome.innerText = listaProdutos[i].nome_Prd;
-    td_quantidade.innerText = listaProdutos[i].qtd_TotProduto;
-    td_preco.innerText = listaProdutos[i].vlr_Unit;
+    td_nome.innerText = listaProdutos[i].nome_produto;
+    td_data.innerText = listaProdutos[i].data_entrada;
+    td_id.innerText = listaProdutos[i].id;
+    td_quantidade.innerText = listaProdutos[i].qtd_comprada;
+    td_preco.innerText = listaProdutos[i].preco_unitario;
+    td_valor_total.innerText = listaProdutos[i].preco_total;
 
     row.appendChild(td_id);
     row.appendChild(td_nome);
+    row.appendChild(td_data);
     row.appendChild(td_quantidade);
     row.appendChild(td_preco);
+    row.appendChild(td_valor_total);
   }
 }
+
+function buscarProduto() {
+  let input = document.getElementById('searchbar').value.toLowerCase();
+  let lista = obterListaProdutos();
+  let listaFiltrada = [];
+
+  for (let i = 0; i < lista.length; i++) {
+    if (lista[i].nome.toLowerCase().includes(input)) {
+      listaFiltrada.push(lista[i]);
+    }
+  }
+
+  construirTabela(listaFiltrada);
+}
+

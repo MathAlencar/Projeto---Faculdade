@@ -40,8 +40,8 @@
 }
 
 .sidebar .logo img {
-  width: 121px;
-  height: 125px;
+  width: 150px;
+  height: 200px;
   top: 33px;
   left: 50px;
 }
@@ -183,8 +183,11 @@ header h1{
 
 header h2{
   color:#224864;
+}
 
-
+.alert{
+  background-color: red;
+  font-size: 10rem;
 }
 
 

@@ -1,9 +1,10 @@
-// Realizando a seleção de valores na página
+// Realizando a seleção de elementos da página
 const buttonLogout = document.getElementById('buttonLogout');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
 const cookie = document.cookie;
-const buttonCadastro = document.querySelector('#button-cadastrar');
+const buttonEntrada = document.querySelector('#entradaProduto');
+const select = document.querySelector('#produto');
 
 // Funções da página -->
 
@@ -22,12 +23,87 @@ function getCookie(name) {
 
 // <-- FIM
 
-// --> Definindo variáveis a serem usadas no front-end;
+// --> Definindo variáveis a serem usadas no front-end - Nome e E-mail;
 const nameUSer = getCookie('name'); 
 const emailUSer = getCookie('email');
 
 nome.innerHTML = nameUSer;
 email.innerHTML = emailUSer;
+
+// <-- FIM 
+
+
+// eventos da página -->
+
+// Realiza o logout do sistema
+buttonLogout.addEventListener('click', () => {
+    fetch('/auth/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
+
+// Realizando o cadastro de produtos;
+
+buttonEntrada.addEventListener('click', (e) => {
+  e.preventDefault();
+  const form = document.querySelector('#formularioEntrada');
+  const formatandoDados = new FormData(form);
+
+  const dados = {
+    codigo: formatandoDados.get('codigo'),
+    quantidade: formatandoDados.get('quantidade'),
+    valorUnitario: formatandoDados.get('valorUnitario'),
+    valorTotal: formatandoDados.get('valorTotal'),
+    tipoProduto: formatandoDados.get('tipoProduto')
+  }
+
+  fetch('/entrada/produto', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dados)
+  })
+  .then (response => {
+    if(!response.ok) {
+      throw new Error('Erro ao enviar dados')
+    }
+
+    return response.json();
+  })
+  .then(data => {
+    console.log("Sucesso:", data);
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+  });
+
+})
+
+
+fetch('/chamada/produto')
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Erro ao buscar os dados');
+  }
+  return response.json();
+})
+.then(data => {
+  
+  construindoSelect(data.produtos);
+
+})
+.catch(error => {
+  console.error('Erro:', error);  
+});
+
+// <-- FIM
 
 // <-- FIM 
 
@@ -134,33 +210,15 @@ function buscarProduto() {
   construirTabela(listaFiltrada);
 }
 
-// Botões de eventos -->
+function construindoSelect(data){
+  const select = document.querySelector('#produto');
 
-// Realiza o Logout da página
-buttonLogout.addEventListener('click', () => {
-    fetch('/auth/logout', {
-        method: 'POST',
-    })
-    .then(response => {
-        window.location.href = '/login';
-    })
-    .catch(error => {
-        console.error('Erro ao fazer logout:', error);
-    });
-});
+  for(let i=0; i<data.length; i++){
+    let option = document.createElement('option');
+    option.setAttribute("value", data[i].nome_Prd);
+    option.innerHTML = data[i].nome_Prd;
 
-// Vai para aba de cadastro de produto;
-buttonCadastro.addEventListener('click', () => {
-  window.location.href = '/entrada/pedido'
-})
+    select.appendChild(option);
+  }
 
-// <-- FIM
-
-
-// Aqui estou impedindo do usuário apertar a tea F11
-
-document.addEventListener('keydown', function(event) {
-    if (event.key === "F11") {
-        event.preventDefault();
-    }
-  });
+}

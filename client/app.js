@@ -22,16 +22,21 @@ app.use(express.json()); // transforma os dados enviados em Json;
 const rotaPages = require('./routes/pages');
 const rotaAuth= require('./routes/auth');
 const rotasReq = require('./routes/requisicoes');
+const rotasReqProd = require('./routes/requesicoesProdutos');
+const rotasEntrada = require('./routes/requisicoesEntradas');
 
 app.use('/', rotaPages);
 app.use('/', rotaAuth);
 app.use('/', rotasReq);
+app.use('/', rotasReqProd);
+app.use('/', rotasEntrada);
 
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
+    database: process.env.DATABASEYES
+    
 })
 
 db.connect( (err) => {

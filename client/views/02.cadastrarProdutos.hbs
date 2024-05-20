@@ -26,7 +26,7 @@
                         <li><a href="/entrada"><span class="material-icons">north_east</span> Entradas</a></li>
                         <li><a href="/saida"><span class="material-icons">south_west</span> Saídas</a></li>
                         <li><a href="/caixa"><span class="material-icons">attach_money</span> Abrir caixa</a></li>
-                        <li><a href="#"><span class="material-icons-outlined">check_circle</span> Pedidos <br> realizados</a></li>
+                        <li><a href="/pedidos"><span class="material-icons-outlined">check_circle</span> Pedidos <br> realizados</a></li>
                         <li><a href="/dashboard"><span class="material-icons-outlined">leaderboard</span> Dashboard</a></li>
                         <li><a href="/funcionarios"><span class="material-icons">people</span> Ver funcionários</a></li>
                     </ul>
@@ -52,16 +52,17 @@
                     <div><h1><span class="material-icons">reply_all</span> Cadastrar produtos</h1><hr></hr></div>
                     <div><h2>Dados do produto</h2></div>
             
-                    <div class="form">
+                    <form class="form" id="formularioProduto">
                         <div><label for="name"> Nome:</label></div>
-                        <div class="input-date"><input id="name" class="quebra-linha" type="text" placeholder="Doritos" required></div>
+                        <div class="input-date"><input id="name" class="quebra-linha" type="text" placeholder="Doritos" name="nome" required></div>
                         <div><label for="codigo"> Código:</label></div>
-                        <div class="input-cod"><input id="codigo" class="quebra-linha" type="number" placeholder="15" required></div>
+                        <div class="input-cod"><input id="codigo" class="quebra-linha" type="number" placeholder="15" name="codigo" required></div>
                         <div><label for="valor"> Preço unitario:</label></div>
-                        <div class="input-date"><input id="valor" class="quebra-linha" type="number" format="currency" precision="2" placeholder="R$ 5,50" required></div>
-                        <div><button>Cadastrar produto</button></div>
-                    </div>
+                        <div class="input-date"><input id="valor" class="quebra-linha" type="number" format="currency" precision="2" placeholder="R$ 5,50" name="valor" required></div>
+                        <div><button id="cadastrar-produto">Cadastrar produtoo</button></div>
+                    </form>
             </section>
+
         </article>
     </main>
     <script src="/scripts/02.tbprodutos.js"></script>

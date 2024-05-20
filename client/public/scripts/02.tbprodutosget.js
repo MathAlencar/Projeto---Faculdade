@@ -3,7 +3,6 @@ const buttonLogout = document.getElementById('buttonLogout');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
 const cookie = document.cookie;
-const buttonCadastro = document.querySelector('#cadastrar-produto');
 const teste = document.querySelector('#teste');
 
 // Funções da página -->
@@ -50,38 +49,24 @@ buttonLogout.addEventListener('click', () => {
 
 
 
-buttonCadastro.addEventListener('click', (e) => {
-      e.preventDefault();
-      const form = document.querySelector('#formularioProduto');
-      const formatandoDados = new FormData(form);
+  fetch('/chamada/produto')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro ao buscar os dados');
+    }
+    return response.json();
+  })
+  .then(data => {
+    
+    construirTabela(data.produtos);
 
-      const dados = {
-        nome: formatandoDados.get('nome'),
-        codigo: formatandoDados.get('codigo'),
-        valor: formatandoDados.get('valor')
-      }
+  })
+  .catch(error => {
+    console.error('Erro:', error);  
+  });
 
-      fetch('/cadastrando/produto', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dados)
-      })
-      .then ( response => {
-        if(!response.ok) {
-          throw new Error('Erro na envio de dados')
-        }
 
-        return response.json();
-      })
-      .then(data => {
-          console.log('Success:', data);
-      })
-      .catch(error => {
-          console.error('Erro:', error);
-      });
-})
+
 
 // <-- FIM
 
@@ -128,3 +113,17 @@ function construirTabela(listaProdutos) {
     row.appendChild(td_preco);
   }
 }
+
+// function buscarProduto() {
+//   let input = document.getElementById('searchbar').value.toLowerCase();
+//   let lista = obterListaProdutos();
+//   let listaFiltrada = [];
+
+//   for (let i = 0; i < lista.length; i++) {
+//     if (lista[i].nome.toLowerCase().includes(input)) {
+//       listaFiltrada.push(lista[i]);
+//     }
+//   }
+
+//   construirTabela(listaFiltrada);
+// }

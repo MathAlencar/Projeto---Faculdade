@@ -23,7 +23,7 @@ router.get('/chamada', (req, res, next) => {
                         user: user.id_User,
                         nome: user.nome,
                         email: user.email_Login,
-                        telefone: user.telefone
+                        telefone: user.telefone,
                     }
                 })
             }
@@ -36,7 +36,6 @@ router.get('/chamada', (req, res, next) => {
 router.get('/chamada/especifica', (req, res, next) => {
 
     const email = req.query.buscaFuncionario; // Corrigindo para req.query.buscaFuncionario
-    console.log(email);
     
     mysql.getConnection((err, conn) => {
         if(err) return res.render('08.funcionarios.hbs');
@@ -54,7 +53,7 @@ router.get('/chamada/especifica', (req, res, next) => {
                         user: user.id_User,
                         nome: user.nome,
                         email: user.email_Login,
-                        telefone: user.telefone
+                        telefone: user.telefone,
                     }
                 })
             }
@@ -86,6 +85,32 @@ router.delete('/delete', (req, res, next) => {
         
     })
 
+})
+
+router.patch('/atualizando', (req, res, next) => {
+
+    const { nome, sobrenome, email, telefone } = req.body;
+
+    const query = `
+    UPDATE tbl_User
+    SET nome = ?
+    WHERE email_Login = ?;
+    `
+    mysql.getConnection((err, conn) => {
+        if(err) return res.render('08.editFuncionarios.hbs', {mensagem: "Erro ao conectar com o banco de dados"});
+        conn.query(query, [nome+' '+sobrenome, email], (err, results) => {
+            if(err) return res.render('08.editFuncionarios.hbs', {mensagem: "Erro ao realizar atualização"});
+
+            if(results.affectedRows == 0){
+                return res.render('08.editFuncionarios.hbs', {mensagem: "Nenhum funcionário foi encontrado"});
+            }
+
+            return res.render('08.editFuncionarios.hbs', {mensagem: "Usuário atualizado com sucesso!"});
+        })
+        
+    })
+    
+    res.json({ message: 'Dados atualizados com sucesso' });
 })
 
 

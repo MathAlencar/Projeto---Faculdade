@@ -1,32 +1,73 @@
-.content-header {
-  width: 68vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+:root {
+  --primary-color: #E8E8E8;
+  --background-color-: #224864;
+  --border-width-buttons: 0.2rem;
+  --font-size-buttons: 3vh;
+  --font-family: 'Inter', sans-serif;
 }
 
-.content-table {
-  margin-top: 15px;
+/* Estrutura da pagina */
+.content-header {
+  width: 100%;
+  height: 12vh;
+  padding: 10px 20px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button{
+  width: 150px;
+  height: 55px;
+  font-size: 1.8vh;
+  font-weight: bold;
+}
+
+.search {
+  width: 352px;
+  height: 40px;
+  border: #0000001e solid 1.5px;
+  border-radius: 8px;
+  padding-left: 0.5rem;
+}
+
+.aprovado {
+  color: green;
+  display: flex;
+  align-content: center;
+}
+
+.pendente {
+  color: red;
+  display: flex;
+  align-content: center;
   justify-content: center;
 }
 
-.content-table table {
-  width: 68vw;
-  overflow: auto;
+.content-table {
+  height: 50vh;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
   box-shadow: 4px 4px 50px 0px #00000026;
+  padding: 10px 0px 10px 20px;
+}
+
+/* estilização da tabela */
+table {
+  width: 70vw;
   border-collapse: collapse;
   font-family: Inter;
   font-size: 15px;
   font-weight: 700;
-  line-height: 30px;
-  text-align: center;
+  line-height: 40px;
+  text-align: left;
   color: #7A7786;
 }
 
-.content-table table th {
+table th {
   background-color: #F9F9F9;
-  padding: 2vh;
 }
 
 .linha-par {
@@ -35,31 +76,4 @@
 
 .linha-impar {
   background-color: #FFFFFF;
-}
-
-.button-pg{
-  background-color: #224864;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3rem;
-  width: 10rem;
-}
-
-#resolvendoProblema{
-  text-decoration: none;
-}
-
-#searchbar{
-  width: 30vw;
-  height: 7vh;
-  border-radius: 10px;
-  border-color: #00000026;
-  padding-left: 2vh;
-  font-size: 1.5rem;
-  outline: none;
-}
-
-#searchbar::placeholder{
-  color: #00000026;
 }

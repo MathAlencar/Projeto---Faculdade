@@ -8,6 +8,21 @@ const buttonPesquisar = document.querySelector('#buttonPesquisa');
 const buttonEditar = document.querySelector('#buttonEditar');
 const buttonApagar = document.querySelector('#apagarFuncionario');
 
+
+
+buttonLogout.addEventListener('click', () => {
+    fetch('/auth/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
+
+
 // Funções da página -->
 
 function getCookie(name) {
@@ -51,14 +66,15 @@ fetch('/chamada')
   })
   .then(data => {
 
-    construirTabela(data.usuarios);
+    construirTabela(data.usuarios); // tratando os dados;
 
   })
   .catch(error => {
     console.error('Erro:', error);
   });
   
-// REALIZANDO CHAMADA DE BUSCA BANCO DE DADOS;
+
+  // REALIZANDO CHAMADA DE BUSCA BANCO DE DADOS;
 
 buttonPesquisar.addEventListener('click', (e) => {
   e.preventDefault();
@@ -75,8 +91,9 @@ buttonPesquisar.addEventListener('click', (e) => {
     })
     .then(data => {
 
-      construirTabela(data.usuarios);
-
+      construirTabela(data.usuarios); // usando a função criada para tratar os dados do cliente no front-end;
+      console.log(data);
+      
     })
     .catch(error => {
       console.error('Erro:', error);
@@ -100,22 +117,14 @@ buttonPesquisar.addEventListener('click', (e) => {
   });
 });
 
+// direciona o usuário para uma nova pagina de acordo com o envento do botão;
+
 buttonEditar.addEventListener('click', (e) => {
   e.preventDefault();
 
   window.location.href = '/funcionarios/editar'
 
 })
-
-
-// BANCO
-
-
-document.addEventListener('keydown', function(event) {
-    if (event.key === "F11") {
-        event.preventDefault();
-    }
-  });
 
 
 function construirTabela(bancoDeDados) {
@@ -185,6 +194,8 @@ function construirTabela(bancoDeDados) {
     row.appendChild(td_email);
     row.appendChild(td_contato);
     row.appendChild(td_status);
-    row.appendChild(td_edicao);
   }
 }
+
+
+
