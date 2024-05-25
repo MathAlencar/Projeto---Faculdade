@@ -1,24 +1,24 @@
-const e = require('express');
 const express = require('express'); // Chamando a biblioteca express
 const router = express.Router(); // Exportando para fora;
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
+const path = require('path');
 
 router.get('/chamada', (req, res, next) => {
 
     mysql.getConnection((err, conn) => {
-        if(err) return res.render('08.funcionarios.hbs');
+        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'));
 
         const query = `SELECT * FROM tbl_User;`;
 
         conn.query(query, (err, result) => {
             conn.release();
-            if(err) return res.render('08.funcionarios.hbs', console.log("deu erro menor"));
+            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
 
-            if(result.length == 0) res.render('08.funcionarios.hbs', console.log("não tem nada aqui"));
+            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("não tem nada aqui"));
 
             const response = {
                 quantidade: result.length,
-                usuarios: result.map( user => {
+                usuarios: result.map(user => {
                     return {
                         user: user.id_User,
                         nome: user.nome,
@@ -36,84 +36,104 @@ router.get('/chamada', (req, res, next) => {
 router.get('/chamada/especifica', (req, res, next) => {
 
     const email = req.query.buscaFuncionario; // Corrigindo para req.query.buscaFuncionario
-    
+
     mysql.getConnection((err, conn) => {
-        if(err) return res.render('08.funcionarios.hbs');
+        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'));
 
         const query = `SELECT * FROM tbl_User WHERE email_Login = ?`
 
-        conn.query(query, [email], (err, results) => {
-            conn.release();
-            if(err) return res.render('08.funcionarios.hbs', console.log("deu erro menor"));
-            
-            const response = {
-                quantidade: results.length,
-                usuarios: results.map( user => {
-                    return {
-                        user: user.id_User,
-                        nome: user.nome,
-                        email: user.email_Login,
-                        telefone: user.telefone,
-                    }
-                })
-            }
+            conn.query(query, [email], (err, results) => {
+                conn.release();
+                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
 
-            return res.json(response);
-        })
+                const response = {
+                    quantidade: results.length,
+                    usuarios: results.map(user => {
+                        return {
+                            user: user.id_User,
+                            nome: user.nome,
+                            email: user.email_Login,
+                            telefone: user.telefone,
+                        }
+                    })
+                }
+
+                return res.json(response);
+            })
     })
 })
 
 
 router.delete('/delete', (req, res, next) => {
 
-    const email = req.query.email_user; 
+    const email = req.query.email_user;
 
     mysql.getConnection((err, conn) => {
-        if(err) return res.render('08.editFuncionarios.hbs');
+        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'));
 
         const query = `DELETE from tbl_User WHERE email_Login = ?`
 
-        conn.query(query, [email], (err, result) => {
-            if(err) return res.render('8.editFuncionarios.hbs');
+            conn.query(query, [email], (err, result) => {
+                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'));
 
-            if(result.affectedRows == 0){
-                return res.render('8.editFuncionarios.hbs', console.log('usuário não encontrado'));
-            }
+                if (result.affectedRows == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), console.log('usuário não encontrado'));
 
-            res.render('08.editFuncionarios.hbs', console.log('Usuário excluido'));
-        })
-        
+                res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), console.log('Usuário excluido'));
+            })        
     })
-
 })
 
 router.patch('/atualizando', (req, res, next) => {
+    const { nome, sobrenome, email, telefone, valor_status } = req.body;
 
-    const { nome, sobrenome, email, telefone } = req.body;
+    console.log(valor_status);
 
-    const query = `
-    UPDATE tbl_User
-    SET nome = ?
-    WHERE email_Login = ?;
-    `
+    let query;
+    let body;
+
+    if (nome, telefone) {
+        query = `
+            UPDATE tbl_User
+            SET nome = ?, telefone = ?
+            WHERE email_Login = ?;
+        `
+        body = [nome + ' ' + sobrenome, telefone, email];
+    }
+
+    if (nome, !telefone) {
+        query = `
+            UPDATE tbl_User
+            SET nome = ?
+            WHERE email_Login = ?;
+        `
+        body = [nome + ' ' + sobrenome, email];
+    }
+
+    if (telefone, !nome) {
+        query = `
+            UPDATE tbl_User
+            SET telefone = ?
+            WHERE email_Login = ?;
+        `
+        body = [telefone, email];
+    }
+
     mysql.getConnection((err, conn) => {
-        if(err) return res.render('08.editFuncionarios.hbs', {mensagem: "Erro ao conectar com o banco de dados"});
-        conn.query(query, [nome+' '+sobrenome, email], (err, results) => {
-            if(err) return res.render('08.editFuncionarios.hbs', {mensagem: "Erro ao realizar atualização"});
+        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Erro ao conectar com o banco de dados" });
 
-            if(results.affectedRows == 0){
-                return res.render('08.editFuncionarios.hbs', {mensagem: "Nenhum funcionário foi encontrado"});
-            }
+        conn.query(query, body, (err, results) => {
+            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Erro ao realizar atualização" });
 
-            return res.render('08.editFuncionarios.hbs', {mensagem: "Usuário atualizado com sucesso!"});
+            if (results.affectedRows == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Nenhum funcionário foi encontrado" });
+
+            return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Usuário atualizado com sucesso!" });
         })
-        
+
     })
-    
+
     res.json({ message: 'Dados atualizados com sucesso' });
 })
 
 
 
 module.exports = router
-

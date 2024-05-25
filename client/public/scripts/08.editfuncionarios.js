@@ -3,8 +3,8 @@ const button_atualizar = document.querySelector('#button_atualizar');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
 const buttonLogout = document.getElementById('buttonLogout');
-
-
+// const checkAtivo = document.querySelector('#status_ativo');
+// const checkDesativado = document.querySelector('#status_desativado');
 
 
 // Funções da página -->
@@ -74,8 +74,7 @@ buttonApagar.addEventListener('click', (e) => {
         nome: formatandoDados.get('nome_user'),
         sobrenome: formatandoDados.get('sobrenome_user'),
         email: formatandoDados.get('email_user'),
-        telefone: formatandoDados.get('tel_user')
-
+        telefone: formatandoDados.get('tel_user'),
     }
 
     fetch('/atualizando', {

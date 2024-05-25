@@ -138,12 +138,15 @@ function construirTabela(listaProdutos) {
     let td_preco = document.createElement('td');
     let td_valor_total = document.createElement('td');
 
+    let data = listaProdutos[i].data_entrada;
+    let dataNew = new Date(data).toLocaleDateString();
+
     td_nome.innerText = listaProdutos[i].nome_produto;
-    td_data.innerText = listaProdutos[i].data_entrada;
+    td_data.innerText = dataNew;
     td_id.innerText = listaProdutos[i].id;
     td_quantidade.innerText = listaProdutos[i].qtd_comprada;
-    td_preco.innerText = listaProdutos[i].preco_unitario;
-    td_valor_total.innerText = listaProdutos[i].preco_total;
+    td_preco.innerText = `R$ ${listaProdutos[i].preco_unitario}`;
+    td_valor_total.innerText = `R$ ${listaProdutos[i].preco_total}`;
 
     row.appendChild(td_id);
     row.appendChild(td_nome);

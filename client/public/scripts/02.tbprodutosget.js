@@ -105,7 +105,7 @@ function construirTabela(listaProdutos) {
     td_id.innerText = listaProdutos[i].cod_Prd;
     td_nome.innerText = listaProdutos[i].nome_Prd;
     td_quantidade.innerText = listaProdutos[i].qtd_TotProduto;
-    td_preco.innerText = listaProdutos[i].vlr_Unit;
+    td_preco.innerText = `R$ ${listaProdutos[i].vlr_Unit}`;
 
     row.appendChild(td_id);
     row.appendChild(td_nome);

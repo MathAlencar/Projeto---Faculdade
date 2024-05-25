@@ -1,0 +1,294 @@
+:root{
+    --primary-color: #E8E8E8;
+    --background-color-: #224864;
+    --section-one-justify-content: center;
+    --section-one-height-blocks: 15vh;
+    --section-one-width-blocks: auto;
+    --section-one-font-size-h1:52px;
+    --text-aligh-h1-h6: start;
+    --aligh-bottom: center;
+    --aligh-bottom-justify-content: baseline;
+    --height-bottom-enter: 8vh;
+    --widht-bottom-enter: 12rem;
+    --height-img-logo: 10vh;
+    --input-date-width: 35vw;
+    --input-date-height: 27vh;
+    --input-width: 31vw; 
+    --input-height: 4vh;   
+    --font-size-placeholder: 2vh;
+    --border-width-buttons: 0.2rem;
+    --font-size-buttons: 3vh;
+  }
+  
+  body{
+    background-color: var(--primary-color);
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box !important;
+    width: 100vw;
+  }
+  
+  /* Esqueleto da página */
+  
+  .section-bem-vindo{
+    margin: 0;
+    display: grid;
+    grid-template-columns: 40vw 60vw;
+    grid-template-rows: 100vh;
+    grid-template-areas:
+    "Section Section";
+  }
+  
+  .section-bem-vindo section:nth-child(1){
+    line-height: 7vh;
+    background-color: var(--background-color-);
+    border-radius: 0px 20px 20px 0px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    justify-content: var(--section-one-justify-content);
+    align-items: center;
+    height: auto;
+  }
+  
+  .section-bem-vindo section:nth-child(2){
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+  
+  /*SEÇÃO 1 - BOAS VINDAS */
+  .content-section{
+    height: 70vh;
+    width: 28vw;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 13vh 25vh 25vh;
+    grid-template-areas:
+    "div"
+    "div"
+    "div";
+  }
+  
+  .content-section div:nth-child(1){
+    height: var(--section-one-height-blocks);
+    width: 42vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .content-section div:nth-child(2){
+    height: var(--section-one-height-blocks);
+    width: var(--section-one-width-blocks);
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: var(--text-aligh-h1-h6);
+    font-size: var(--section-one-font-size-h1);
+  }
+  
+  .content-section div:nth-child(3){
+    height: var(--section-one-height-blocks);
+    width: var(--section-one-width-blocks);
+    text-align: start;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: var(--text-aligh-h1-h6);
+    font-size: 25px;
+  }   
+  
+  
+  
+  /*SESSÃO 2 - login*/
+  .content-section-02{
+    background-color: var(--primary-color);  
+    height:60vh;
+    width: 45vw;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 15vh 14vh 14vh 0vh 20vh;
+    grid-template-areas:
+    "div"
+    "div"
+    "div"
+    "div"
+    "div";
+  }
+  .content-section-02 div:nth-child(1){
+    color: var(--background-color-);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+  }
+  .content-section-02 div:nth-child(1){
+    color: var(--background-color-);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+  }
+  .section-all{
+    background-color: var(--primary-color);  
+    height:60vh;
+    width: 45vw;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 15vh 10vh 10vh 0vh ;
+    grid-template-areas:
+    "div"
+    "div"
+    "div"
+    "div"
+    "div";
+  }
+  .section-all div:nth-child(1){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .section-all div:nth-child(2){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .section-all div:nth-child(3){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  
+  /* Section 1: tela de boas-vindas*/
+  #img-logo{
+    height: 140px;
+    width: 350px;
+  }
+  
+  
+  /* Section 2: tela de cadastro*/
+  
+  
+  .section-all div:nth-child(3) button{
+    height: var(--height-bottom-enter);
+    width: var(--widht-bottom-enter);
+    border-style: solid;
+    border-radius: 14px;
+    border-width: var(--border-width-buttons);
+    font-size: var(--font-size-buttons);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    background-color: #153d5a00;
+    color: var(--background-color-);
+    border-color: var(--background-color-);
+  }
+  
+  .section-all div:nth-child(3) button:hover{
+    transition: 1s;
+    background-color: rgba(49, 49, 49, 0.185);
+    cursor: pointer;
+    scale: 1.02;
+  }
+  
+  .input-date{
+    height: 7vh;
+    background-color:  #C9D9E2;
+    border-radius: 16px;
+    width: var(--input-date-width);
+  }
+  
+  .content-section-02 div input::placeholder{
+    letter-spacing: 0.5px;
+    font-size: var(--font-size-placeholder);
+  }
+  
+  .content-section-02 div input{
+    width: var(--input-width);
+    border: none;
+    outline: none;
+    height: var(--input-height);
+    padding-left: 0.5rem;
+    background-color: #153d5a00;
+  }
+  .material-icons{
+    color: #0000009c;
+  }
+  
+  
+  /* responsividade da página */
+  
+  @media screen and (max-width: 1020px){
+    .section-bem-vindo{
+        margin: 0;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 50vh 50vh;
+        grid-template-areas:
+        "Section"
+        "Section";
+    }
+    .section-bem-vindo section:nth-child(1){
+        background-color: var(--background-color-);
+        border-radius: 0px 0px 25px 25px;
+    }
+    .content-section-02{
+        height: 45vh;
+        width: 70vw;
+        grid-template-columns: auto;
+        grid-template-rows: 15vh 10vh 10vh 10vh 10vh 10vh 15vh;
+        grid-template-areas:
+        "div"
+        "div"
+        "div"
+        "div"
+        "div"
+        "div"
+        "div";
+    }
+    :root{
+        --section-one-height-blocks: 10vh;
+        --section-one-width-blocks: auto;
+        --section-one-justify-content: center;
+        --section-one-font-size-h1: 4vw;
+        --text-aligh-h1-h6: center;
+        --section-one-font-size-h6: 5vw;
+        --aligh-bottom: center;
+        --aligh-bottom-justify-content: center;
+        --widht-bottom-enter: 8rem;
+        --height-bottom-enter: 6vh;
+        --height-img-logo: 7vw;
+        --input-date-width: 60vw;
+        --input-width: 40vw;
+        --width-button-cadastro: 15rem;
+        --border-width-buttons: 0.2rem;
+        --font-size-buttons: 4vw;
+    }
+  
+  }
+  
+  @media screen and (max-width: 1020px) and (orientation: landscape){
+    :root{
+        --section-one-font-size-h1: 3vh;
+        --section-one-font-size-h6: 3vh;
+        --height-img-logo: 7vh;
+        --input-date-width: 42vw;
+        --input-width: 35vw;
+        --input-height: 6vh;
+        --font-size-placeholder: 1rem;
+        --font-size-buttons: 2.5vh;
+    }
+  }
+  
+  @media screen and (max-width: 660px) and (orientation: landscape){
+    :root{
+        --height-bottom-enter: 2rem;
+        --margin-top-button-cadastro:0;
+  }
+  }

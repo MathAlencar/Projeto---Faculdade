@@ -35,7 +35,7 @@ email.innerHTML = emailUSer;
 
 // Realiza o logout do sistema
 buttonLogout.addEventListener('click', () => {
-    fetch('/auth/logout', {
+    fetch('/logout', {
         method: 'POST',
     })
     .then(response => {

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 exports.login = (req, res, next) => {
     try {
@@ -13,10 +14,9 @@ exports.login = (req, res, next) => {
         req.usuario = decode;
         next()
     } catch (error) {
-        return res.render('00.login.hbs', {
+        return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
             message: "Necessário relizar o login novamente"
-        })
-        
+        });
     }
     
 }
