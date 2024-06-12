@@ -7,30 +7,88 @@ const path = require('path');
 router.post('/cadastrando/produto', (req, res, next) => {
 
     const { nome, codigo, valor } = req.body;
+    console.log(nome, codigo, valor);
 
     mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), console.log('erro 1'));
+        if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+        if(!nome || !codigo || !valor){
+            return res.json({message: "Por favor preencha todos os campos!"});  
+        }
 
         const query = `SELECT * FROM tbl_Produto WHERE nome_Prd = ?;`
 
         conn.query(query, [nome], (err, result) => {
             conn.release();
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
+            if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
-            if (result.length > 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Produto já cadastrado" });
+            if (result.length > 0) return res.json({ message: "Produto com este nome já está cadastrado no sistema" });
+
+            const query = `SELECT * FROM tbl_Produto WHERE cod_Prd = ?;`
+
+            conn.query(query, [codigo], (err, result) => {
+                if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+                if(result.length > 0) return res.json( {message: "Produto com este código já está cadastrado em nosso sistema" })
+
+                mysql.getConnection((err, conn) => {
+                    conn.release();
+                    if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+                    const query = `INSERT INTO tbl_Produto (cod_Prd, nome_Prd, vlr_Unit, qtd_TotProduto) VALUES(?,?,?,?);`
+                    conn.query(query, [codigo, nome, valor, 1], (err, results) => {
+
+                        if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+
+                        return res.json({ message: "Produto cadastrado com sucesso" });
+                    })
+                })
+
+            })
+
+        })
+    })
+})
+
+router.delete('/deletando/produto', (req, res, next) => {
+
+    const { nome, codigo, valor } = req.body;
+    console.log(nome, codigo, valor);
+    
+    mysql.getConnection((err, conn) => {
+        conn.release();
+        if(err) return res.json({message: "Erro ao conectar no banco de dados!"})
+
+        if(!codigo){
+            return res.json({message: `Por favor preencha o campo de "Código" para realizar a exclusão `});  
+        }
+
+        const query = `SELECT * FROM tbl_Produto WHERE cod_Prd = ?;`
+
+        conn.query(query, [codigo], (err, result) => {
+            if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+            if(result.length == 0) return res.json({ message: "Nenhum produto encontrado com este código"});
 
             mysql.getConnection((err, conn) => {
                 conn.release();
-                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
 
-                const query2 = `INSERT INTO tbl_Produto (cod_Prd, nome_Prd, vlr_Unit, qtd_TotProduto) VALUES(?,?,?,?);`
-                conn.query(query2, [codigo, nome, valor, 1], (err, results) => {
-                    if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao cadastrar produto" });
+                if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
-                    return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Produto cadastrado com sucesso" });
+                const query = `DELETE FROM tbl_Produto WHERE cod_Prd = ?;`
+
+                conn.query(query, [codigo], (err, result) => {
+                    if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+                    return res.json({message: "Produto excluido com sucesso"})
+                    
                 })
+
             })
+
         })
+        
     })
 
 })

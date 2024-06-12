@@ -65,12 +65,12 @@
         <hr><!--LINHA --></hr>
 
         <div>
-          <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar produto">
+          <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar produto" onkeyup="filtrar()">
         </div>
 
         <div class="content-table">
           <table>
-            <thead>
+            <thead id="tabelaProdutos">
               <tr>
                 <th>CÓDIGO DO PRODUTO</th>
                 <th>PRODUTO</th>

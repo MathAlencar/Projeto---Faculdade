@@ -4,7 +4,11 @@ const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
 const cookie = document.cookie;
 const buttonCadastro = document.querySelector('#cadastrar-produto');
-const teste = document.querySelector('#teste');
+const buttonExcluir = document.querySelector('#excluir-produto');
+
+const prod_nome = document.querySelector('#name');
+const prod_codigo = document.querySelector('#codigo');
+const prod_valor = document.querySelector('#valor');
 
 // Funções da página -->
 
@@ -35,6 +39,7 @@ email.innerHTML = emailUSer;
 
 // eventos da página -->
 
+
 // Realiza o logout do sistema
 buttonLogout.addEventListener('click', () => {
     fetch('/auth/logout', {
@@ -48,7 +53,9 @@ buttonLogout.addEventListener('click', () => {
     });
 });
 
+// Tratamento de erro formulário vazio
 
+//
 
 buttonCadastro.addEventListener('click', (e) => {
       e.preventDefault();
@@ -70,17 +77,59 @@ buttonCadastro.addEventListener('click', (e) => {
       })
       .then ( response => {
         if(!response.ok) {
-          throw new Error('Erro na envio de dados')
+          throw new Error('Erro no envio de dados')
         }
 
         return response.json();
       })
       .then(data => {
-          console.log('Success:', data);
+          prod_nome.value = '';
+          prod_codigo.value = '';
+          prod_valor.value = '';
+          
+          alert(data.message) 
       })
       .catch(error => {
-          console.error('Erro:', error);
+        console.log(error);
       });
+})
+
+
+buttonExcluir.addEventListener('click', (e) => {
+  e.preventDefault();
+  const form = document.querySelector('#formularioProduto');
+  const formatandoDados = new FormData(form);
+
+  const dados = {
+    codigo: formatandoDados.get('codigo'),
+  }
+
+  fetch('/deletando/produto', {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dados)
+  })
+  .then (response => {
+    if(!response.ok) {
+      throw new Error('Erro ao deletar dados')
+    }
+
+    return response.json();
+  })
+  .then(data => {
+
+    prod_nome.value = '';
+    prod_codigo.value = '';
+    prod_valor.value = '';
+
+    alert(data.message);
+  })
+  .catch(error => {
+    console.log(error);
+  })
+
 })
 
 // <-- FIM

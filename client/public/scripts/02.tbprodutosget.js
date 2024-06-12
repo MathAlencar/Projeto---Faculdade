@@ -58,72 +58,79 @@ buttonLogout.addEventListener('click', () => {
   })
   .then(data => {
     
-    construirTabela(data.produtos);
+    let produtos = data.produtos;
+
+    let i = 0;
+    const ul = document.querySelector('#tabelaProdutos');
+
+    produtos.forEach((item) => {
+        let tr = document.createElement('tr');
+
+        let td_id = document.createElement('td');
+        td_id.setAttribute('id', 'id_prod');
+        let td_nome = document.createElement('td');
+        td_nome.setAttribute('id', 'id_nome');
+        let td_quantidade = document.createElement('td');
+        td_quantidade.setAttribute('id', 'id_qtd');
+        let td_preco = document.createElement('td');
+        td_preco.setAttribute('id', 'id_preco');
+
+        td_id.innerText = item.cod_Prd;
+        td_nome.innerText = item.nome_Prd;
+        td_quantidade.innerText = item.qtd_TotProduto;
+        td_preco.innerText = `R$ ${item.vlr_Unit}`;
+
+        tr.appendChild(td_id);
+        tr.appendChild(td_nome);
+        tr.appendChild(td_quantidade);
+        tr.appendChild(td_preco);
+
+        if (i % 2 == 0) {
+          tr.setAttribute('class', 'linha-par');
+        } else {
+          tr.setAttribute('class', 'linha-impar');
+        }
+
+        ul.appendChild(tr);
+        i++;
+    })
 
   })
   .catch(error => {
     console.error('Erro:', error);  
   });
 
-
-
-
-// <-- FIM
-
-function construirTabela(listaProdutos) {
-  const tbody = document.querySelector('#tbody');
-
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
-  }
-
-  if (listaProdutos.length == 0) {
-    let paragraph = document.createElement('p');
-    paragraph.innerText = "Nenhum produto encontrado!";
-    tbody.appendChild(paragraph);
-    return;
-  }
-
-  for (let i = 0; i < listaProdutos.length; i++) {
-    let tr = document.createElement('tr');
-    tr.setAttribute('id', `tr${i}`);
-    tbody.appendChild(tr);
-
-    let row = document.querySelector(`#tr${i}`);
-
-    if (i % 2 == 0) {
-      row.setAttribute('class', 'linha-par');
-    } else {
-      row.setAttribute('class', 'linha-impar');
+  function filtrar() {
+    var input,
+      ul,
+      tr,
+      td_id,
+      td_nome,
+      td_quantidade,
+      td_preco,
+      count = 0;
+  
+    input = document.querySelector('#searchbar');
+    ul = document.querySelector('#tabelaProdutos');
+  
+    filter = input.value.toUpperCase();
+  
+    tr = ul.getElementsByTagName("tr");
+  
+    // Esconde todas as linhas da tabela
+    for (let i = 1; i < tr.length; i++) {
+      tr[i].style.display = 'none'; 
     }
-
-    let td_id = document.createElement('td');
-    let td_nome = document.createElement('td');
-    let td_quantidade = document.createElement('td');
-    let td_preco = document.createElement('td');
-
-    td_id.innerText = listaProdutos[i].cod_Prd;
-    td_nome.innerText = listaProdutos[i].nome_Prd;
-    td_quantidade.innerText = listaProdutos[i].qtd_TotProduto;
-    td_preco.innerText = `R$ ${listaProdutos[i].vlr_Unit}`;
-
-    row.appendChild(td_id);
-    row.appendChild(td_nome);
-    row.appendChild(td_quantidade);
-    row.appendChild(td_preco);
+  
+    // Mostra as linhas que correspondem à pesquisa
+    for (let i = 1; i < tr.length; i++) {
+      td_id = tr[i].querySelector('#id_prod').innerHTML;
+      td_nome = tr[i].querySelector('#id_nome').innerHTML;
+      td_quantidade = tr[i].querySelector('#id_qtd').innerHTML;
+      td_preco = tr[i].querySelector('#id_preco').innerHTML;
+  
+      if (td_nome.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = 'table-row'; // Mostra a linha
+      }
+    }
   }
-}
-
-// function buscarProduto() {
-//   let input = document.getElementById('searchbar').value.toLowerCase();
-//   let lista = obterListaProdutos();
-//   let listaFiltrada = [];
-
-//   for (let i = 0; i < lista.length; i++) {
-//     if (lista[i].nome.toLowerCase().includes(input)) {
-//       listaFiltrada.push(lista[i]);
-//     }
-//   }
-
-//   construirTabela(listaFiltrada);
-// }
