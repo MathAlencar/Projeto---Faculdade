@@ -6,6 +6,11 @@ const cookie = document.cookie;
 const buttonEntrada = document.querySelector('#entradaProduto');
 const select = document.querySelector('#produto');
 
+
+
+const input_valor_uni = document.querySelector('#valor-uni')
+const input_valor_total = document.querySelector('#valor-total')
+
 // Funções da página -->
 
 function getCookie(name) {
@@ -20,8 +25,6 @@ function getCookie(name) {
 
     return null
 }
-
-// <-- FIM
 
 // --> Definindo variáveis a serem usadas no front-end - Nome e E-mail;
 const nameUSer = getCookie('name'); 
@@ -86,6 +89,43 @@ buttonEntrada.addEventListener('click', (e) => {
 
 })
 
+function buscandoProduto(){
+
+  const form = document.querySelector('#formularioEntrada');
+  const formatandoDados = new FormData(form);
+
+  const dados = {
+    tipoProduto: formatandoDados.get('tipoProduto')
+  }
+
+  console.log(dados)
+
+  // fetch('/chamada/produto/especifico', {
+  //   method: "POST",
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(dados)
+  // })
+  // .then (response => {
+  //   if(!response.ok) {
+  //     throw new Error('Erro ao enviar dados')
+  //   }
+
+  //   return response.json();
+  // })
+  // .then(data => {
+  //   console.log("Sucesso:", data);
+  // })
+  // .catch(error => {
+  //   console.error('Erro:', error);
+  // });
+
+}
+
+
+
+ // Responsável por enviar os dados ao front-end, para assim realizar a construção dos itens selecionáveis na lista suspensa.
 
 fetch('/chamada/produto')
 .then(response => {
@@ -105,110 +145,7 @@ fetch('/chamada/produto')
 
 // <-- FIM
 
-// <-- FIM 
-
-let lista = obterListaProdutos();
-construirTabela(lista);
-
-function obterListaProdutos() {
-  let listaProdutos = [
-    {
-      id: 1,
-      nome: "Aaaa",
-      data: new Date().toLocaleDateString(),
-      quantidade: 5,
-      preco: 50.0
-    },
-    {
-      id: 2,
-      nome: "Bbbb",
-      data: new Date().toLocaleDateString(),
-      quantidade: 10,
-      preco: 100.0
-    },
-    {
-      id: 3,
-      nome: "Cccc",
-      data: new Date().toLocaleDateString(),
-      quantidade: 20,
-      preco: 250.0
-    },
-  ];
-
-  atribuirValorTotal(listaProdutos);
-
-  return listaProdutos;
-}
-
-function atribuirValorTotal(listaProdutos) {
-  for (let i = 0; i < listaProdutos.length; i++) {
-    listaProdutos[i].valorTotal = (listaProdutos[i].quantidade * listaProdutos[i].preco);
-  }
-}
-
-function construirTabela(listaProdutos) {
-  const tbody = document.querySelector('#tbody');
-
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
-  }
-
-  if (listaProdutos.length == 0) {
-    let paragraph = document.createElement('p');
-    paragraph.innerText = "Nenhum produto encontrado!";
-    tbody.appendChild(paragraph);
-    return;
-  }
-
-  for (let i = 0; i < listaProdutos.length; i++) {
-    let tr = document.createElement('tr');
-    tr.setAttribute('id', `tr${i}`);
-    tbody.appendChild(tr);
-
-    let row = document.querySelector(`#tr${i}`);
-
-    if (i % 2 == 0) {
-      row.setAttribute('class', 'linha-par');
-    } else {
-      row.setAttribute('class', 'linha-impar');
-    }
-
-    let td_id = document.createElement('td');
-    let td_nome = document.createElement('td');
-    let td_data = document.createElement('td');
-    let td_quantidade = document.createElement('td');
-    let td_preco = document.createElement('td');
-    let td_valor_total = document.createElement('td');
-
-    td_data.innerText = listaProdutos[i].data;    
-    td_nome.innerText = listaProdutos[i].nome;
-    td_id.innerText = listaProdutos[i].id;
-    td_quantidade.innerText = listaProdutos[i].quantidade;
-    td_preco.innerText = listaProdutos[i].preco;
-    td_valor_total.innerText = listaProdutos[i].valorTotal;
-
-    row.appendChild(td_data);
-    row.appendChild(td_nome);
-    row.appendChild(td_id);
-    row.appendChild(td_quantidade);
-    row.appendChild(td_preco);
-    row.appendChild(td_valor_total);
-  }
-}
-
-function buscarProduto() {
-  let input = document.getElementById('searchbar').value.toLowerCase();
-  let lista = obterListaProdutos();
-  let listaFiltrada = [];
-
-  for (let i = 0; i < lista.length; i++) {
-    if (lista[i].nome.toLowerCase().includes(input)) {
-      listaFiltrada.push(lista[i]);
-    }
-  }
-
-  construirTabela(listaFiltrada);
-}
+// Construindo select
 
 function construindoSelect(data){
   const select = document.querySelector('#produto');

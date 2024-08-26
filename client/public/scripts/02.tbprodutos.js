@@ -41,6 +41,7 @@ email.innerHTML = emailUSer;
 
 
 // Realiza o logout do sistema
+
 buttonLogout.addEventListener('click', () => {
     fetch('/auth/logout', {
         method: 'POST',
@@ -53,9 +54,8 @@ buttonLogout.addEventListener('click', () => {
     });
 });
 
-// Tratamento de erro formulário vazio
 
-//
+// Envia o formulário de histórico de pedidos para o banco de dados, o qual será exibido no front-end.
 
 buttonCadastro.addEventListener('click', (e) => {
       e.preventDefault();
@@ -94,86 +94,68 @@ buttonCadastro.addEventListener('click', (e) => {
       });
 })
 
-
-buttonExcluir.addEventListener('click', (e) => {
-  e.preventDefault();
-  const form = document.querySelector('#formularioProduto');
-  const formatandoDados = new FormData(form);
-
-  const dados = {
-    codigo: formatandoDados.get('codigo'),
-  }
-
-  fetch('/deletando/produto', {
-    method: "DELETE",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dados)
-  })
-  .then (response => {
-    if(!response.ok) {
-      throw new Error('Erro ao deletar dados')
-    }
-
-    return response.json();
-  })
-  .then(data => {
-
-    prod_nome.value = '';
-    prod_codigo.value = '';
-    prod_valor.value = '';
-
-    alert(data.message);
-  })
-  .catch(error => {
-    console.log(error);
-  })
-
-})
-
 // <-- FIM
 
-function construirTabela(listaProdutos) {
-  const tbody = document.querySelector('#tbody');
 
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
-  }
 
-  if (listaProdutos.length == 0) {
-    let paragraph = document.createElement('p');
-    paragraph.innerText = "Nenhum produto encontrado!";
-    tbody.appendChild(paragraph);
-    return;
-  }
 
-  for (let i = 0; i < listaProdutos.length; i++) {
-    let tr = document.createElement('tr');
-    tr.setAttribute('id', `tr${i}`);
-    tbody.appendChild(tr);
+// Código para excluir produto, foi criado para fins de teste, porém precisa ser validado.
 
-    let row = document.querySelector(`#tr${i}`);
+// buttonExcluir.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   const form = document.querySelector('#formularioProduto');
+//   const formatandoDados = new FormData(form);
 
-    if (i % 2 == 0) {
-      row.setAttribute('class', 'linha-par');
-    } else {
-      row.setAttribute('class', 'linha-impar');
-    }
+//   const dados = {
+//     codigo: formatandoDados.get('codigo'),
+//   }
 
-    let td_id = document.createElement('td');
-    let td_nome = document.createElement('td');
-    let td_quantidade = document.createElement('td');
-    let td_preco = document.createElement('td');
+//   fetch('/deletando/produto', {
+//     method: "DELETE",
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(dados)
+//   })
+//   .then (response => {
+//     if(!response.ok) {
+//       throw new Error('Erro ao deletar dados')
+//     }
 
-    td_id.innerText = listaProdutos[i].cod_Prd;
-    td_nome.innerText = listaProdutos[i].nome_Prd;
-    td_quantidade.innerText = listaProdutos[i].qtd_TotProduto;
-    td_preco.innerText = listaProdutos[i].vlr_Unit;
+//     return response.json();
+//   })
+//   .then(data => {
 
-    row.appendChild(td_id);
-    row.appendChild(td_nome);
-    row.appendChild(td_quantidade);
-    row.appendChild(td_preco);
-  }
-}
+//     prod_nome.value = '';
+//     prod_codigo.value = '';
+//     prod_valor.value = '';
+
+//     alert(data.message);
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   })
+
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

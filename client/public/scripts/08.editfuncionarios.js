@@ -37,6 +37,7 @@ email.innerHTML = emailUSer;
 // eventos da página -->
 
  // Deleta usuário com base no e-mail;
+ 
 buttonApagar.addEventListener('click', (e) => {
     e.preventDefault();
   
@@ -63,7 +64,8 @@ buttonApagar.addEventListener('click', (e) => {
 
   })
 
-// validando ainda
+// Essa função ou evento realiza a atualização dos dados do usuário, porém ainda iremos entrar em validação de como ela irá funcionar corretamente.
+
   button_atualizar.addEventListener('click', (e) => {
     e.preventDefault();
     

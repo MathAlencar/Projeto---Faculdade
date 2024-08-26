@@ -7,7 +7,6 @@ const path = require('path');
 router.post('/cadastrando/produto', (req, res, next) => {
 
     const { nome, codigo, valor } = req.body;
-    console.log(nome, codigo, valor);
 
     mysql.getConnection((err, conn) => {
         if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
@@ -36,10 +35,9 @@ router.post('/cadastrando/produto', (req, res, next) => {
                     if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
                     const query = `INSERT INTO tbl_Produto (cod_Prd, nome_Prd, vlr_Unit, qtd_TotProduto) VALUES(?,?,?,?);`
-                    conn.query(query, [codigo, nome, valor, 1], (err, results) => {
+                    conn.query(query, [codigo, nome, valor, 0], (err, results) => {
 
                         if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
-
 
                         return res.json({ message: "Produto cadastrado com sucesso" });
                     })
@@ -121,6 +119,16 @@ router.get('/chamada/produto', (req, res, next) => {
             return res.json(response);
         })
     })
+})
+
+router.get('/chamada/produto/especifico', (req, res, next) => {
+
+    const tipoProduto = req.body
+
+    console.log(tipoProduto)
+
+    return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
+   
 })
 
 

@@ -52,12 +52,25 @@ email.innerHTML = emailUSer;
 // Botões de eventos -->
 
 buttonCadastro.addEventListener('click', () => {
+  e.preventDefault();
+
   window.location.href = '/funcionarios/cadastro'
 })
 
+buttonEditar.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  window.location.href = '/funcionarios/editar'
+})
+
+
+
+
+
+
 // realizando requisição --> 
 
-fetch('/chamada')
+fetch('/chamada/funcionarios')
   .then(response => {
     if (!response.ok) {
       throw new Error('Erro ao buscar os dados');
@@ -66,134 +79,74 @@ fetch('/chamada')
   })
   .then(data => {
 
-    construirTabela(data.usuarios); // tratando os dados;
+    let funcionarios = data.usuarios; // tratando os dados;
+
+    let i = 0;
+    const ul = document.querySelector('#tbody')
+
+    funcionarios.forEach((item) => {
+
+      let tr = document.createElement('tr');
+      
+      let  td_nome_fun = document.createElement('td');
+      td_nome_fun.setAttribute('id', 'id_nome_fun');
+      let  td_email = document.createElement('td');
+      td_email.setAttribute('id', 'id_email');
+      let  td_telefone = document.createElement('td');
+      td_telefone.setAttribute('id', 'td_telefone');
+
+      td_nome_fun.innerHTML = item.nome
+      td_email.innerHTML = item.email
+      td_telefone.innerHTML =  item.telefone
+
+      tr.appendChild(td_nome_fun)
+      tr.appendChild(td_email)
+      tr.appendChild(td_telefone)
+
+      if (i % 2 == 0) {
+        tr.setAttribute('class', 'linha-par');
+      } else {
+        tr.setAttribute('class', 'linha-impar');
+      }
+
+      ul.appendChild(tr);
+      i++
+
+    })
 
   })
   .catch(error => {
     console.error('Erro:', error);
   });
-  
 
-  // REALIZANDO CHAMADA DE BUSCA BANCO DE DADOS;
 
-buttonPesquisar.addEventListener('click', (e) => {
-  e.preventDefault();
+function filtrar() {
+  var input,
+    ul,
+    tr,
+    td_nome_fun ,
+    count = 0;
 
-  const email = document.getElementById('searchbar').value;
+  input = document.querySelector('#searchbar');
+  ul = document.querySelector('#tbody');
 
-  if(!document.getElementById('searchbar').value){
-      fetch('/chamada')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro ao buscar os dados');
-      }
-      return response.json();
-    })
-    .then(data => {
+  filter = input.value.toUpperCase();
 
-      construirTabela(data.usuarios); // usando a função criada para tratar os dados do cliente no front-end;
-      console.log(data);
-      
-    })
-    .catch(error => {
-      console.error('Erro:', error);
-    });
+  tr = ul.getElementsByTagName("tr");
+
+  // Esconde todas as linhas da tabela
+  for (let i = 0; i < tr.length; i++) {
+    tr[i].style.display = 'none'; 
   }
 
-  fetch(`/chamada/especifica?buscaFuncionario=${encodeURIComponent(email)}`)
-  .then(response => {
-      if (!response.ok) {
-          throw new Error('Erro ao buscar os dados');
-      }
-      return response.json();
-  })
-  .then(data => {
+  // Mostra as linhas que correspondem à pesquisa
+  for (let i = 0; i < tr.length; i++) {
 
-      construirTabela(data.usuarios);
+    td_nome_fun = tr[i].querySelector('#id_nome_fun').innerHTML;
 
-  })
-  .catch(error => {
-      console.error('Erro:', error);
-  });
-});
-
-// direciona o usuário para uma nova pagina de acordo com o envento do botão;
-
-buttonEditar.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  window.location.href = '/funcionarios/editar'
-
-})
-
-
-function construirTabela(bancoDeDados) {
-  const tbody = document.querySelector('#tbody');
-
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
-  }
-
-  if (bancoDeDados.length == 0) {
-    let paragraph = document.createElement('p');
-    paragraph.innerText = "Nenhum(a) funcionário(a) encontrado(a)!";
-    tbody.appendChild(paragraph);
-    return;
-  }
-
-  for (let i = 0; i < bancoDeDados.length; i++) {
-    let tr = document.createElement('tr');
-    tr.setAttribute('id', `tr${i}`);
-    tbody.appendChild(tr);
-
-    let row = document.querySelector(`#tr${i}`);
-
-    if (i % 2 == 0) {
-      row.setAttribute('class', 'linha-par');
-    } else {
-      row.setAttribute('class', 'linha-impar');
+    if (td_nome_fun.toUpperCase().indexOf(filter) > -1) {
+      tr[i].style.display = 'table-row'; // Mostra a linha
     }
-
-    let td_nome = document.createElement('td');
-    let td_email = document.createElement('td');
-    let td_contato = document.createElement('td');
-    let td_status = document.createElement('td');
-    let span = document.createElement('span');
-    let textoStatus = document.createElement('div');
-    let td_edicao = document.createElement('td');
-    let botao_edicao = document.createElement('button');
-    let funcionarioAtual = bancoDeDados[i];
-
-    td_status.setAttribute('class', 'status');
-
-    if (bancoDeDados[i].status == "ativo") {
-      span.setAttribute('class', 'material-icons ativo');
-    } else {
-      span.setAttribute('class', 'material-icons desativado');
-    }
-
-    span.innerText = "circle";
-    td_status.appendChild(span);
-    // textoStatus.innerText = bancoDeDados[i].status.toUpperCase();
-    td_status.appendChild(textoStatus);
-
-    td_nome.innerText = bancoDeDados[i].nome;
-    td_email.innerText = bancoDeDados[i].email;
-    td_contato.innerText = bancoDeDados[i].telefone;
-
-    
-    botao_edicao.innerText = "Editar";
-    botao_edicao.setAttribute('class', 'botao-editar');
-    botao_edicao.addEventListener('click', () => {
-      console.log(bancoDeDados[i].nome);
-      window.location.href = '/funcionarios/editar'
-    })
-
-    td_edicao.appendChild(botao_edicao);
-    row.appendChild(td_nome);
-    row.appendChild(td_email);
-    row.appendChild(td_contato);
-    row.appendChild(td_status);
   }
 }
 

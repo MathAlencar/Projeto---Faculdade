@@ -3,7 +3,7 @@ const router = express.Router(); // Exportando para fora;
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const path = require('path');
 
-router.get('/chamada', (req, res, next) => {
+router.get('/chamada/funcionarios', (req, res, next) => {
 
     mysql.getConnection((err, conn) => {
         if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'));

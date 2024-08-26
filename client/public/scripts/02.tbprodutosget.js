@@ -100,6 +100,9 @@ buttonLogout.addEventListener('click', () => {
     console.error('Erro:', error);  
   });
 
+
+  // Função que realiza a filtragem de valores após a sua digitação
+
   function filtrar() {
     var input,
       ul,

@@ -47,6 +47,8 @@ buttonLogout.addEventListener('click', () => {
     });
 });
 
+
+
 fetch('/entradas/produtos')
 .then(response => {
   if(!response.ok) {
@@ -55,7 +57,58 @@ fetch('/entradas/produtos')
   return response.json();
 })
 .then(data => {
-  construirTabela(data.entradas);
+
+  let entrada_produtos = data.entradas
+
+  let i = 0;
+  const ul = document.querySelector('#tbody')
+
+  entrada_produtos.forEach((item) => {
+
+    let tr = document.createElement('tr');
+
+    let  td_id_produto = document.createElement('td');
+    td_id_produto.setAttribute('id', 'id_prod');
+    let  td_nome_produto = document.createElement('td');
+    td_nome_produto.setAttribute('id', 'id_nome_prod');
+    let  td_data_produto = document.createElement('td');
+    td_data_produto.setAttribute('id', 'id_data_prod');
+    let  td_preco_total_produto = document.createElement('td');
+    td_preco_total_produto.setAttribute('id', 'id_preco_total_prod');
+    let  td_preco_unit_produto = document.createElement('td');
+    td_preco_unit_produto.setAttribute('id', 'id_preco_unit_prod');
+    let  td_qtd_comp_prod = document.createElement('td');
+    td_qtd_comp_prod.setAttribute('id', 'id_qtd_comp_prod');
+   
+    // tranformando a data em valor válido.
+    let transformando_data = new Date(item.data_entrada).toLocaleDateString()
+    
+
+    td_id_produto.innerHTML = item.id
+    td_nome_produto.innerHTML = item.nome_produto
+    td_data_produto.innerHTML = transformando_data
+    td_preco_total_produto.innerHTML =  `R$ ${item.preco_total}`
+    td_preco_unit_produto.innerHTML = `R$ ${item.preco_unitario}`
+    td_qtd_comp_prod.innerHTML = item.qtd_comprada
+
+    tr.appendChild(td_id_produto)
+    tr.appendChild(td_nome_produto)
+    tr.appendChild(td_data_produto)
+    tr.appendChild(td_qtd_comp_prod)
+    tr.appendChild(td_preco_unit_produto)
+    tr.appendChild(td_preco_total_produto)
+
+      if (i % 2 == 0) {
+        tr.setAttribute('class', 'linha-par');
+      } else {
+        tr.setAttribute('class', 'linha-impar');
+      }
+
+      ul.appendChild(tr);
+      i++
+  })
+
+
 })
 .catch(error => {
   console.error("Erro:", error);
@@ -65,109 +118,46 @@ fetch('/entradas/produtos')
 
 // <-- FIM 
 
-let lista = obterListaProdutos();
-construirTabela(lista);
-
-function obterListaProdutos() {
-  let listaProdutos = [
-    {
-      id: 1,
-      nome: "Aaaa",
-      data: new Date().toLocaleDateString(),
-      quantidade: 5,
-      preco: 50.0
-    },
-    {
-      id: 2,
-      nome: "Bbbb",
-      data: new Date().toLocaleDateString(),
-      quantidade: 10,
-      preco: 100.0
-    },
-    {
-      id: 3,
-      nome: "Cccc",
-      data: new Date().toLocaleDateString(),
-      quantidade: 20,
-      preco: 250.0
-    },
-  ];
-
-  atribuirValorTotal(listaProdutos);
-
-  return listaProdutos;
-}
-
 function atribuirValorTotal(listaProdutos) {
   for (let i = 0; i < listaProdutos.length; i++) {
     listaProdutos[i].valorTotal = (listaProdutos[i].quantidade * listaProdutos[i].preco);
   }
 }
 
-function construirTabela(listaProdutos) {
-  const tbody = document.querySelector('#tbody');
 
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
+function filtrar() {
+  var input,
+    ul,
+    tr,
+    td_id_produto,
+    td_nome_produto,
+    td_data_produto,
+    td_preco_total_produto,
+    td_preco_unit_produto,
+    td_qtd_comp_prod,
+    count = 0;
+
+  input = document.querySelector('#searchbar');
+  ul = document.querySelector('#tbody');
+
+  filter = input.value.toUpperCase();
+
+  tr = ul.getElementsByTagName("tr");
+
+  // Esconde todas as linhas da tabela
+  for (let i = 0; i < tr.length; i++) {
+    tr[i].style.display = 'none'; 
   }
 
-  if (listaProdutos.length == 0) {
-    let paragraph = document.createElement('p');
-    paragraph.innerText = "Nenhum pedido realizado!";
-    tbody.appendChild(paragraph);
-    return;
-  }
+  // Mostra as linhas que correspondem à pesquisa
+  for (let i = 0; i < tr.length; i++) {
 
-  for (let i = 0; i < listaProdutos.length; i++) {
-    let tr = document.createElement('tr');
-    tr.setAttribute('id', `tr${i}`);
-    tbody.appendChild(tr);
+    td_nome_produto = tr[i].querySelector('#id_nome_prod').innerHTML;
 
-    let row = document.querySelector(`#tr${i}`);
-
-    if (i % 2 == 0) {
-      row.setAttribute('class', 'linha-par');
-    } else {
-      row.setAttribute('class', 'linha-impar');
+    if (td_nome_produto.toUpperCase().indexOf(filter) > -1) {
+      tr[i].style.display = 'table-row'; // Mostra a linha
     }
-
-    let td_id = document.createElement('td');
-    let td_nome = document.createElement('td');
-    let td_data = document.createElement('td');
-    let td_quantidade = document.createElement('td');
-    let td_preco = document.createElement('td');
-    let td_valor_total = document.createElement('td');
-
-    let data = listaProdutos[i].data_entrada;
-    let dataNew = new Date(data).toLocaleDateString();
-
-    td_nome.innerText = listaProdutos[i].nome_produto;
-    td_data.innerText = dataNew;
-    td_id.innerText = listaProdutos[i].id;
-    td_quantidade.innerText = listaProdutos[i].qtd_comprada;
-    td_preco.innerText = `R$ ${listaProdutos[i].preco_unitario}`;
-    td_valor_total.innerText = `R$ ${listaProdutos[i].preco_total}`;
-
-    row.appendChild(td_id);
-    row.appendChild(td_nome);
-    row.appendChild(td_data);
-    row.appendChild(td_quantidade);
-    row.appendChild(td_preco);
-    row.appendChild(td_valor_total);
   }
 }
 
-function buscarProduto() {
-  let input = document.getElementById('searchbar').value.toLowerCase();
-  let lista = obterListaProdutos();
-  let listaFiltrada = [];
-
-  for (let i = 0; i < lista.length; i++) {
-    if (lista[i].nome.toLowerCase().includes(input)) {
-      listaFiltrada.push(lista[i]);
-    }
-  }
-
-  construirTabela(listaFiltrada);
-}
 

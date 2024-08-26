@@ -44,7 +44,6 @@ router.post('/entrada/produto', (req, res, next) => {
     })
 })
 
-
 router.get('/entradas/produtos', (req, res, next) => {
     
     mysql.getConnection((err, conn) => {
@@ -69,8 +68,6 @@ router.get('/entradas/produtos', (req, res, next) => {
                     }
                 })
             }
-
-            console.log('deu bom asas');
 
             return res.json(response);
 
