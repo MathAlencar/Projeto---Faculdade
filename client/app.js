@@ -90,7 +90,7 @@ app.get('/dashboard', login.login, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages/07.dashboard.html'));
 })
 
-app.get('/funcionarios', login.login, (req, res) => {
+app.get('/funcionarios', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages/08.funcionarios.html'));
 })
 
