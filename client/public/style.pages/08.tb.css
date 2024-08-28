@@ -10,7 +10,7 @@
 .content-header {
   width: 100%;
   height: 12vh;
-  padding: 10px 20px;
+  padding: 10px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -86,3 +86,4 @@ table th {
 #buttonEditar{
   height: 40px;
 }
+

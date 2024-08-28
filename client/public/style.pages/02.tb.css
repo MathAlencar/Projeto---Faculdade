@@ -10,19 +10,11 @@
 .content-header {
   width: 100%;
   height: 12vh;
-  padding: 10px 20px;
+  padding: 10px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-button{
-  width: 150px;
-  height: 55px;
-  font-size: 1.8vh;
-  font-weight: bold;
-}
-
 .search {
   width: 352px;
   height: 40px;
@@ -31,6 +23,12 @@ button{
   padding-left: 0.5rem;
 }
 
+button{
+  width: 150px;
+  height: 55px;
+  font-size: 1.8vh;
+  font-weight: bold;
+}
 .aprovado {
   color: green;
   display: flex;
@@ -77,3 +75,4 @@ table th {
 .linha-impar {
   background-color: #FFFFFF;
 }
+

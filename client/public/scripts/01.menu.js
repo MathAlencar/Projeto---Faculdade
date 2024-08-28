@@ -2,10 +2,8 @@
 const buttonLogout = document.getElementById('buttonLogout');
 const nome = document.querySelector('#first');
 const email = document.querySelector('#second');
-const cookie = document.cookie;
 
 // Funções da página -->
-
 function getCookie(name) {
     const cookie = document.cookie;
     const separandoCookie = cookie.split('; ');
@@ -15,7 +13,6 @@ function getCookie(name) {
             return decodeURIComponent(cookieValor);
         }
     }
-
     return null
 }
 
@@ -28,7 +25,7 @@ const emailUSer = getCookie('email');
 nome.innerHTML = nameUSer;
 email.innerHTML = emailUSer;
 
-// <-- FIM 
+//<-- FIM 
 
 
 // eventos da página -->

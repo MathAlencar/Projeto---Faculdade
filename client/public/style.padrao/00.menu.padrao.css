@@ -40,8 +40,8 @@
 }
 
 .sidebar .logo img {
-  width: 150px;
-  height: 200px;
+  width: 11vw;
+  height: 28vh;
   top: 33px;
   left: 50px;
 }
@@ -50,7 +50,7 @@
   list-style: none;  /* Remove marcadores de lista */
   padding: 0;   /* Remove padding */
   margin-left: 20px;
-  height: 614;
+  /* height: 614; */
   margin-top: auto;
 }
 

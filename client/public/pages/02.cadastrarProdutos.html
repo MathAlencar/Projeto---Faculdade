@@ -54,11 +54,11 @@
             
                     <form class="form" id="formularioProduto">
                         <div><label for="name"> Nome:</label></div>
-                        <div class="input-date"><input id="name" class="quebra-linha" type="text" placeholder="Doritos" name="nome" required></div>
+                        <div class="input-date"><input id="name" class="quebra-linha" type="text" name="nome" required></div>
                         <div><label for="codigo"> Código:</label></div> 
-                        <div class="input-cod"><input id="codigo" class="quebra-linha" type="number" placeholder="15" name="codigo" required></div>
+                        <div class="input-cod"><input id="codigo" class="quebra-linha" type="text" placeholder="15" name="codigo" required></div>
                         <div><label for="valor"> Preço unitario:</label></div>
-                        <div class="input-date"><input id="valor" class="quebra-linha" type="number" format="currency" precision="2" placeholder="R$ 5,50" name="valor" required></div>
+                        <div class="inputValor"><input id="valor" class="quebra-linha" type="text" placeholder="R$" name="valor" required></div>
                         <div><button id="cadastrar-produto">Cadastrar produto</button></div>
                         <br>
                         <!-- <div><button id="excluir-produto">Excluir produto</button></div> -->
@@ -67,5 +67,7 @@
         </article>
     </main>
     <script src="/scripts/02.tbprodutos.js"></script>
+    <script src="/scripts/01.menu.js"></script>
+    
 </body>
 </html>

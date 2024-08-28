@@ -50,10 +50,6 @@ db.connect( (err) => {
 /* Páginas */
 
 
-app.get('/tabela/produto/cadastrar', login.login,  (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/02.cadastrarProdutos.html'));
-});
-
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages/00.login.html'));
 })
@@ -65,6 +61,10 @@ app.get('/menu', login.login, (req, res) => {
 app.get('/tabela/produto', login.login, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages/02.tabelasProdutos.html'));
 })
+
+app.get('/tabela/produto/cadastrar', login.login,  (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages/02.cadastrarProdutos.html'));
+});
 
 app.get('/entrada', login.login, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages/03.entrada.html'));
@@ -90,7 +90,7 @@ app.get('/dashboard', login.login, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages/07.dashboard.html'));
 })
 
-app.get('/funcionarios', (req, res) => {
+app.get('/funcionarios', login.login, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages/08.funcionarios.html'));
 })
 

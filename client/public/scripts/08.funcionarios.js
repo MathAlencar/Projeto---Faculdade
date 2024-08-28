@@ -1,53 +1,9 @@
 // Realizando a seleção de valores na página
-const buttonLogout = document.getElementById('buttonLogout');
-const nome = document.querySelector('#first');
-const email = document.querySelector('#second');
-const cookie = document.cookie;
 const buttonCadastro = document.querySelector('#button-cadastrar');
 const buttonPesquisar = document.querySelector('#buttonPesquisa');
 const buttonEditar = document.querySelector('#buttonEditar');
 const buttonApagar = document.querySelector('#apagarFuncionario');
 
-
-
-buttonLogout.addEventListener('click', () => {
-    fetch('/auth/logout', {
-        method: 'POST',
-    })
-    .then(response => {
-        window.location.href = '/login';
-    })
-    .catch(error => {
-        console.error('Erro ao fazer logout:', error);
-    });
-});
-
-
-// Funções da página -->
-
-function getCookie(name) {
-    const cookie = document.cookie;
-    const separandoCookie = cookie.split('; ');
-    for( let buscando of separandoCookie) {
-        const [cookieNome, cookieValor] = buscando.split('=');
-        if(cookieNome === name) {
-            return decodeURIComponent(cookieValor);
-        }
-    }
-
-    return null
-}
-
-// <-- FIM
-
-// --> Definindo variáveis a serem usadas no front-end;
-const nameUSer = getCookie('name'); 
-const emailUSer = getCookie('email');
-
-nome.innerHTML = nameUSer;
-email.innerHTML = emailUSer;
-
-// <-- FIM 
 
 // Botões de eventos -->
 
@@ -62,10 +18,6 @@ buttonEditar.addEventListener('click', (e) => {
 
   window.location.href = '/funcionarios/editar'
 })
-
-
-
-
 
 
 // realizando requisição --> 
@@ -143,9 +95,10 @@ function filtrar() {
   for (let i = 0; i < tr.length; i++) {
 
     td_nome_fun = tr[i].querySelector('#id_nome_fun').innerHTML;
-
+    console.log(td_nome_fun)
     if (td_nome_fun.toUpperCase().indexOf(filter) > -1) {
       tr[i].style.display = 'table-row'; // Mostra a linha
+      
     }
   }
 }

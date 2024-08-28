@@ -60,13 +60,13 @@
                             </select>
                             </div>
                        
-                        <div><label for="codigo"> Código:</label><input id="codigo" class="quebra-linha" type="number" placeholder="15" required name="codigo" ></div>
+                        <div><label for="codigo"> Código:</label><input id="codigo" class="quebra-linha" type="text" placeholder="15" required name="codigo" ></div>
 
-                        <div><label for="qtd"> Qtd comprada:</label><input id="qtd" class="quebra-linha" type="number" placeholder="2" required name="quantidade"></div>
+                        <div><label for="qtd"> Qtd comprada:</label><input id="qtd" class="quebra-linha" type="text" placeholder="2" required name="quantidade"></div>
 
-                        <div><label for="valor-uni"> Preço unitario:</label><input id="valor-uni" class="quebra-linha" type="number" format="currency" precision="2" placeholder="R$ 5,50" required name="valorUnitario"></div>
+                        <div><label for="valor-uni"> Preço unitario:</label><input id="valor-uni" class="quebra-linha" type="text" placeholder="R$" required name="valorUnitario"></div>
 
-                        <div><label for="valor-total"> Valor da compra:</label><input id="valor-total" class="quebra-linha" type="number"format="currency" precision="2" placeholder="R$ 11" required name="valorTotal"></div>
+                        <div><label for="valor-total"> Valor da compra:</label><input id="valor-total" class="quebra-linha" type="text" placeholder="R$" required name="valorTotal"></div>
 
                         <div><button id="entradaProduto">Salvar entrada</button></div>
                     </form>
@@ -74,5 +74,6 @@
         </article>
     </main>
     <script src="/scripts/03.tbentrada.js"></script>
+    <script src="./../scripts/01.menu.js"></script>
 </body>
 </html>

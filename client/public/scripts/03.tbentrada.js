@@ -1,58 +1,21 @@
 // Realizando a seleção de elementos da página
-const buttonLogout = document.getElementById('buttonLogout');
-const nome = document.querySelector('#first');
-const email = document.querySelector('#second');
-const cookie = document.cookie;
 const buttonEntrada = document.querySelector('#entradaProduto');
 const select = document.querySelector('#produto');
-
-
-
 const input_valor_uni = document.querySelector('#valor-uni')
 const input_valor_total = document.querySelector('#valor-total')
+const inputCod = document.querySelector('#codigo')
+const qtd = document.querySelector('#qtd')
 
-// Funções da página -->
-
-function getCookie(name) {
-    const cookie = document.cookie;
-    const separandoCookie = cookie.split('; ');
-    for( let buscando of separandoCookie) {
-        const [cookieNome, cookieValor] = buscando.split('=');
-        if(cookieNome === name) {
-            return decodeURIComponent(cookieValor);
-        }
-    }
-
-    return null
-}
-
-// --> Definindo variáveis a serem usadas no front-end - Nome e E-mail;
-const nameUSer = getCookie('name'); 
-const emailUSer = getCookie('email');
-
-nome.innerHTML = nameUSer;
-email.innerHTML = emailUSer;
-
-// <-- FIM 
+//Trata os campo input que recebem numeros(preço unitario)
+// input_valor_uni.addEventListener('input', (e) => {
+//   let value = input_valor_uni.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+//   value = value.replace(/(\d{2})$/, '.$1'); // Adiciona a virgula como separador de decimal
+//   value = value.replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1.'); //Adiciona ponto de separador de milhar
+//   input_valor_uni .value = 'R$ ' + value;
+// });
 
 
-// eventos da página -->
-
-// Realiza o logout do sistema
-buttonLogout.addEventListener('click', () => {
-    fetch('/auth/logout', {
-        method: 'POST',
-    })
-    .then(response => {
-        window.location.href = '/login';
-    })
-    .catch(error => {
-        console.error('Erro ao fazer logout:', error);
-    });
-});
-
-// Realizando o cadastro de produtos;
-
+// Realizando o cadastro de entrada de produtos ;
 buttonEntrada.addEventListener('click', (e) => {
   e.preventDefault();
   const form = document.querySelector('#formularioEntrada');
