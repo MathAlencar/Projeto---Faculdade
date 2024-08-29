@@ -32,7 +32,12 @@ button{
 }
 
 .aprovado {
-  color: green;
+  /* color: green; */
+  background-color: rgb(21, 237, 21);
+  width: 2vw;
+  height: 2vh;
+  margin: 10px 15px;
+  border-radius: 50px;
   display: flex;
   align-content: center;
 }
@@ -69,6 +74,13 @@ table {
 table th {
   background-color: #F9F9F9;
 }
+/* table td{
+  height: 7vh;
+}
+table tr{
+  vertical-align: top;
+  height: 40px;
+} */
 
 .linha-par {
   background-color: #F0F9FF;

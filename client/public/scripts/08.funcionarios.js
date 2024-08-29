@@ -6,22 +6,13 @@ const buttonApagar = document.querySelector('#apagarFuncionario');
 
 
 // Botões de eventos -->
-
 buttonCadastro.addEventListener('click', () => {
   e.preventDefault();
-
   window.location.href = '/funcionarios/cadastro'
-})
-
-buttonEditar.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  window.location.href = '/funcionarios/editar'
 })
 
 
 // realizando requisição --> 
-
 fetch('/chamada/funcionarios')
   .then(response => {
     if (!response.ok) {
@@ -34,10 +25,9 @@ fetch('/chamada/funcionarios')
     let funcionarios = data.usuarios; // tratando os dados;
 
     let i = 0;
-    const ul = document.querySelector('#tbody')
+    const ul = document.querySelector('#tabelaProdutos')
 
     funcionarios.forEach((item) => {
-
       let tr = document.createElement('tr');
       
       let  td_nome_fun = document.createElement('td');
@@ -46,6 +36,27 @@ fetch('/chamada/funcionarios')
       td_email.setAttribute('id', 'id_email');
       let  td_telefone = document.createElement('td');
       td_telefone.setAttribute('id', 'td_telefone');
+      
+
+      //Coluna para editar o contato 
+      let  td_edit = document.createElement('td');
+      td_edit.setAttribute('id', 'buttonEditar');
+
+      let link_edit = document.createElement('a');
+      link_edit.setAttribute('href','/funcionarios/editar')
+      link_edit.setAttribute('class','editar');
+
+      let icons_edit = document.createElement('span')
+      icons_edit.setAttribute('class','material-icons-outlined')
+
+      link_edit.appendChild(icons_edit);
+      td_edit.appendChild(link_edit);
+      icons_edit.innerHTML = 'edit';
+
+      //Coluna de status (temos que alinhar, está estático)
+      let td_status = document.createElement('td');
+      td_status.setAttribute('class','aprovado')
+
 
       td_nome_fun.innerHTML = item.nome
       td_email.innerHTML = item.email
@@ -54,6 +65,8 @@ fetch('/chamada/funcionarios')
       tr.appendChild(td_nome_fun)
       tr.appendChild(td_email)
       tr.appendChild(td_telefone)
+      tr.appendChild(td_status)
+      tr.appendChild(td_edit)
 
       if (i % 2 == 0) {
         tr.setAttribute('class', 'linha-par');
@@ -76,32 +89,43 @@ function filtrar() {
   var input,
     ul,
     tr,
-    td_nome_fun ,
-    count = 0;
+    td_nome_fun;
 
   input = document.querySelector('#searchbar');
-  ul = document.querySelector('#tbody');
-
+  ul = document.querySelector('#tabelaProdutos');
   filter = input.value.toUpperCase();
-
   tr = ul.getElementsByTagName("tr");
 
   // Esconde todas as linhas da tabela
-  for (let i = 0; i < tr.length; i++) {
+  for (let i = 1; i < tr.length; i++) {
     tr[i].style.display = 'none'; 
   }
 
   // Mostra as linhas que correspondem à pesquisa
-  for (let i = 0; i < tr.length; i++) {
-
+  for (let i = 1; i < tr.length; i++) {
     td_nome_fun = tr[i].querySelector('#id_nome_fun').innerHTML;
-    console.log(td_nome_fun)
+
     if (td_nome_fun.toUpperCase().indexOf(filter) > -1) {
       tr[i].style.display = 'table-row'; // Mostra a linha
-      
     }
   }
 }
+
+// Verificar o click no lapis de editar
+document.addEventListener('click', (e) =>{
+  const tag = e.target;
+  if(tag.classList.contains('material-icons-outlined')){
+    e.preventDefault();
+    const a = tag.parentElement;
+    const td = a.parentElement;
+    const tr = td.parentElement; // Obtem a linha da tabela
+    const nome = tr.querySelector('#id_nome_fun').textContent; // Obtem o nome do funcionario
+    const email = tr.querySelector('#id_email').textContent; // Obtem o email do funcionario
+    const contato = tr.querySelector('#td_telefone').textContent; // Obtem o telefone do funcionario
+    sessionStorage.setItem('editData', JSON.stringify({ nome, email,contato })); // Salva temporiamente essas informações
+    window.location.href = '/funcionarios/editar'
+  }
+})
 
 
 

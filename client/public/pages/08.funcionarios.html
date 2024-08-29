@@ -64,24 +64,27 @@
         </div>
         <hr><!--LINHA --></hr>
 
-        <form class="form" action="/chamada/especifica" method="GET">
-
+        <!-- <form class="form" action="/chamada/especifica" method="GET"> -->
+          <div>
           <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar produto" onkeyup="filtrar()">
-
-          <button  id="buttonEditar"> EDITAR </button> 
+        </div>
+          <!-- <button  id="buttonEditar"> EDITAR </button>  -->
     
-        </form>
+        <!-- </form> -->
 
         <div class="content-table">
           <table>
-            <thead>
+            <thead id="tabelaProdutos">
+              <tr>
               <th>Nome</th>
               <th>E-mail</th>
               <th>CONTATO</th>
               <th>STATUS</th>
+              <th></th>
+              </tr>
             </thead>
-            <tbody id="tbody">
-            </tbody>
+
+            <tbody id="tbody"></tbody>
           </table>
         </div>
       </section>

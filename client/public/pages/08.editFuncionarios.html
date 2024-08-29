@@ -58,9 +58,9 @@
             
                     <form class="form" id="formulario">
                         
-                        <div><label for="name"> Nome:</label><input id="nome_edit" class="quebra-linha" type="text" placeholder="digite" name="nome_user" required></div>
+                        <div><label for="name"> Nome:</label><input id="nome_edit" class="quebra-linha" type="text" placeholder="digite" name="nome_user" disabled></div>
                        
-                        <div><label for="lastname"> Sobrenome:</label><input id="lastname_edit" class="quebra-linha" type="text" placeholder="digite" name="sobrenome_user" required></div>
+                        <div><label for="lastname"> Sobrenome:</label><input id="lastname_edit" class="quebra-linha" type="text" placeholder="digite" name="sobrenome_user" disabled></div>
 
                         <div><label for="email"> E-mail:</label><input id="email_edit" class="quebra-linha" type="email" placeholder="xxxx@xxxx.com" name="email_user" required></div>
 
@@ -68,10 +68,8 @@
                                                
                         <div class="check"><label for="status_ativo"> Ativo: </label>
                         <input id="status_ativo" class="quebra-linha" type="checkbox" name="ativo"></div>
-                        <div></div>
-                        <div><label for="status_desativado">desativado: </label>
+                        <div class="check"><label for="status_desativado"> Desativo: </label>
                         <input id="status_desativado" class="quebra-linha" type="checkbox" name="desativo"></div>
-                        <div></div>
 
                         <div><button id="button_atualizar">Salvar</button></div>
                         <div><button class="apagar" id="apagarFuncionario">Apagar funcionário</button></div>
@@ -80,6 +78,7 @@
             </article>
     </main>
     <script src="/scripts/08.editfuncionarios.js"></script>
+    <!-- <script src="./../scripts/08.funcionarios.js"></script> -->
     <script src="./../scripts/01.menu.js"></script>
 </body>
 </html>

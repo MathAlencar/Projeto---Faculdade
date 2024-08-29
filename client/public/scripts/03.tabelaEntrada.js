@@ -12,7 +12,7 @@ fetch('/entradas/produtos')
   let entrada_produtos = data.entradas
 
   let i = 0;
-  const ul = document.querySelector('#tbody')
+  const ul = document.querySelector('#tabelaProdutos')
 
   entrada_produtos.forEach((item) => {
 
@@ -75,34 +75,26 @@ function atribuirValorTotal(listaProdutos) {
   }
 }
 
-
 function filtrar() {
   var input,
     ul,
     tr,
-    td_id_produto,
-    td_nome_produto,
-    td_data_produto,
-    td_preco_total_produto,
-    td_preco_unit_produto,
-    td_qtd_comp_prod,
-    count = 0;
+    td_nome_produto;
 
   input = document.querySelector('#searchbar');
-  ul = document.querySelector('#tbody');
+  ul = document.querySelector('#tabelaProdutos');
 
   filter = input.value.toUpperCase();
-
+  console.log('estou aqui')
   tr = ul.getElementsByTagName("tr");
 
   // Esconde todas as linhas da tabela
-  for (let i = 0; i < tr.length; i++) {
+  for (let i = 1; i < tr.length; i++) {
     tr[i].style.display = 'none'; 
   }
 
   // Mostra as linhas que correspondem à pesquisa
-  for (let i = 0; i < tr.length; i++) {
-
+  for (let i = 1; i < tr.length; i++) {
     td_nome_produto = tr[i].querySelector('#id_nome_prod').innerHTML;
 
     if (td_nome_produto.toUpperCase().indexOf(filter) > -1) {
