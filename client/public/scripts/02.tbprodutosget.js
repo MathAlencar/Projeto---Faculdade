@@ -30,10 +30,26 @@ fetch('/chamada/produto')
         td_quantidade.innerText = item.qtd_TotProduto;
         td_preco.innerText = `R$ ${item.vlr_Unit}`;
 
+        //Coluna para editar o contato 
+        let  td_edit = document.createElement('td');
+        td_edit.setAttribute('id', 'buttonEditar');
+  
+        let link_edit = document.createElement('a');
+        link_edit.setAttribute('href','/tabela/produto/editar')
+        link_edit.setAttribute('class','editar');
+  
+        let icons_edit = document.createElement('span')
+        icons_edit.setAttribute('class','material-icons-outlined')
+  
+        link_edit.appendChild(icons_edit);
+        td_edit.appendChild(link_edit);
+        icons_edit.innerHTML = 'edit';
+
         tr.appendChild(td_id);
         tr.appendChild(td_nome);
         tr.appendChild(td_quantidade);
         tr.appendChild(td_preco);
+        tr.appendChild(td_edit);
 
         if (i % 2 == 0) {
           tr.setAttribute('class', 'linha-par');
@@ -87,3 +103,19 @@ fetch('/chamada/produto')
       }
     }
   }
+
+  document.addEventListener('click', (e) =>{
+    const tag = e.target;
+    console.log(tag)
+    if(tag.classList.contains('material-icons-outlined')){
+      e.preventDefault();
+      const a = tag.parentElement;
+      const td = a.parentElement;
+      const tr = td.parentElement; // Obtem a linha da tabela
+      const codigo = tr.querySelector('#id_prod').textContent; // Obtem o nome do funcionario
+      const produto = tr.querySelector('#id_nome').textContent; // Obtem o email do funcionario
+      const valor = tr.querySelector('#id_preco').textContent; // Obtem o telefone do funcionario
+      sessionStorage.setItem('editData', JSON.stringify({ codigo, produto,valor })); // Salva temporiamente essas informações
+      window.location.href = '/tabela/produto/editar'
+    }
+  })

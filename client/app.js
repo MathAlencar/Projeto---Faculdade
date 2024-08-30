@@ -3,8 +3,6 @@ const path = require('path');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
-const login = require('../client/middlware/login')
-
 
 dotenv.config({ path: './.env' })
 
@@ -20,13 +18,16 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended: false})); // envia os dados para o seu server
 app.use(express.json()); // transforma os dados enviados em Json;
 
-// const rotaPages = require('./routes/pages');
+// Definição das rotas
 const rotaAuth= require('./routes/auth');
-const rotaReqGeral = require('./routes/requisicoes')
+const rotaReqGeral = require('./routes/requisicoes');
+const rotasPaginas = require('./routes/paginas');
 
 app.use('/', rotaAuth);
 app.use('/', rotaReqGeral);
+app.use('/', rotasPaginas);
 
+// Conexão com o banco
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -42,73 +43,6 @@ db.connect( (err) => {
         console.log("Mysql connected...")
     }
 })
-
-/* Páginas */
-
-
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/00.login.html'));
-})
-
-app.get('/menu', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/01.menu.html'));
-})
-
-app.get('/tabela/produto', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/02.tabelasProdutos.html'));
-})
-
-app.get('/tabela/produto/cadastrar', login.login,  (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/02.cadastrarProdutos.html'));
-});
-
-app.get('/entrada', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/03.entrada.html'));
-})
-
-app.get('/entrada/pedido', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/03.entradaPedido.html'));
-})
-
-app.get('/saida', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/04.saida.html'));
-})
-
-app.get('/caixa', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/05.caixa.html'));
-})
-
-app.get('/pedidos', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/06.pedidosRealizados.html'));
-})
-
-app.get('/dashboard', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/07.dashboard.html'));
-})
-
-app.get('/funcionarios', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/08.funcionarios.html'));
-})
-
-app.get('/funcionarios/cadastro', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/08.cadastrarFuncionarios.html'));
-})
-
-app.get('/funcionarios/editar', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/08.editFuncionarios.html'));
-})
-
-app.get('/login/usuario', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/1000.loginUser.html'));
-})
-
-app.get('/home', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pages/1001.mobile.menu.html'));
-})
-
-
-/* FIM */
-
 
 app.listen(5000, () => {
     console.log("Server startd on 5000");

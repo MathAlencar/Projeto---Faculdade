@@ -1,124 +1,106 @@
-// Realizando a seleção de elementos da página
 const buttonEntrada = document.querySelector('#entradaProduto');
-const select = document.querySelector('#produto');
-const input_valor_uni = document.querySelector('#valor-uni')
-const input_valor_total = document.querySelector('#valor-total')
-const inputCod = document.querySelector('#codigo')
-const qtd = document.querySelector('#qtd')
 
-//Trata os campo input que recebem numeros(preço unitario)
-// input_valor_uni.addEventListener('input', (e) => {
-//   let value = input_valor_uni.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
-//   value = value.replace(/(\d{2})$/, '.$1'); // Adiciona a virgula como separador de decimal
-//   value = value.replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1.'); //Adiciona ponto de separador de milhar
-//   input_valor_uni .value = 'R$ ' + value;
-// });
-
-
-// Realizando o cadastro de entrada de produtos ;
-buttonEntrada.addEventListener('click', (e) => {
-  e.preventDefault();
-  const form = document.querySelector('#formularioEntrada');
-  const formatandoDados = new FormData(form);
-
-  const dados = {
-    codigo: formatandoDados.get('codigo'),
-    quantidade: formatandoDados.get('quantidade'),
-    valorUnitario: formatandoDados.get('valorUnitario'),
-    valorTotal: formatandoDados.get('valorTotal'),
-    tipoProduto: formatandoDados.get('tipoProduto')
-  }
-
-  fetch('/entrada/produto', {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dados)
-  })
-  .then (response => {
-    if(!response.ok) {
-      throw new Error('Erro ao enviar dados')
-    }
-
-    return response.json();
-  })
-  .then(data => {
-    console.log("Sucesso:", data);
-  })
-  .catch(error => {
-    console.error('Erro:', error);
-  });
-
-})
-
-function buscandoProduto(){
-
-  const form = document.querySelector('#formularioEntrada');
-  const formatandoDados = new FormData(form);
-
-  const dados = {
-    tipoProduto: formatandoDados.get('tipoProduto')
-  }
-
-  console.log(dados)
-
-  // fetch('/chamada/produto/especifico', {
-  //   method: "POST",
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(dados)
-  // })
-  // .then (response => {
-  //   if(!response.ok) {
-  //     throw new Error('Erro ao enviar dados')
-  //   }
-
-  //   return response.json();
-  // })
-  // .then(data => {
-  //   console.log("Sucesso:", data);
-  // })
-  // .catch(error => {
-  //   console.error('Erro:', error);
-  // });
-
-}
-
-
-
- // Responsável por enviar os dados ao front-end, para assim realizar a construção dos itens selecionáveis na lista suspensa.
-
-fetch('/chamada/produto')
+fetch('/entradas/produtos')
 .then(response => {
-  if (!response.ok) {
+  if(!response.ok) {
     throw new Error('Erro ao buscar os dados');
   }
   return response.json();
 })
 .then(data => {
-  
-  construindoSelect(data.produtos);
+
+  let entrada_produtos = data.entradas
+
+  let i = 0;
+  const ul = document.querySelector('#tabelaProdutos')
+
+  entrada_produtos.forEach((item) => {
+
+    let tr = document.createElement('tr');
+
+    let  td_id_produto = document.createElement('td');
+    td_id_produto.setAttribute('id', 'id_prod');
+    let  td_nome_produto = document.createElement('td');
+    td_nome_produto.setAttribute('id', 'id_nome_prod');
+    let  td_data_produto = document.createElement('td');
+    td_data_produto.setAttribute('id', 'id_data_prod');
+    let  td_preco_total_produto = document.createElement('td');
+    td_preco_total_produto.setAttribute('id', 'id_preco_total_prod');
+    let  td_preco_unit_produto = document.createElement('td');
+    td_preco_unit_produto.setAttribute('id', 'id_preco_unit_prod');
+    let  td_qtd_comp_prod = document.createElement('td');
+    td_qtd_comp_prod.setAttribute('id', 'id_qtd_comp_prod');
+   
+    // tranformando a data em valor válido.
+    let transformando_data = new Date(item.data_entrada).toLocaleDateString()
+    
+
+    td_id_produto.innerHTML = item.id
+    td_nome_produto.innerHTML = item.nome_produto
+    td_data_produto.innerHTML = transformando_data
+    td_preco_total_produto.innerHTML =  `R$ ${item.preco_total}`
+    td_preco_unit_produto.innerHTML = `R$ ${item.preco_unitario}`
+    td_qtd_comp_prod.innerHTML = item.qtd_comprada
+
+    tr.appendChild(td_id_produto)
+    tr.appendChild(td_nome_produto)
+    tr.appendChild(td_data_produto)
+    tr.appendChild(td_qtd_comp_prod)
+    tr.appendChild(td_preco_unit_produto)
+    tr.appendChild(td_preco_total_produto)
+
+      if (i % 2 == 0) {
+        tr.setAttribute('class', 'linha-par');
+      } else {
+        tr.setAttribute('class', 'linha-impar');
+      }
+
+      ul.appendChild(tr);
+      i++
+  })
+
 
 })
 .catch(error => {
-  console.error('Erro:', error);  
+  console.error("Erro:", error);
 });
 
 // <-- FIM
 
-// Construindo select
+// <-- FIM 
 
-function construindoSelect(data){
-  const select = document.querySelector('#produto');
+function atribuirValorTotal(listaProdutos) {
+  for (let i = 0; i < listaProdutos.length; i++) {
+    listaProdutos[i].valorTotal = (listaProdutos[i].quantidade * listaProdutos[i].preco);
+  }
+}
 
-  for(let i=0; i<data.length; i++){
-    let option = document.createElement('option');
-    option.setAttribute("value", data[i].nome_Prd);
-    option.innerHTML = data[i].nome_Prd;
+function filtrar() {
+  var input,
+    ul,
+    tr,
+    td_nome_produto;
 
-    select.appendChild(option);
+  input = document.querySelector('#searchbar');
+  ul = document.querySelector('#tabelaProdutos');
+
+  filter = input.value.toUpperCase();
+  console.log('estou aqui')
+  tr = ul.getElementsByTagName("tr");
+
+  // Esconde todas as linhas da tabela
+  for (let i = 1; i < tr.length; i++) {
+    tr[i].style.display = 'none'; 
   }
 
+  // Mostra as linhas que correspondem à pesquisa
+  for (let i = 1; i < tr.length; i++) {
+    td_nome_produto = tr[i].querySelector('#id_nome_prod').innerHTML;
+
+    if (td_nome_produto.toUpperCase().indexOf(filter) > -1) {
+      tr[i].style.display = 'table-row'; // Mostra a linha
+    }
+  }
 }
+
+

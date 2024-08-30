@@ -1,11 +1,17 @@
-
+// Selecionando form
 const buttonCadastro = document.querySelector('#cadastroFuncionario');
-
+const nomeInput = document.querySelector('#name');
+const sobrenomeInput = document.querySelector('lastname');
+const emailInput = document.querySelector('email');
+const telInput = document.querySelector('number');
+const senhaInput = document.querySelector('password');
+const nsenhaInput = document.querySelector('checkPassword');
 
 buttonCadastro.addEventListener('click', (e) => {
     e.preventDefault();
 
     const form = document.querySelector('#formularioFuncionario');
+    console.log(form);
     const formatandoDados = new FormData(form);
 
     const dados = {
@@ -16,6 +22,7 @@ buttonCadastro.addEventListener('click', (e) => {
         senha: formatandoDados.get('senha'),
         confirmarSenha: formatandoDados.get('confirmarSenha')
     }
+    console.log(dados);
 
     fetch('/funcionarios/cadastro', {
         method: "POST",
@@ -32,16 +39,46 @@ buttonCadastro.addEventListener('click', (e) => {
         return response.json();
     })
     .then(data => {
-        alert(data.message)
-        if(data.status == 'sucesso!') window.location.href = '/funcionarios';
-        else {
-            window.location.href = '/funcionarios/cadastro';
-        }
+        popup(data.message);
     })
     .catch(error => {
         console.log(error);
     })
-} )
+})
+
+function popup(mensagem){
+    const popUp = document.querySelector('#popup');
+    popUp.style.display = 'flex'; // Torna o popup visivel
+  
+    //Seleciona os itens do popup
+    const btnClose = document.querySelector('.close-btn');
+    const btnBack = document.querySelector('.back-btn');
+    const icon = document.querySelector('.icon');
+    const message = document.querySelector('.message');
+    message.innerHTML = mensagem; // Exibe mensagem de retorno
+  
+    
+    if(mensagem == 'Funcionário cadastrado com sucesso!'){
+      icon.innerHTML = 'task_alt';
+      btnBack.style.display = '';
+    }else{
+      icon.innerHTML = 'cancel';
+      btnBack.style.display = 'none';
+      nomeInput.value = '';
+      emailInput.value = '';
+      telInput.value = '';
+      senhaInput.value = '';
+      nsenhaInput.value = '';
+    }
+  
+    btnClose.addEventListener('click', (e) =>{
+      popUp.style.display = 'none';
+    })
+    btnBack.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = '/funcionarios'
+    })
+  }
 
 
 

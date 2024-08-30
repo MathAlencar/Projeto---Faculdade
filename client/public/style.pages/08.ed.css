@@ -103,3 +103,22 @@ input#valor-uni{
     width: 3vh;
     height: 3vh;
 }
+.message{
+    font-size: 16px;
+    color: #000000;
+}
+#popup2 .popup-content{
+    background-color: #E8E8E8;
+}
+.cancelar, .apagar-btn{
+    color: #060101;
+    background-color: #FFFFFF;
+}
+.cancelar{
+    border-top: 0.5px solid var(--background-color-);
+    border-radius: 0px 0px 10px 10px;
+}
+.apagar-btn{
+    border-bottom: 0.5px solid var(--background-color-);
+    border-radius: 10px 10px 0px 0px;
+}

@@ -10,22 +10,22 @@ exports.entradaProduto = (req, res, next) => {
     const {codigo, quantidade, valorUnitario, valorTotal, tipoProduto} = req.body;
 
     mysql.getConnection((err, conn) => {
-        if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaPedido.html'),  {menssage: "Erro ao conectar com o banco de dados"});
+        if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'),  {menssage: "Erro ao conectar com o banco de dados"});
 
         const query = `SELECT * FROM tbl_produto WHERE cod_Prd = ?;`;
 
         conn.query(query, [codigo], (err, result) => {
             conn.release();
-            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaPedido.html'),  {menssage: "Erro na requisição SQL"});
+            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'),  {menssage: "Erro na requisição SQL"});
 
-            if(result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaPedido.html'),  {menssage: "Produto não localizado"});
+            if(result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'),  {menssage: "Produto não localizado"});
 
             mysql.getConnection((err, conn) => {
                 const query2 = `INSERT INTO tbl_entrada2 (codigo_produto, nome_produto , preco_total, preco_unitario, qtd_comprada, data_entrada) VALUES (?,?,?,?,?,?);`
                 let somando = valorUnitario * quantidade;
                 conn.query(query2, [codigo, tipoProduto, somando, valorUnitario, quantidade, data], (err, result) => {
                     conn.release();
-                    if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaPedido.html'), console.log("Erro ao enviar dados do produto"));
+                    if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'), console.log("Erro ao enviar dados do produto"));
 
                     mysql.getConnection((err, conn) => {
                         const query3 = `UPDATE tbl_produto
@@ -34,9 +34,9 @@ exports.entradaProduto = (req, res, next) => {
 
                         conn.query(query3, [quantidade, valorUnitario, codigo], (err, result) => {
                             conn.release();
-                            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaPedido.html'), console.log("erro ao atualizar quantidade"));
+                            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'), console.log("erro ao atualizar quantidade"));
 
-                            return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaPedido.html'), console.log('tudo certo papai'));
+                            return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'), console.log('tudo certo papai'));
                         })
                     })
                 })

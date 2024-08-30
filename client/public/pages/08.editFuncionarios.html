@@ -43,7 +43,7 @@
                     <button>
                         <span class="material-icons" id="iconOne">settings</span>
                     </button>
-                    <button>
+                    <button id="buttonLogout">
                         <span class="material-icons" id="iconTwo">logout</span>
                     </button>
                 </div>
@@ -73,6 +73,23 @@
 
                         <div><button id="button_atualizar">Salvar</button></div>
                         <div><button class="apagar" id="apagarFuncionario">Apagar funcionário</button></div>
+
+                        <div id="popup" class="popup">
+                          <div class="popup-content">
+                              <span class="material-icons-outlined close-btn">close</span>
+                              <span class="material-icons-outlined icon"></span>
+                              <p class="message"></p>
+                              <button class="back-btn">Voltar para tabela de funcionarios</button>
+                          </div>
+                      </div>
+
+                      <div id="popup2" class="popup">
+                        <div class="popup-content">
+                            <p class="message">Tem certeza que deseja apagar esse funcionário para sempre?</p>
+                            <button class="apagar-btn">apagar</button>
+                            <button class="cancelar">cancelar</button>
+                        </div>
+                    </div>
                     </form>
                 </section>
             </article>

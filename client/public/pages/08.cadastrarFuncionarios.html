@@ -60,13 +60,22 @@
 
                         <div><label for="email"> E-mail:</label><input id="email" class="quebra-linha" type="email" placeholder="xxxx@xxxx.com" name="email" required></div>
 
-                        <div><label for="number"> Contato:</label><input id="number" class="quebra-linha" type="tel" placeholder="(xx)xxxx-xxxx" name="number"></div>
+                        <div><label for="number"> Contato:</label><input id="number" class="quebra-linha" type="tel" placeholder="(xx)xxxx-xxxx" name="number" required></div>
                         
-                        <div><label for="password"> Senha:</label><input id="password" class="quebra-linha" type="password" placeholder="crie uma senha" name="senha"></div>
+                        <div><label for="password"> Senha:</label><input id="password" class="quebra-linha" type="password" placeholder="crie uma senha" name="senha" required></div>
                        
-                        <div><label for="checkPassword">Senha:</label><input id="checkPassword" class="quebra-linha" type="password" placeholder="confirme a senha" name="confirmarSenha"></div>
+                        <div><label for="checkPassword">Senha:</label><input id="checkPassword" class="quebra-linha" type="password" placeholder="confirme a senha" name="confirmarSenha" required></div>
 
                         <div><button id="cadastroFuncionario"> Cadastar funcionário</button></div>
+
+                        <div id="popup" class="popup">
+                            <div class="popup-content">
+                                <span class="material-icons-outlined close-btn">close</span>
+                                <span class="material-icons-outlined icon"></span>
+                                <p class="message"></p>
+                                <button class="back-btn">Voltar para "ver funcionarios"</button>
+                            </div>
+                        </div>
                     </form>
 
                 </section>

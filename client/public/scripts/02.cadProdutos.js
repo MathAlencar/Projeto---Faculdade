@@ -41,15 +41,10 @@ buttonCadastro.addEventListener('click', (e) => {
         if(!response.ok) {
           throw new Error('Erro no envio de dados')
         }
-
         return response.json();
       })
       .then(data => {
-          prod_nome.value = '';
-          prod_codigo.value = '';
-          prod_valor.value = '';
-          
-          alert(data.message) 
+          popup(data.message);
       })
       .catch(error => {
         console.log(error);
@@ -57,7 +52,37 @@ buttonCadastro.addEventListener('click', (e) => {
 })
 
 // <-- FIM
+function popup(mensagem){
+  const popUp = document.querySelector('#popup');
+  popUp.style.display = 'flex'; // Torna o popup visivel
 
+  //Seleciona os itens do popup
+  const btnClose = document.querySelector('.close-btn');
+  const btnBack = document.querySelector('.back-btn');
+  const icon = document.querySelector('.icon');
+  const message = document.querySelector('.message');
+  message.innerHTML = mensagem; // Exibe mensagem de retorno
+
+  
+  if(mensagem == 'Produto cadastrado com sucesso'){
+    icon.innerHTML = 'task_alt';
+    btnBack.style.display = '';
+  }else{
+    icon.innerHTML = 'cancel';
+    btnBack.style.display = 'none';
+    prod_nome.value = '';
+    prod_codigo.value = '';
+    prod_valor.value = '';
+  }
+
+  btnClose.addEventListener('click', (e) =>{
+    popUp.style.display = 'none';
+  })
+  btnBack.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = '/tabela/produto'
+  })
+}
 
 
 
