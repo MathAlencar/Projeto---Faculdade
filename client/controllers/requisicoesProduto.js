@@ -1,10 +1,10 @@
 const express = require('express'); // Chamando a biblioteca express
-const router = express.Router(); // Exportando para fora;
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const path = require('path');
 
+const publicDirectory = path.join(__dirname, './public');
 
-router.post('/cadastrando/produto', (req, res, next) => {
+exports.cadastrandoProduto = (req, res, next) => {
 
     const { nome, codigo, valor } = req.body;
 
@@ -47,9 +47,9 @@ router.post('/cadastrando/produto', (req, res, next) => {
 
         })
     })
-})
+}
 
-router.delete('/deletando/produto', (req, res, next) => {
+exports.deletandoProduto = (req, res, next) => {
 
     const { nome, codigo, valor } = req.body;
     console.log(nome, codigo, valor);
@@ -89,9 +89,9 @@ router.delete('/deletando/produto', (req, res, next) => {
         
     })
 
-})
+}
 
-router.get('/chamada/produto', (req, res, next) => {
+exports.chamandoProduto = (req, res, next) => {
 
     mysql.getConnection((err, conn) => {
         if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
@@ -119,9 +119,9 @@ router.get('/chamada/produto', (req, res, next) => {
             return res.json(response);
         })
     })
-})
+}
 
-router.get('/chamada/produto/especifico', (req, res, next) => {
+exports.chamandoProdutoEspec = (req, res, next) => {
 
     const tipoProduto = req.body
 
@@ -129,7 +129,4 @@ router.get('/chamada/produto/especifico', (req, res, next) => {
 
     return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
    
-})
-
-
-module.exports = router
+}

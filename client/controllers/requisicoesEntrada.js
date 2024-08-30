@@ -1,11 +1,12 @@
 const express = require('express'); // Chamando a biblioteca express
+const { get } = require('http');
 const router = express.Router(); // Exportando para fora;
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const data = new Date().toISOString().slice(0, 10); // PEgando a data no formatado desejado para o banco;
 const path = require('path');
 
 
-router.post('/entrada/produto', (req, res, next) => {
+exports.entradaProduto = (req, res, next) => {
     const {codigo, quantidade, valorUnitario, valorTotal, tipoProduto} = req.body;
 
     mysql.getConnection((err, conn) => {
@@ -42,9 +43,10 @@ router.post('/entrada/produto', (req, res, next) => {
             })
         })
     })
-})
+}
 
-router.get('/entradas/produtos', (req, res, next) => {
+
+exports.entradasProdutos = (req, res, next) => {
     
     mysql.getConnection((err, conn) => {
         if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entrada.html'),  console.log("Erro ao conectar com o banco de dados"));
@@ -73,7 +75,4 @@ router.get('/entradas/produtos', (req, res, next) => {
 
         })
     })
-})
-
-
-module.exports = router
+}

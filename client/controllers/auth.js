@@ -19,10 +19,10 @@ exports.register = (req, res) => {
         }
 
         // // Aqui ele me retorna um "result" com os dados do usuário, e com eles eu verifico se já tem um e-mail cadastrado idêntico ao que o usuário informou;
-        if (result.length > 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.cadastrarFuncionarios.html'), { message: "Este e-mail já está cadastrado" });
+        if (result.length > 0) return res.json({message: "Este e-mail já está cadastrado!", status: "default"});
 
         // Verificando se ambas as senhas são iguais;
-        else if (senha !== confirmarSenha) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.cadastrarFuncionarios.html'), { message: "As senhas não coincidem" });
+        else if (senha !== confirmarSenha) return res.json({message: "Ambas as senhas não coindicem", status: "default"});
 
         let hashPassword = await bcrypt.hash(senha, 8); // Aqui uso a biblioteca bcrypt, para criptografar a senha informada;
 
@@ -32,7 +32,7 @@ exports.register = (req, res) => {
                 console.log(err);
             } else {
                 console.log(results);
-                return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.cadastrarFuncionarios.html'), { message: "Usuario registrado!" });
+                return res.json({message: "Funcionário cadastrado com sucesso!", status: "sucesso!"});
             }
         });
     });

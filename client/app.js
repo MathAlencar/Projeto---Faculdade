@@ -20,16 +20,12 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended: false})); // envia os dados para o seu server
 app.use(express.json()); // transforma os dados enviados em Json;
 
-const rotaPages = require('./routes/pages');
+// const rotaPages = require('./routes/pages');
 const rotaAuth= require('./routes/auth');
-const rotasReq = require('./routes/requisicoes');
-const rotasReqProd = require('./routes/requesicoesProdutos');
-const rotasEntrada = require('./routes/requisicoesEntradas');
+const rotaReqGeral = require('./routes/requisicoes')
 
 app.use('/', rotaAuth);
-app.use('/', rotasReq);
-app.use('/', rotasReqProd);
-app.use('/', rotasEntrada);
+app.use('/', rotaReqGeral);
 
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,

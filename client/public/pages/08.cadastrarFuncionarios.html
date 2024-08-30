@@ -52,7 +52,7 @@
                     <div><h1><span class="material-icons">reply_all</span> Cadastrar funcionários</h1><hr></hr></div>
                     <div><h2>Dados do funcionário</h2></div>
             
-                    <form class="form" action="/funcionarios/cadastro" method="POST">
+                    <form class="form" id="formularioFuncionario" action="/funcionarios/cadastro" method="POST">
                         
                         <div><label for="name" > Nome:</label><input id="name" class="quebra-linha" type="text" placeholder="digite" name="nome" required></div>
                        
@@ -66,13 +66,13 @@
                        
                         <div><label for="checkPassword">Senha:</label><input id="checkPassword" class="quebra-linha" type="password" placeholder="confirme a senha" name="confirmarSenha"></div>
 
-                        <div><button>Cadastar funcionário</button></div>
+                        <div><button id="cadastroFuncionario"> Cadastar funcionário</button></div>
                     </form>
 
                 </section>
             </article>
     </main>
-    <!-- <script src="/scripts/08.funcionarios.js"></script> -->
+    <script src="/scripts/08.cadastroFuncionario.js"></script>
     <script src="./../scripts/01.menu.js"></script>
 </body>
 </html>

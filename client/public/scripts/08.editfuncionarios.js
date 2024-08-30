@@ -24,8 +24,6 @@ buttonApagar.addEventListener('click', (e) => {
     e.preventDefault();
     const email = document.getElementById('email_edit').value;
 
-    alert('usuário excluido!')
-  
     fetch(`/delete?email_user=${encodeURIComponent(email)}`, {
         method: 'DELETE'
     })
@@ -36,16 +34,20 @@ buttonApagar.addEventListener('click', (e) => {
         return response.json();
     })
     .then(data => {
-        console.log('Usuário excluído com sucesso:', data.message);
+        alert(data.message);
+        if(data.status == "sucesso!") window.location.href = '/funcionarios';
+        else {
+            window.location.href = '/funcionarios/editar';
+        }
     })
     .catch(error => {
-        console.error('Erro ao excluir o usuário:', error);
+        alert('Erro ao excluir o usuário!');
     });
-
 
   })
 
 // Essa função ou evento realiza a atualização dos dados do usuário, porém ainda iremos entrar em validação de como ela irá funcionar corretamente.
+
 button_atualizar.addEventListener('click', (e) => {
     e.preventDefault();
     const form = document.querySelector('#formulario');

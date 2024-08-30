@@ -1,139 +1,26 @@
-const express = require('express'); // Chamando a biblioteca express
-const router = express.Router(); // Exportando para fora;
-const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
-const path = require('path');
+const express = require('express');
+const produtosAPI = require('../controllers/requisicoesProduto');
+const funcionariosAPI = require('../controllers/requisicoesFuncionario');
+const entradasAPI = require('../controllers/requisicoesEntrada')
+const router = express.Router();
 
-router.get('/chamada/funcionarios', (req, res, next) => {
+// Chamando API referente aos produtos / cadastro / chamada.
 
-    mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'));
+router.post('/cadastrando/produto', produtosAPI.cadastrandoProduto);
+router.delete('/deletando/produto', produtosAPI.deletandoProduto);
+router.get('/chamada/produto', produtosAPI.chamandoProduto);
+router.get('/chamada/produto/especifico', produtosAPI.chamandoProdutoEspec);
 
-        const query = `SELECT * FROM tbl_User;`;
+// Chamando API referente a funcionarios
 
-        conn.query(query, (err, result) => {
-            conn.release();
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
+router.get('/chamada/funcionarios', funcionariosAPI.chamandoFuncionarios);
+router.get('/chamada/especifica', funcionariosAPI.chamadaFuncionarioEspec);
+router.delete('/delete', funcionariosAPI.deletandoUser);
+router.post('/atualizando', funcionariosAPI.atualizandoUser);
 
-            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("não tem nada aqui"));
+// Chamada API referente as entradas.
 
-            const response = {
-                quantidade: result.length,
-                usuarios: result.map(user => {
-                    return {
-                        user: user.id_User,
-                        nome: user.nome,
-                        email: user.email_Login,
-                        telefone: user.telefone,
-                    }
-                })
-            }
+router.post('/entrada/produto', entradasAPI.entradaProduto);
+router.get('/entradas/produtos', entradasAPI.entradasProdutos);
 
-            return res.json(response);
-        })
-    })
-})
-
-router.get('/chamada/especifica', (req, res, next) => {
-
-    const email = req.query.buscaFuncionario; // Corrigindo para req.query.buscaFuncionario
-
-    mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'));
-
-        const query = `SELECT * FROM tbl_User WHERE email_Login = ?`
-
-            conn.query(query, [email], (err, results) => {
-                conn.release();
-                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
-
-                const response = {
-                    quantidade: results.length,
-                    usuarios: results.map(user => {
-                        return {
-                            user: user.id_User,
-                            nome: user.nome,
-                            email: user.email_Login,
-                            telefone: user.telefone,
-                        }
-                    })
-                }
-
-                return res.json(response);
-            })
-    })
-})
-
-
-router.delete('/delete', (req, res, next) => {
-
-    const email = req.query.email_user;
-
-    mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'));
-
-        const query = `DELETE from tbl_User WHERE email_Login = ?`
-
-            conn.query(query, [email], (err, result) => {
-                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'));
-
-                if (result.affectedRows == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), console.log('usuário não encontrado'));
-
-                res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), console.log('Usuário excluido'));
-            })        
-    })
-})
-
-router.patch('/atualizando', (req, res, next) => {
-    const { nome, sobrenome, email, telefone, valor_status } = req.body;
-
-    console.log(valor_status);
-
-    let query;
-    let body;
-
-    if (nome, telefone) {
-        query = `
-            UPDATE tbl_User
-            SET nome = ?, telefone = ?
-            WHERE email_Login = ?;
-        `
-        body = [nome + ' ' + sobrenome, telefone, email];
-    }
-
-    if (nome, !telefone) {
-        query = `
-            UPDATE tbl_User
-            SET nome = ?
-            WHERE email_Login = ?;
-        `
-        body = [nome + ' ' + sobrenome, email];
-    }
-
-    if (telefone, !nome) {
-        query = `
-            UPDATE tbl_User
-            SET telefone = ?
-            WHERE email_Login = ?;
-        `
-        body = [telefone, email];
-    }
-
-    mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Erro ao conectar com o banco de dados" });
-
-        conn.query(query, body, (err, results) => {
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Erro ao realizar atualização" });
-
-            if (results.affectedRows == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Nenhum funcionário foi encontrado" });
-
-            return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Usuário atualizado com sucesso!" });
-        })
-
-    })
-
-    res.json({ message: 'Dados atualizados com sucesso' });
-})
-
-
-
-module.exports = router
+module.exports = router;
