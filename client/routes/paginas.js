@@ -38,6 +38,9 @@ router.get('/saida', login.login, (req, res) => {
 router.get('/caixa', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'pages/05.caixa.html'));
 })
+router.get('/caixa/compra', login.login, (req, res) => {
+    res.sendFile(path.join(__dirname,'./../', 'public', 'pages/05.finalizarCaixa.html'));
+})
 
 router.get('/pedidos', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'pages/06.pedidosRealizados.html'));

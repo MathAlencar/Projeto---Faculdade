@@ -21,9 +21,6 @@ fetch('/chamada/funcionarios')
     return response.json();
   })
   .then(data => {
-
-    console.log(data.usuarios);
-
     let funcionarios = data.usuarios; // tratando os dados;
 
     let i = 0;
@@ -56,6 +53,7 @@ fetch('/chamada/funcionarios')
       icons_edit.innerHTML = 'edit';
 
       let td_status = document.createElement('td');
+      td_status.setAttribute('id','status');
       if(item.status == 1 ) td_status.setAttribute('class','aprovado');
       if(item.status == 0 ) td_status.setAttribute('class', 'pendente');
 
@@ -123,9 +121,18 @@ document.addEventListener('click', (e) =>{
     const nome = tr.querySelector('#id_nome_fun').textContent; // Obtem o nome do funcionario
     const email = tr.querySelector('#id_email').textContent; // Obtem o email do funcionario
     const contato = tr.querySelector('#td_telefone').textContent; // Obtem o telefone do funcionario
-    sessionStorage.setItem('editData', JSON.stringify({ nome, email,contato })); // Salva temporiamente essas informações
-    window.location.href = '/funcionarios/editar'
+    let status = tr.querySelector('#status'); // Obtem o telefone do funcionario
+
+  if(status.classList.contains('aprovado')){
+    status = 'ativo';
+    sessionStorage.setItem('editData', JSON.stringify({ nome, email,contato,status }));
+  } 
+  else {
+    status = 'desativo';
+    sessionStorage.setItem('editData', JSON.stringify({ nome, email,contato,status }));
   }
+  window.location.href = '/funcionarios/editar'
+}
 })
 
 

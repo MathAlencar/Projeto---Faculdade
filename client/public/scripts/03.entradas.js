@@ -49,6 +49,7 @@ buttonEntrada.addEventListener('click', (e) => {
       return response.json();
     })
     .then(data => {
+      console.log(data.message)
       popup(data.message);
     })
     .catch(error => {
@@ -88,7 +89,7 @@ function popup(mensagem){
   message.innerHTML = mensagem; // Exibe mensagem de retorno
 
   
-  if(mensagem == 'Produto cadastrado com sucesso'){
+  if(mensagem == 'Entrada realizada com sucesso!'){
     icon.innerHTML = 'task_alt';
     btnBack.style.display = '';
   }else{

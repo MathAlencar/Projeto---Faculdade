@@ -1,25 +1,27 @@
 const buttonApagar = document.querySelector('#apagarFuncionario');
 const button_atualizar = document.querySelector('#button_atualizar');
-// const checkAtivo = document.querySelector('#status_ativo');
-// const checkDesativado = document.querySelector('#status_desativado');
 
+const ativoCheckbox = document.getElementById('status_ativo');
+const desativoCheckbox = document.getElementById('status_desativado');
 
 //Busca dados do funcionario que será editado --->
 const editData = JSON.parse(sessionStorage.getItem('editData'));
 const nomeInput = document.querySelector('#nome_edit');
 const sobrenomeInput = document.querySelector('#lastname_edit');
 const emailInput = document.querySelector('#email_edit');
-const numberInput = document.querySelector('#number_edit')
+const numberInput = document.querySelector('#number_edit');
+const statusInput = document.querySelector('#status');
 
 const nomee = editData.nome.indexOf(' ')
 nomeInput.value = editData.nome.slice(0, nomee);;
 sobrenomeInput.value = editData.nome.slice(nomee + 1);;
 emailInput.value = editData.email;
 numberInput.value = editData.contato;
+if(editData.status == 'ativo') ativoCheckbox.checked = true;
+else desativoCheckbox.checked = true;
+
 // <--- FIM
 
-const ativoCheckbox = document.getElementById('status_ativo');
-const desativoCheckbox = document.getElementById('status_desativado');
 
 ativoCheckbox.addEventListener('change', () => {
     if (ativoCheckbox.checked) {
@@ -123,7 +125,7 @@ function popup(mensagem){
     const message = document.querySelector('.message');
     message.innerHTML = mensagem; // Exibe mensagem de retorno
     btnClose.style.display = 'none';
-    if(mensagem == 'Funcionário excluido com sucesso!'){
+    if(mensagem.includes('sucesso')){
       icon.innerHTML = 'task_alt';
       btnBack.style.display = '';
     }else{

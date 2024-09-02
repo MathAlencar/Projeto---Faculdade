@@ -1,11 +1,11 @@
 // Selecionando form
 const buttonCadastro = document.querySelector('#cadastroFuncionario');
 const nomeInput = document.querySelector('#name');
-const sobrenomeInput = document.querySelector('lastname');
-const emailInput = document.querySelector('email');
-const telInput = document.querySelector('number');
-const senhaInput = document.querySelector('password');
-const nsenhaInput = document.querySelector('checkPassword');
+const sobrenomeInput = document.querySelector('#lastname');
+const emailInput = document.querySelector('#email');
+const telInput = document.querySelector('#number');
+const senhaInput = document.querySelector('#password');
+const nsenhaInput = document.querySelector('#checkPassword');
 
 buttonCadastro.addEventListener('click', (e) => {
     e.preventDefault();
@@ -35,7 +35,6 @@ buttonCadastro.addEventListener('click', (e) => {
         if(!response.ok) {
             throw new Error('Erro ao enviar dados')
         }
-
         return response.json();
     })
     .then(data => {
@@ -56,7 +55,6 @@ function popup(mensagem){
     const icon = document.querySelector('.icon');
     const message = document.querySelector('.message');
     message.innerHTML = mensagem; // Exibe mensagem de retorno
-  
     
     if(mensagem == 'Funcionário cadastrado com sucesso!'){
       icon.innerHTML = 'task_alt';
@@ -65,6 +63,7 @@ function popup(mensagem){
       icon.innerHTML = 'cancel';
       btnBack.style.display = 'none';
       nomeInput.value = '';
+      sobrenomeInput.value = '';
       emailInput.value = '';
       telInput.value = '';
       senhaInput.value = '';

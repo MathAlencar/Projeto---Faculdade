@@ -9,7 +9,12 @@ nomeInput.value = editData.produto;
 codigoInput.value = editData.codigo;
 valorInput.value = editData.valor;
 // FIM
-
+valorInput.addEventListener('input', (e) => {
+  let value = valorInput.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+  value = value.replace(/(\d{2})$/, '.$1'); // Adiciona a virgula como separador de decimal
+  value = value.replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1.'); //Adiciona ponto de separador de milhar
+  valorInput.value = 'R$ ' + value;
+});
 
 buttonAtt.addEventListener('click', (e) => {
   e.preventDefault();
@@ -58,7 +63,7 @@ function popup(mensagem){
   message.innerHTML = mensagem; // Exibe mensagem de retorno
 
   
-  if(mensagem == 'Produto cadastrado com sucesso'){
+  if(mensagem.includes('sucesso')){
     icon.innerHTML = 'task_alt';
     btnBack.style.display = '';
   }else{
