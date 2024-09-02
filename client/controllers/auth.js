@@ -10,7 +10,18 @@ exports.register = (req, res) => {
 
     const { nome, sobrenome, email, number, senha, confirmarSenha } = req.body; // Aqui estou pegando os dados que o usuário envia no front-end;
 
-    console.log(nome, sobrenome, email, number, senha, confirmarSenha);
+    let regex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+    let regex_senha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    console.log(req.body);
+
+    let validando_senha = regex_senha.test(senha);
+    let validando_email = regex_email.test(email);
+    
+    if(nome == ''|| sobrenome == ''|| email == ''|| number == ''|| senha == ''|| confirmarSenha == '') return res.json({message: "Por favor, preencha todas os campos!"});
+    if(!validando_email) return res.json({message: "Formato de e-mail inválido: exemplo@exemplo.com"});
+    if(!validando_senha) return res.json({message: "Senha inválida! A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial."})
+    if(number.length < 11) return res.json({message: "Tamanho de número invalido!"})
 
     // Aqui faço a conexão padrão com o banco de dados
     mysql.query(`SELECT * FROM tbl_User WHERE email_Login = ?`, [email], async (err, result) => {
@@ -27,11 +38,10 @@ exports.register = (req, res) => {
         let hashPassword = await bcrypt.hash(senha, 8); // Aqui uso a biblioteca bcrypt, para criptografar a senha informada;
 
         // Caso tudo estiver okey, o usuário é cadastrado normalmente
-        mysql.query('INSERT INTO tbl_User (nome, email_Login, password_Login, telefone) VALUES (?,?,?,?);  ', [nome + ' ' + sobrenome, email, hashPassword, number, 1], (err, results) => {
+        mysql.query('INSERT INTO tbl_User (nome, email_Login, password_Login, telefone, ativo) VALUES (?,?,?,?,?);  ', [nome + ' ' + sobrenome, email, hashPassword, number, 1], (err, results) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log(results);
                 return res.json({message: "Funcionário cadastrado com sucesso!", status: "sucesso!"});
             }
         });
@@ -55,7 +65,12 @@ exports.login = (req, res) => {
             if (results.length < 1) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
                 message: "Usuário incorreto email"
             });
-
+            
+            // Verificando se o usuário está ativo ou não, caso não o seu login será rejeitado!
+            if(results[0].ativo == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
+                message: "Usuário desativado!"
+            }); 
+            
             bcrypt.compare(senha, results[0].password_Login, (err, result) => {
                 if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
                     message: "Usuario incorreto senha"

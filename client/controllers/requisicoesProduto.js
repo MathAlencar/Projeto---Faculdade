@@ -123,10 +123,83 @@ exports.chamandoProduto = (req, res, next) => {
 
 exports.chamandoProdutoEspec = (req, res, next) => {
 
-    const tipoProduto = req.body
+    const tipoProduto = req.body.tipoProduto; // Mais atenção neste ponto.
 
-    console.log(tipoProduto)
+    console.log(tipoProduto);
 
-    return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
-   
+    const query = `SELECT * FROM tbl_Produto WHERE nome_Prd = ?;`
+
+    mysql.getConnection((err, conn) => {
+        if(err) return res.json({message: "Erro ao conectar com o banco de dados"});
+
+        if(!tipoProduto) return res.json({message: "Nenhum produto foi selecionado!"});
+
+        conn.query(query, [tipoProduto], (err, result) => {
+            conn.release();
+
+            if(err) return res.json({message: "Erro ao conectar com o banco de dados!!" });
+
+            if( result.length == 0) return res.json({message: "Produto não localizado em nosso sistema!"});
+
+            const response = {
+                quantidade: result.length,
+                produto: result.map(prod => {
+                    return {
+                        cod_Prd: prod.cod_Prd,
+                    }
+                })
+            }
+
+            return res.json(response);
+            
+        })
+    })
+
+}
+
+exports.atualizandoProdutoPreco = (req, res, next) => {
+
+    const { nome, codigo, valor } = req.body;
+
+    console.log(req.body)
+
+    mysql.getConnection((err, conn) => {
+        if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+        if(!valor){
+            return res.json({message: "Por favor o campo de valor!"});  
+        }
+
+        const query = `SELECT * FROM tbl_Produto WHERE cod_Prd = ?;`
+
+        console.log(codigo)
+
+        conn.query(query, [codigo], (err, result) => {
+            conn.release();
+
+            if(err) return res.json({message: "Erro ao conectar com o banco de dados" });
+
+            if (result.length == 0) return res.json({ message: "Produto não localizado em nosso sistema!" });
+            
+            const query = ` UPDATE tbl_Produto
+            SET vlr_Unit = ?
+            WHERE cod_Prd = ?;
+            `
+            mysql.getConnection((err, conn) => {
+                if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+
+                conn.query(query, [valor, codigo] , (err, result) => {
+
+                    if (err) return res.json({message: "Erro ao tentar atualizar o produto!"});
+
+                    if(result.affectedRows == 0) return res.json({message: "nenhum produto sofreu atualização!"});
+
+                    return res.json({message: "Produto atualizado com sucesso!"})
+
+                })
+            })
+
+        })
+
+    })
 }

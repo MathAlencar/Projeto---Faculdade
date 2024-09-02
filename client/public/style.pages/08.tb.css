@@ -43,10 +43,13 @@ button{
 }
 
 .pendente {
-  color: red;
+  background-color: rgb(237, 21, 21);
+  width: 2vw;
+  height: 2vh;
+  margin: 10px 15px;
+  border-radius: 50px;
   display: flex;
   align-content: center;
-  justify-content: center;
 }
 
 .content-table {

@@ -18,8 +18,6 @@ fetch('/entradas/produtos')
 
     let tr = document.createElement('tr');
 
-    let  td_id_produto = document.createElement('td');
-    td_id_produto.setAttribute('id', 'id_prod');
     let  td_nome_produto = document.createElement('td');
     td_nome_produto.setAttribute('id', 'id_nome_prod');
     let  td_data_produto = document.createElement('td');
@@ -35,14 +33,12 @@ fetch('/entradas/produtos')
     let transformando_data = new Date(item.data_entrada).toLocaleDateString()
     
 
-    td_id_produto.innerHTML = item.id
     td_nome_produto.innerHTML = item.nome_produto
     td_data_produto.innerHTML = transformando_data
     td_preco_total_produto.innerHTML =  `R$ ${item.preco_total}`
     td_preco_unit_produto.innerHTML = `R$ ${item.preco_unitario}`
     td_qtd_comp_prod.innerHTML = item.qtd_comprada
 
-    tr.appendChild(td_id_produto)
     tr.appendChild(td_nome_produto)
     tr.appendChild(td_data_produto)
     tr.appendChild(td_qtd_comp_prod)

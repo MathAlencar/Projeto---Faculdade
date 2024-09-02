@@ -1,10 +1,10 @@
 // Realizando a seleção de elementos da página
 const buttonEntrada = document.querySelector('#entradaProduto');
 const select = document.querySelector('#produto');
-const input_valor_uni = document.querySelector('#valor-uni')
-const input_valor_total = document.querySelector('#valor-total')
-const inputCod = document.querySelector('#codigo')
-const qtd = document.querySelector('#qtd')
+const input_valor_uni = document.querySelector('#valor-uni');
+const input_valor_total = document.querySelector('#valor-total');
+const inputCod = document.querySelector('#codigo');
+const qtd = document.querySelector('#qtd');
 
 //Trata os campo input que recebem numeros(preço unitario)
 input_valor_uni.addEventListener('input', (e) => {
@@ -32,62 +32,35 @@ buttonEntrada.addEventListener('click', (e) => {
     tipoProduto: formatandoDados.get('tipoProduto')
   }
 
-  fetch('/entrada/produto', {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dados)
-  })
-  .then (response => {
-    if(!response.ok) {
-      throw new Error('Erro ao enviar dados')
-    }
-    console.log(response);
-    return response; // Não dá retornar em JSON pois não foi tratado na API 
-  })
-  .then(data => {
-    popup(data.menssage)
-  })
-  .catch(error => {
-    console.error('Erro:', error);
-  });
-
-})
-
-function buscandoProduto(){
-  const form = document.querySelector('#formularioEntrada');
-  const formatandoDados = new FormData(form);
-  const dados = {
-    tipoProduto: formatandoDados.get('tipoProduto')
+  if(dados.quantidade == 0 || dados.valorTotal == 0 ||  dados.valorUnitario == 0){
+    alert('Por favor valide os valores antes de realizar a entrada de novos produtos!');
+  }else {
+    fetch('/entrada/produto', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dados)
+    })
+    .then (response => {
+      if(!response.ok) {
+        throw new Error('Erro ao enviar dados')
+      }
+      return response.json();
+    })
+    .then(data => {
+      popup(data.message);
+    })
+    .catch(error => {
+      console.error('Erro:', error);
+    });
   }
-  console.log(dados)
-
-  // fetch('/chamada/produto/especifico', {
-  //   method: "POST",
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(dados)
-  // })
-  // .then (response => {
-  //   if(!response.ok) {
-  //     throw new Error('Erro ao enviar dados')
-  //   }
-
-  //   return response.json();
-  // })
-  // .then(data => {
-  //   console.log("Sucesso:", data);
-  // })
-  // .catch(error => {
-  //   console.error('Erro:', error);
-  // });
-}
-
+  
+})
 
 
 // Responsável por enviar os produtos cadastrado ao front-end, para assim realizar a entrada.
+
 fetch('/chamada/produto') // Busca os produtos
 .then(response => {
   if (!response.ok) {
@@ -102,18 +75,6 @@ fetch('/chamada/produto') // Busca os produtos
   console.error('Erro:', error);  
 });
 
-// Adiciona os produtos cadastrado no select (front-end)
-function construindoSelect(data){
-  const select = document.querySelector('#produto');
-  for(let i=0; i<data.length; i++){
-    let option = document.createElement('option');
-    option.setAttribute("value", data[i].nome_Prd);
-    option.innerHTML = data[i].nome_Prd;
-
-    select.appendChild(option);
-  }
-}
-// <-- FIM
 
 function popup(mensagem){
   const popUp = document.querySelector('#popup');
@@ -148,3 +109,63 @@ function popup(mensagem){
   })
 }
 
+function construindoSelect(data){
+  const select = document.querySelector('#produto');
+  for(let i=0; i<data.length; i++){
+    let option = document.createElement('option');
+    option.setAttribute("value", data[i].nome_Prd);
+    option.innerHTML = data[i].nome_Prd;
+
+    select.appendChild(option);
+  }
+}
+
+function buscandoProduto(){
+
+  const form = document.querySelector('#formularioEntrada');
+  const formatandoDados = new FormData(form);
+  const dados = {
+    tipoProduto: formatandoDados.get('tipoProduto')
+  }
+  
+  console.log(dados)
+
+  fetch('/chamada/produto/especifico', {
+    method: "PATCH",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dados)
+  })
+  .then (response => {
+    if(!response.ok) {
+      throw new Error('Erro ao enviar dados')
+    }
+
+    return response.json();
+  })
+  .then(data => {
+    inputCod.value = data.produto[0].cod_Prd;
+    console.log(inputCod)
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+  });
+
+}
+
+// Responsável por realizar a multiplicação da qtd pelo valor unitário do produto.
+function multiplicandoValorTotal(){
+
+  let qtd_total = Number(qtd.value);
+  let valor_uni = parseFloat(input_valor_uni.value.replace(/R\$|\s/g, '').replace(',', '.'));
+
+  if(isNaN(valor_uni)){
+    valor_uni = 0
+  }
+
+  let multiplicando_valores = (qtd_total * valor_uni).toFixed(2);
+
+  return input_valor_total.value = `R$ ${multiplicando_valores}`
+
+}

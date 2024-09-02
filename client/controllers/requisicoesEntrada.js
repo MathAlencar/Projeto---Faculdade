@@ -9,23 +9,24 @@ const path = require('path');
 exports.entradaProduto = (req, res, next) => {
     const {codigo, quantidade, valorUnitario, valorTotal, tipoProduto} = req.body;
 
+    valorTotal_tratado = parseFloat(valorTotal.replace(/R\$|\s/g, '').replace(',', '.'));
+
     mysql.getConnection((err, conn) => {
-        if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'),  {menssage: "Erro ao conectar com o banco de dados"});
+        if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
 
         const query = `SELECT * FROM tbl_produto WHERE cod_Prd = ?;`;
 
         conn.query(query, [codigo], (err, result) => {
             conn.release();
-            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'),  {menssage: "Erro na requisição SQL"});
+            if(err) return res.json({message: "Erro na requisição SQL!"});
 
-            if(result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'),  {menssage: "Produto não localizado"});
+            if(result.length == 0) return res.json({message: "Nenhum produto foi localizado, contante o suporte!"});
 
             mysql.getConnection((err, conn) => {
                 const query2 = `INSERT INTO tbl_entrada2 (codigo_produto, nome_produto , preco_total, preco_unitario, qtd_comprada, data_entrada) VALUES (?,?,?,?,?,?);`
-                let somando = valorUnitario * quantidade;
-                conn.query(query2, [codigo, tipoProduto, somando, valorUnitario, quantidade, data], (err, result) => {
+                conn.query(query2, [codigo, tipoProduto, valorTotal_tratado, valorUnitario, quantidade, data], (err, result) => {
                     conn.release();
-                    if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'), console.log("Erro ao enviar dados do produto"));
+                    if(err) return res.json({message: "Erro ao enviar a entrada de produto!"});
 
                     mysql.getConnection((err, conn) => {
                         const query3 = `UPDATE tbl_produto
@@ -34,9 +35,9 @@ exports.entradaProduto = (req, res, next) => {
 
                         conn.query(query3, [quantidade, valorUnitario, codigo], (err, result) => {
                             conn.release();
-                            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'), console.log("erro ao atualizar quantidade"));
+                            if(err) return res.json({message: "Erro ao atualizar a quantidade do produto!"});
 
-                            return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entradaProduto.html'), console.log('tudo certo papai'));
+                            return res.json({message: "Entrada realizada com sucesso!"});
                         })
                     })
                 })
@@ -44,7 +45,6 @@ exports.entradaProduto = (req, res, next) => {
         })
     })
 }
-
 
 exports.entradasProdutos = (req, res, next) => {
     
@@ -61,7 +61,7 @@ exports.entradasProdutos = (req, res, next) => {
                 quantidade: result.length,
                 entradas: result.map( entrada => {
                     return {
-                        id: entrada.id,
+                        id: entrada.codigo_produto,
                         nome_produto: entrada.nome_produto,
                         data_entrada: entrada.data_entrada,
                         qtd_comprada: entrada.qtd_comprada,

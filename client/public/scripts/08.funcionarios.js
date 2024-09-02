@@ -22,6 +22,8 @@ fetch('/chamada/funcionarios')
   })
   .then(data => {
 
+    console.log(data.usuarios);
+
     let funcionarios = data.usuarios; // tratando os dados;
 
     let i = 0;
@@ -53,10 +55,9 @@ fetch('/chamada/funcionarios')
       td_edit.appendChild(link_edit);
       icons_edit.innerHTML = 'edit';
 
-      //Coluna de status (temos que alinhar, está estático)
       let td_status = document.createElement('td');
-      td_status.setAttribute('class','aprovado')
-
+      if(item.status == 1 ) td_status.setAttribute('class','aprovado');
+      if(item.status == 0 ) td_status.setAttribute('class', 'pendente');
 
       td_nome_fun.innerHTML = item.nome
       td_email.innerHTML = item.email

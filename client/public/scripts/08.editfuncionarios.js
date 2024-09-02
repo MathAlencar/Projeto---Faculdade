@@ -18,6 +18,21 @@ emailInput.value = editData.email;
 numberInput.value = editData.contato;
 // <--- FIM
 
+const ativoCheckbox = document.getElementById('status_ativo');
+const desativoCheckbox = document.getElementById('status_desativado');
+
+ativoCheckbox.addEventListener('change', () => {
+    if (ativoCheckbox.checked) {
+        desativoCheckbox.checked = false;
+    }
+});
+
+desativoCheckbox.addEventListener('change', () => {
+    if (desativoCheckbox.checked) {
+        ativoCheckbox.checked = false;
+    }
+});
+
 
 buttonApagar.addEventListener('click', (e) => {
     e.preventDefault();
@@ -37,6 +52,7 @@ buttonApagar.addEventListener('click', (e) => {
         window.location.href = '/funcionarios/editar'
     })
 })
+
 function apagaUsuario(){
     const email = document.getElementById('email_edit').value;
     fetch(`/delete?email_user=${encodeURIComponent(email)}`, {
@@ -58,6 +74,7 @@ function apagaUsuario(){
 
 // Essa função ou evento realiza a atualização dos dados do usuário, porém ainda iremos entrar em validação de como ela irá funcionar corretamente.
 button_atualizar.addEventListener('click', (e) => {
+
     e.preventDefault();
     const form = document.querySelector('#formulario');
     const formatandoDados = new FormData(form);
@@ -67,7 +84,11 @@ button_atualizar.addEventListener('click', (e) => {
         sobrenome: formatandoDados.get('sobrenome_user'),
         email: formatandoDados.get('email_user'),
         telefone: formatandoDados.get('tel_user'),
+        status_ativo: formatandoDados.get('ativo'),
+        status_desativo: formatandoDados.get('desativo')
     }
+
+    console.log(dados);
 
     fetch('/atualizando', {
         method: "PATCH",
@@ -83,7 +104,7 @@ button_atualizar.addEventListener('click', (e) => {
         return response.json();
     })
     .then(data => {
-        popup(data.message);
+        popup(data.message)
     })
     .catch(error => {
         console.error('Erro:', error);

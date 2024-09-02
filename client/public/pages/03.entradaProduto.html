@@ -60,13 +60,13 @@
                             </select>
                             </div>
                        
-                        <div><label for="codigo"> Código:</label><input id="codigo" class="quebra-linha" type="text" required name="codigo" ></div>
+                        <div><label for="codigo"> Código:</label><input id="codigo" value="15" readonly class="quebra-linha" type="text" required name="codigo" ></div>
 
-                        <div><label for="qtd"> Qtd comprada:</label><input id="qtd" class="quebra-linha" type="text" required name="quantidade"></div>
+                        <div><label for="qtd"> Qtd comprada:</label><input id="qtd"  class="quebra-linha" type="number" required name="quantidade" value="0" onclick="multiplicandoValorTotal()"></div>
 
-                        <div><label for="valor-uni"> Preço unitario:</label><input id="valor-uni" class="quebra-linha" type="text" placeholder="R$" required name="valorUnitario"></div>
+                        <div><label for="valor-uni"> Preço unitario:</label><input id="valor-uni" class="quebra-linha" type="text" placeholder="R$" value="0" required name="valorUnitario"></div>
 
-                        <div><label for="valor-total"> Valor da compra:</label><input id="valor-total" class="quebra-linha" type="text" placeholder="R$" required name="valorTotal"></div>
+                        <div><label for="valor-total"> Valor da compra:</label><input id="valor-total" readonly class="quebra-linha" type="text" value="0" placeholder="R$" required name="valorTotal"></div>
 
                         <div><button id="entradaProduto">Salvar entrada</button></div>
 

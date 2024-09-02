@@ -9,14 +9,15 @@ const router = express.Router();
 router.post('/cadastrando/produto', produtosAPI.cadastrandoProduto);
 router.delete('/deletando/produto', produtosAPI.deletandoProduto);
 router.get('/chamada/produto', produtosAPI.chamandoProduto);
-router.get('/chamada/produto/especifico', produtosAPI.chamandoProdutoEspec);
+router.patch('/chamada/produto/especifico', produtosAPI.chamandoProdutoEspec);
+router.patch('/atualizando/produto', produtosAPI.atualizandoProdutoPreco);
 
 // Chamando API referente a funcionarios
 
 router.get('/chamada/funcionarios', funcionariosAPI.chamandoFuncionarios);
 router.get('/chamada/especifica', funcionariosAPI.chamadaFuncionarioEspec);
 router.delete('/delete', funcionariosAPI.deletandoUser);
-router.post('/atualizando', funcionariosAPI.atualizandoUser);
+router.patch('/atualizando', funcionariosAPI.atualizandoUser);
 
 // Chamada API referente as entradas.
 

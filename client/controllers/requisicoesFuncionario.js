@@ -24,6 +24,7 @@ exports.chamandoFuncionarios = (req, res, next) => {
                         nome: user.nome,
                         email: user.email_Login,
                         telefone: user.telefone,
+                        status: user.ativo
                     }
                 })
             }
@@ -83,10 +84,11 @@ exports.deletandoUser = (req, res, next) => {
 }
 
 exports.atualizandoUser = (req, res, next) => {
-    const { nome, sobrenome, email, telefone, valor_status } = req.body;
+    const { nome, sobrenome, email, telefone, status_ativo, status_desativo} = req.body;
 
-    console.log(valor_status);
+    if(telefone.length != 11) return res.json({message: "Tamanho de número inválido!"});
 
+    let retorno = "Dados do funcionário atualizado com sucesso!";
     let query;
     let body;
 
@@ -118,17 +120,50 @@ exports.atualizandoUser = (req, res, next) => {
     }
 
     mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Erro ao conectar com o banco de dados" });
-
+        if (err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+        
         conn.query(query, body, (err, results) => {
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Erro ao realizar atualização" });
+            if (err) return res.json({message: "Erro na requisição"});
 
-            if (results.affectedRows == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Nenhum funcionário foi encontrado" });
+            if (results.affectedRows == 0) return res.json({message: "Funcionário não localizado"});
 
-            return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.editFuncionarios.html'), { mensagem: "Usuário atualizado com sucesso!" });
+            if(status_ativo == 'on' || status_desativo == 'on'){
+
+                const query = `UPDATE tbl_user SET ativo = ? WHERE email_Login = ?;`
+                
+                if(status_ativo == 'on'){
+        
+                    conn.query(query, [1, email], (err, result) => {
+                        if(err) return res.json({message: "Erro ao ativar usuário!"});
+            
+                        if(result.affectedRows == 0) return res.json({message: "Funcionário não localizado!"})
+                        
+                    })
+                }
+
+                if(status_desativo == 'on'){
+
+                    console.log(status_desativo, email);
+        
+                    conn.query(query, [0, email], (err, result) => {
+                        if(err) return res.json({message: "Erro ao desativar usuário!"});
+            
+                        if(result.affectedRows == 0) return res.json({message: "Funcionário não localizado!"})
+            
+                    })
+            
+                }
+
+            }
+
+            if (status_ativo == 'on') retorno = "Funcionário ativado com sucesso! agora ele poderá realizar o acesso a plataforma de compras."
+            if (status_desativo == 'on') retorno = "Funcionário desativado com sucesso! agora ele não poderá mais realizar o acesso a plataforma de compras."
+
+            return res.json({message: retorno}); 
+            
         })
 
     })
 
-    res.json({ message: 'Dados atualizados com sucesso' });
 }
+
