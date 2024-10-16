@@ -8,17 +8,15 @@ const publicDirectory = path.join(__dirname, './public');
 // o "Exports" significa que este caminho está disponível para ser exportado para ou doc de javaScript, onde ele será usado;
 exports.register = (req, res) => {
 
-    const { nome, sobrenome, email, number, senha, confirmarSenha } = req.body; // Aqui estou pegando os dados que o usuário envia no front-end;
+    const { nome, sobreNome, email, number, senha, confirmarSenha } = req.body; // Aqui estou pegando os dados que o usuário envia no front-end;
 
     let regex_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
     let regex_senha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    console.log(req.body);
-
     let validando_senha = regex_senha.test(senha);
     let validando_email = regex_email.test(email);
     
-    if(nome == ''|| sobrenome == ''|| email == ''|| number == ''|| senha == ''|| confirmarSenha == '') return res.json({message: "Por favor, preencha todas os campos!"});
+    if(nome == ''|| sobreNome == ''|| email == ''|| number == ''|| senha == ''|| confirmarSenha == '') return res.json({message: "Por favor, preencha todas os campos!"});
     if(!validando_email) return res.json({message: "Formato de e-mail inválido: exemplo@exemplo.com"});
     if(!validando_senha) return res.json({message: "Senha inválida! A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial."})
     if(number.length < 11) return res.json({message: "Tamanho de número invalido!"})
@@ -38,7 +36,7 @@ exports.register = (req, res) => {
         let hashPassword = await bcrypt.hash(senha, 8); // Aqui uso a biblioteca bcrypt, para criptografar a senha informada;
 
         // Caso tudo estiver okey, o usuário é cadastrado normalmente
-        mysql.query('INSERT INTO tbl_User (nome, email_Login, password_Login, telefone, ativo) VALUES (?,?,?,?,?);  ', [nome + ' ' + sobrenome, email, hashPassword, number, 1], (err, results) => {
+        mysql.query('INSERT INTO tbl_User (nome, email_Login, password_Login, telefone, ativo) VALUES (?,?,?,?,?);  ', [nome + ' ' + sobreNome, email, hashPassword, number, 1], (err, results) => {
             if (err) {
                 console.log(err);
             } else {

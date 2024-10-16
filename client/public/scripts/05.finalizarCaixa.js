@@ -1,6 +1,27 @@
 // Carrega os itens que foram adicionados no carrinho
 const produtos = JSON.parse(sessionStorage.getItem('compra'));
-console.log('Itens no sessionStorage:', JSON.parse(sessionStorage.getItem('compra')));
+// Pegando o tipo de pagamento escolhido pelo usuário.
+const opc_pagamento = document.querySelector('#metodo')
+
+
+// Buscando o nome e email do usuário.
+function getCookie(name) {
+  const cookie = document.cookie;
+  const separandoCookie = cookie.split('; ');
+  for( let buscando of separandoCookie) {
+      const [cookieNome, cookieValor] = buscando.split('=');
+      if(cookieNome === name) {
+          return decodeURIComponent(cookieValor);
+      }
+  }
+  return null
+}
+
+// <-- FIM
+
+// --> Definindo variáveis a serem usadas no front-end - Nome e E-mail que serão enviadas ao banco de dados;
+const nameUSer_real_prod = getCookie('name'); 
+const emailUSer_real_prod = getCookie('email');
 
 function criaTabela(produtos){
   //Se nenhum item foi adicionado ao carrinho
@@ -30,16 +51,157 @@ function carrinhoVazio(produtos){
   return true;
 }
 
+// Criando pedido.
+let pedido = Obj_compra_usuario(nameUSer_real_prod, emailUSer_real_prod);
+
 // Envio do formulario
 const buttonComprar = document.querySelector('#compra-btn');
 buttonComprar.addEventListener('click', (e) =>{
+
     e.preventDefault();
     if(!carrinhoVazio(produtos)) {
       popup('Carrinho está vazio');
       return;
     }
-    clearCart();
-    popup('Enviado com sucesso');
+
+    lista_produtos_ja_contabilizados = [] // Esse array garante que cada produto seja somado, pois após rodar o loop ele irá armazenar neste array o nome do produto.
+    lista_produtos_nao_foi_possivel_realizar_a_compra = [] // Criando lista que irá armazenar os itens que não foi possível realizar a compra.
+    lista_produtos_que_foi_possivel_realizar_a_compra = [] // Criando lista que irá armazenar os itens que foi possível realizar a compra.
+
+    // Validando a compra, verificando a quantidade solicitada pelo usuário de cada produto.
+    for(let i=0; i<produtos.length; i++){
+
+      let somando_qtd_produto_carrinho = 0; // Irá receber a quantidade solicitada.
+      let prod_nome = produtos[i].nome; // Nome do produto que será verificado.
+      let produto_ja_contabilizado = false; // Flag que irá auxiliar se o produto foi ou não já contabilizado.
+
+      // Laço que procura o valor atribuido a variável prod_nome no array de produtos já contabilizados.
+
+      for(let i=0; i<lista_produtos_ja_contabilizados.length; i++){
+
+        if(lista_produtos_ja_contabilizados[i] == prod_nome){
+          produto_ja_contabilizado = true // Se sim, ele irá receber True.
+        }
+
+      }
+
+      // Caso for True, ele apenas irá ignorar a soma de quantidades, caso contrário ele irá rodar o laço.
+      if(produto_ja_contabilizado == false){
+
+          for(let i=0; i<produtos.length; i++){
+            let qtd_produto = parseFloat(produtos[i].qtd)
+            if(prod_nome == produtos[i].nome){
+              somando_qtd_produto_carrinho = somando_qtd_produto_carrinho + qtd_produto;
+            }
+            
+            lista_produtos_ja_contabilizados.push(prod_nome) // Adicionando o produto contabilizado no array de validação.
+          
+          }
+          
+          // Objeto que será enviado ao banco de dados para validar a quantidade.
+          const dados = {
+            tipoProduto: prod_nome,
+            qtd_Prd: somando_qtd_produto_carrinho
+          }
+
+          fetch('/chamada/produto/especifico', {
+            method: "PATCH",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+          })
+          .then (response => {
+            if(!response.ok) {
+              throw new Error('Erro ao enviar dados')
+            }
+            return response.json();
+          })
+          .then(data => {
+            
+            // Criando a variável que irá receber os produtos, pois com ela irei validar se não há produto repetido, assim resolvendo o primeiro Erro.
+            let quantidade_produto = data.produto[0].qtd_Prd; // Recebe a quantidade armazenada no banco de dados.
+            
+            // Certo, aqui após fazer a validação de cada produto e verificar se a quantidade solicitada está disponível no estoque, eu realizo então a chamada da API que decrementa a quantidade solicitada no banco de dados.
+            if(somando_qtd_produto_carrinho <= quantidade_produto){
+
+              fetch('/realizando/compra', {
+                method: "PATCH",
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dados)
+              })
+              .then (response => {
+                if(!response.ok) {
+                  throw new Error('Erro ao enviar dados')
+                }
+                return response.json();
+              })
+              .then(data => {
+              })
+              .catch(error => {
+                console.error('Erro:', error);
+              });
+
+              pedido.produtos_solicitados.push(prod_nome)
+
+            }
+
+            if(somando_qtd_produto_carrinho >= quantidade_produto){
+
+              lista_produtos_nao_foi_possivel_realizar_a_compra.push(prod_nome)
+
+            }
+
+          })
+          .catch(error => {
+            console.error('Erro:', error);
+          });
+
+      }else{
+        continue
+      }
+    }
+
+    pedido.tipo_pagamento = opc_pagamento.value
+    console.log(pedido.produtos_solicitados)
+
+    if(lista_produtos_nao_foi_possivel_realizar_a_compra.length > 1){
+      popup(`Não foi possível realizar a compra deste produtos: ${lista_produtos_nao_foi_possivel_realizar_a_compra}, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
+      sessionStorage.clear()
+
+    }else {
+
+      let dados = {
+        request: pedido
+      }
+
+      fetch('/realizandoCompra', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+      })
+      .then (response => {
+        if(!response.ok) {
+          throw new Error('Erro ao enviar dados')
+        }
+        return response.json();
+      })
+      .then(data => {
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
+
+
+      popup("Pedido realizado com sucesso!")
+
+      sessionStorage.clear()
+    }
+    
 })
 
 function clearCart() {
@@ -68,9 +230,22 @@ function popup(mensagem){
   
     btnClose.addEventListener('click', (e) =>{
       popUp.style.display = 'none';
+      window.location.href = '/caixa/compra'
     })
     btnBack.addEventListener('click', (e) => {
       e.preventDefault();
       window.location.href = '/caixa'
     })
+}
+
+// Função que cria o usuário para mandar as informações ao banco de dados.
+function Obj_compra_usuario(name, e_mail, opc_pag){
+  return {
+    nome: name,
+    email: e_mail,
+    tipo_pagamento: opc_pag,
+    produtos_solicitados: ['']
   }
+}
+
+

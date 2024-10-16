@@ -27,6 +27,7 @@ fetch('/chamada/funcionarios')
     const ul = document.querySelector('#tabelaProdutos')
 
     funcionarios.forEach((item) => {
+
       let tr = document.createElement('tr');
       
       let  td_nome_fun = document.createElement('td');

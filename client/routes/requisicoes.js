@@ -1,7 +1,7 @@
 const express = require('express');
 const produtosAPI = require('../controllers/requisicoesProduto');
 const funcionariosAPI = require('../controllers/requisicoesFuncionario');
-const entradasAPI = require('../controllers/requisicoesEntrada')
+const entradasAPI = require('../controllers/requisicoesEntrada');
 const router = express.Router();
 
 // Chamando API referente aos produtos / cadastro / chamada.
@@ -11,8 +11,9 @@ router.delete('/deletando/produto', produtosAPI.deletandoProduto);
 router.get('/chamada/produto', produtosAPI.chamandoProduto);
 router.patch('/chamada/produto/especifico', produtosAPI.chamandoProdutoEspec);
 router.patch('/atualizando/produto', produtosAPI.atualizandoProdutoPreco);
+router.patch('/realizando/compra', produtosAPI.realizandoCompra);
 
-// Chamando API referente a funcionarios
+// Chamando API referente a funcionarios.
 
 router.get('/chamada/funcionarios', funcionariosAPI.chamandoFuncionarios);
 router.get('/chamada/especifica', funcionariosAPI.chamadaFuncionarioEspec);
@@ -23,5 +24,7 @@ router.patch('/atualizando', funcionariosAPI.atualizandoUser);
 
 router.post('/entrada/produto', entradasAPI.entradaProduto);
 router.get('/entradas/produtos', entradasAPI.entradasProdutos);
+router.post('/realizandoCompra', entradasAPI.catalogandoPedido);
+
 
 module.exports = router;

@@ -76,3 +76,9 @@ exports.entradasProdutos = (req, res, next) => {
         })
     })
 }
+
+exports.catalogandoPedido = (req, res, next) => {
+
+    console.log(req.body)
+    
+}

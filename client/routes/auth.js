@@ -1,7 +1,7 @@
 const express = require('express');
 const authController = require('../controllers/auth');
 const router = express.Router();
-const login = require('../middlware/login')
+const login = require('../middlware/login');
 
 // Chamando API referente aos funcionários / acesso.
 

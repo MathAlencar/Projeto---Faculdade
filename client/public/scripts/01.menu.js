@@ -26,11 +26,10 @@ nome.innerHTML = nameUSer;
 email.innerHTML = emailUSer;
 
 //<-- FIM 
-
-
 // eventos da página -->
 
 // Realiza o logout do sistema
+
 buttonLogout.addEventListener('click', () => {
     fetch('/logout', {
         method: 'POST',
@@ -42,5 +41,6 @@ buttonLogout.addEventListener('click', () => {
         console.error('Erro ao fazer logout:', error);
     });
 });
+
 
 // <-- FIM

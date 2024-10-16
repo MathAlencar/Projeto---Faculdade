@@ -16,7 +16,6 @@ function construirTabela(dados){
 
   produtos.forEach(item => {
     if(item.qtd_TotProduto <= 0){
-      console.log(item.nome_Prd, 'quantidade é insuficiente')
       return;
     }
     const td = template.content.cloneNode(true);  // Clona o conteúdo do template
@@ -49,12 +48,73 @@ function verificaClick(tabela){
     }
     if(tag.classList.contains('btnAdd')){
       e.preventDefault();
-      const span = tr.querySelector('.qtdAtual'); 
+      const span = tr.querySelector('.qtdAtual');
 
-      if(!addCarinho(tr,span)) return; //Chama a função que adiciona os itens na aba "finalizar compra" 
+      const tipoProduto_01 = tr.querySelector('#prod').textContent;
+
+      const dados = {
+        tipoProduto: tipoProduto_01
+      }
+
+      // Aqui estou realizando a chamada da API no banco de dados, onde a cada nova inserção de produto no carrinho ele irá validar se a quantidade está compatível ou não.
+
+      fetch('/chamada/produto/especifico', {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+      })
+      .then (response => {
+        if(!response.ok) {
+          throw new Error('Erro ao enviar dados')
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        // Criando a variável que irá receber os produtos, pois com ela irei validar se não há produto repetido, assim resolvendo o primeiro Erro.
+        let itens = JSON.parse(sessionStorage.getItem('compra'));
+
+        let quantidade_produto = data.produto[0].qtd_Prd; // Recebe a quantidade armazenada no banco de dados.
+
+        let qtd_prod = parseFloat(span.innerHTML) // Recebe a quantidade solicitada pelo usuário.
+
+        let verificando_na_tabela_qtd = 0
+
+        if(itens){
+
+            for(let i=0; i<itens.length; i++){
+              let nome_produto = itens[i].nome;
+              let qtd_produto_procurado = parseFloat(itens[i].qtd);
+            
+              if(tipoProduto_01 == nome_produto){
+                  verificando_na_tabela_qtd = verificando_na_tabela_qtd + qtd_produto_procurado
+              }
+          }
+        }
+
+        if(verificando_na_tabela_qtd > 0){
+            if(verificando_na_tabela_qtd + qtd_prod > quantidade_produto){
+              popup(`Não é possível adicionar o produto no carrinho, pois [quantidade solicitada] + [o que já está no carrinho] excede a disponível em Estoque`); // Exibe popup avisando o usario que o item foi adicionado
+              return
+            }
+        }
         
-      limpaItem(span,tr); //Chama a função que limpa os itens na tabela após add no carrinho
-      popup('Produto adicionado no carrinho com sucesso!'); // Exibe popup avisando o usario que o item foi adicionado
+        if(qtd_prod > quantidade_produto){
+          popup(`Não é possível adicionar o produto no carrinho, escolha uma quantidade menor ou igual a: ${quantidade_produto} (Em Estoque)`); // Exibe popup avisando o usario que o item foi adicionado
+        }
+        else {
+          if(!addCarinho(tr,span)) return; //Chama a função que adiciona os itens na aba "finalizar compra" 
+
+          limpaItem(span,tr); //Chama a função que limpa os itens na tabela após add no carrinho
+          popup('Produto adicionado no carrinho com sucesso!'); // Exibe popup avisando o usario que o item foi adicionado
+        }
+
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
     }
   })
 }
@@ -73,6 +133,8 @@ function addCarinho(tr,td){
   sessionStorage.setItem('compra', JSON.stringify(compra)); // Salva temporiamente essas informações
   return true;
 }
+
+
 
 function popup(mensagem){
     const popUp = document.querySelector('#popup');

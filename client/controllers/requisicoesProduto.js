@@ -1,8 +1,6 @@
-const express = require('express'); // Chamando a biblioteca express
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const path = require('path');
 
-const publicDirectory = path.join(__dirname, './public');
 
 exports.cadastrandoProduto = (req, res, next) => {
 
@@ -123,9 +121,7 @@ exports.chamandoProduto = (req, res, next) => {
 
 exports.chamandoProdutoEspec = (req, res, next) => {
 
-    const tipoProduto = req.body.tipoProduto; // Mais atenção neste ponto.
-
-    console.log(tipoProduto);
+    const tipoProduto = req.body.tipoProduto; 
 
     const query = `SELECT * FROM tbl_Produto WHERE nome_Prd = ?;`
 
@@ -146,6 +142,7 @@ exports.chamandoProdutoEspec = (req, res, next) => {
                 produto: result.map(prod => {
                     return {
                         cod_Prd: prod.cod_Prd,
+                        qtd_Prd: prod.qtd_TotProduto
                     }
                 })
             }
@@ -160,8 +157,6 @@ exports.chamandoProdutoEspec = (req, res, next) => {
 exports.atualizandoProdutoPreco = (req, res, next) => {
 
     const { nome, codigo, valor } = req.body;
-
-    console.log(req.body)
 
     mysql.getConnection((err, conn) => {
         if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
@@ -199,6 +194,50 @@ exports.atualizandoProdutoPreco = (req, res, next) => {
                 })
             })
 
+        })
+
+    })
+}
+
+exports.realizandoCompra = (req, res, next) => {
+
+    const tipoProduto = req.body.tipoProduto; 
+    const qtd_produto = req.body.qtd_Prd; 
+
+    mysql.getConnection((err, conn) => {
+
+        if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
+
+        if(!tipoProduto){
+            return res.json({message: "Error campo invalido!"});  
+        }
+
+        const query = `SELECT * FROM tbl_Produto WHERE nome_Prd = ?;`
+
+        conn.query(query, [tipoProduto], (err, result) => {
+            conn.release();
+
+            if(err) return res.json({message: "Erro ao conectar com o banco de dados" });
+
+            if (result.length == 0) return res.json({ message: "Produto não localizado em nosso sistema!" });
+            
+            const query = ` UPDATE tbl_Produto
+            SET qtd_TotProduto = qtd_TotProduto - ?
+            WHERE nome_Prd = ?;`
+
+            mysql.getConnection((err, conn) => {
+                if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+
+                conn.query(query, [qtd_produto, tipoProduto] , (err, result) => {
+
+                    if (err) return res.json({message: "Erro ao tentar atualizar o produto!"});
+
+                    if(result.affectedRows == 0) return res.json({message: "nenhum produto sofreu atualização!"});
+
+                    return res.json({message: "Produto atualizado com sucesso!"})
+
+                })
+            })
         })
 
     })
