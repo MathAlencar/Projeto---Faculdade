@@ -49,13 +49,13 @@ exports.entradaProduto = (req, res, next) => {
 exports.entradasProdutos = (req, res, next) => {
     
     mysql.getConnection((err, conn) => {
-        if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entrada.html'),  console.log("Erro ao conectar com o banco de dados"));
+        if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '03.entrada.html'),  console.log("Erro ao conectar com o banco de dados"));
 
         const query = `SELECT * FROM tbl_entrada2;`;
 
         conn.query(query, (err, result) => {
             conn.release();
-            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '03.entrada.html'), console.log("Erro na requisição"));
+            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '03.entrada.html'), console.log("Erro na requisição"));
 
             const response = {
                 quantidade: result.length,

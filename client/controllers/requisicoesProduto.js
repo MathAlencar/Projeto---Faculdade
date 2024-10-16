@@ -92,15 +92,15 @@ exports.deletandoProduto = (req, res, next) => {
 exports.chamandoProduto = (req, res, next) => {
 
     mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
+        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
 
         const query = `SELECT * FROM tbl_Produto;`;
 
         conn.query(query, (err, result) => {
             conn.release();
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
+            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '02.cadastrarProdutos.html'), { message: "Erro ao conectar com o banco de dados" });
 
-            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '02.cadastrarProdutos.html'), { message: "Ainda nenhum produto foi cadastrado" });
+            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '02.cadastrarProdutos.html'), { message: "Ainda nenhum produto foi cadastrado" });
 
             const response = {
                 quantidade: result.length,

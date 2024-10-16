@@ -12,7 +12,7 @@ exports.login = (req, res, next) => {
         req.usuario = decode;
         next()
     } catch (error) {
-        return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
+        return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'), {
             message: "Necessário relizar o login novamente"
         });
     }

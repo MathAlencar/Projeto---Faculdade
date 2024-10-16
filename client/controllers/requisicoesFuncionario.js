@@ -6,15 +6,15 @@ const path = require('path');
 exports.chamandoFuncionarios = (req, res, next) => {
 
     mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'));
+        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'));
 
         const query = `SELECT * FROM tbl_User;`;
 
         conn.query(query, (err, result) => {
             conn.release();
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
+            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
 
-            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("não tem nada aqui"));
+            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'), console.log("não tem nada aqui"));
 
             const response = {
                 quantidade: result.length,
@@ -39,13 +39,13 @@ exports.chamadaFuncionarioEspec = (req, res, next) => {
     const email = req.query.buscaFuncionario; // Corrigindo para req.query.buscaFuncionario
 
     mysql.getConnection((err, conn) => {
-        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'));
+        if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'));
 
         const query = `SELECT * FROM tbl_User WHERE email_Login = ?`
 
             conn.query(query, [email], (err, results) => {
                 conn.release();
-                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
+                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
 
                 const response = {
                     quantidade: results.length,

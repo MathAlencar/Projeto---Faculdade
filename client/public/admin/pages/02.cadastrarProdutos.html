@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.padrao/00.css.padrao.css"><!-- CSS padrão -->
-    <link rel="stylesheet" href="/style.padrao/00.menu.padrao.css"> <!-- CSS do menu -->
-    <link rel="stylesheet" href="/style.pages/02.style.css"> <!-- CSS da sua pagina -->
+    <link rel="stylesheet" href="/admin/style.padrao/00.css.padrao.css"><!-- CSS padrão -->
+    <link rel="stylesheet" href="/admin/style.padrao/00.menu.padrao.css"> <!-- CSS do menu -->
+    <link rel="stylesheet" href="/admin/css/02.style.css"> <!-- CSS da sua pagina -->
     <!-- link do icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -49,17 +49,17 @@
             </header>
     <article class="section-one">
                 <section class="section-main">
-                    <div><h1><span class="material-icons">reply_all</span> Editar produto</h1><hr></hr></div>
+                    <div><h1><span class="material-icons">reply_all</span> Cadastrar produtos</h1><hr></hr></div>
                     <div><h2>Dados do produto</h2></div>
             
                     <form class="form" id="formularioProduto">
                         <div><label for="name"> Nome:</label></div>
-                        <div class="input-date"><input id="name" class="quebra-linha" type="text" name="nome" readonly required></div>
+                        <div class="input-date"><input id="name" class="quebra-linha" type="text" name="nome" required></div>
                         <div><label for="codigo"> Código:</label></div> 
-                        <div class="input-cod"><input id="codigo" class="quebra-linha" type="text" placeholder="15" name="codigo" readonly required></div>
+                        <div class="input-cod"><input id="codigo" class="quebra-linha" type="text" placeholder="15" name="codigo" required></div>
                         <div><label for="valor"> Preço unitario:</label></div>
                         <div class="inputValor"><input id="valor" class="quebra-linha" type="text" placeholder="R$" name="valor" required></div>
-                        <div><button id="cadastrar-produto">Atualizar</button></div>
+                        <div><button id="cadastrar-produto">Cadastrar produto</button></div>
                         <br>
                         <div id="popup" class="popup">
                             <div class="popup-content">
@@ -69,13 +69,12 @@
                                 <button class="back-btn">Voltar para produtos cadastrados</button>
                             </div>
                         </div>
-                        
                         <!-- <div><button id="excluir-produto">Excluir produto</button></div> -->
                     </form>
             </section>
         </article>
     </main>
-    <script src="/scripts/02.editProdutos.js"></script>
+    <script src="/admin/scripts/02.cadProdutos.js"></script>
     <script src="/scripts/01.menu.js"></script>
     
 </body>

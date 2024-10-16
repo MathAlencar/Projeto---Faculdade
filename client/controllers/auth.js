@@ -56,21 +56,21 @@ exports.login = (req, res) => {
         mysql.query(query, [email], (err, results) => {
 
             // Verificando se houve algum erro ao conectar com o bando de dados
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
+            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'), {
                 message: "Erro ao conectar com o servidor"
             });
 
-            if (results.length < 1) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
+            if (results.length < 1) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'), {
                 message: "Usuário incorreto email"
             });
             
             // Verificando se o usuário está ativo ou não, caso não o seu login será rejeitado!
-            if(results[0].ativo == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
+            if(results[0].ativo == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'), {
                 message: "Usuário desativado!"
             }); 
             
             bcrypt.compare(senha, results[0].password_Login, (err, result) => {
-                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
+                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'), {
                     message: "Usuario incorreto senha"
                 });
 
@@ -98,10 +98,10 @@ exports.login = (req, res) => {
                     res.cookie('email', results[0].email_Login)
 
                     console.log(`cookie novo: ${ token }`)
-                    return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '01.menu.html'));
+                    return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '01.menu.html'));
                 }
 
-                return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'), {
+                return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'), {
                     message: "falha na autenticação"
                 })
             })
@@ -116,12 +116,12 @@ exports.loginUser = (req, res) => {
         mysql.query(query, [email], (err, results) => {
 
             // Verificando se houve algum erro ao conectar com o bando de dados
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '1000.loginUser.html'), { message: "Erro ao conectar com o servidor" });
+            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '1000.loginUser.html'), { message: "Erro ao conectar com o servidor" });
 
-            if (results.length < 1) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '1000.loginUser.html'), { message: "Usuário incorreto email" });
+            if (results.length < 1) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '1000.loginUser.html'), { message: "Usuário incorreto email" });
 
             bcrypt.compare(senha, results[0].password_Login, (err, result) => {
-                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '1000.loginUser.html'), { message: "Usuario incorreto senha" });
+                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '1000.loginUser.html'), { message: "Usuario incorreto senha" });
 
                 if (result) {
                     // res.clearCookie('jwt'); // Aqui a cada nova sessão de login criada, você está limpando a sua variável de token, assim ela irá receber uma nova!
@@ -147,10 +147,10 @@ exports.loginUser = (req, res) => {
                     res.cookie('email', results[0].email_Login)
 
                     console.log(`cookie novo: ${ token }`)
-                    return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '1001.mobile.menu.html'));
+                    return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '1001.mobile.menu.html'));
                 }
 
-                return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '1001.mobile.menu.html'), { message: "falha na autenticação" });
+                return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '1001.mobile.menu.html'), { message: "falha na autenticação" });
             })
         }) 
 }
@@ -159,5 +159,5 @@ exports.logout = (req, res) => {
     res.clearCookie('jwt');
     res.clearCookie('name');
     res.clearCookie('email');
-    return res.sendFile(path.join(__dirname, '..', 'public', 'pages', '00.login.html'));
+    return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'));
 }
