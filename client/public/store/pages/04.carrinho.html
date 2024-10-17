@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/store/css/04.carrinho.css">
+    <link rel="stylesheet" href="/store/css/menu.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>carrinho</title>
+</head>
+<body>
+    <main>
+        <!-- MENU -->
+        <header>
+            <nav class="menu">
+                <div>
+                  <a href="#"><span class="material-icons" id="activate">home</span></a>
+                  <a href="#"><span class="material-icons" >person_outline</span></a>
+                  <a href="#"><span class="material-icons">description</span></a>
+                </div>
+            </nav>
+        </header>
+        <article class="section-all">
+
+            <section class="content-section">
+                <div class="shopping-cart">
+                    <a href="#" class="logo-account"><span class="material-icons">keyboard_backspace</span></a>
+                    <h1>Meu carrinho</h1>
+                </div>
+            </section>
+
+            <section class="content-main">
+                <div class="produtos">
+                    <h2>Itens adicionados</h2>
+                    <div class="title"> 
+                        <table>
+                            <thead>
+                                <tr>
+                                  <th>Produto</th>
+                                  <th>Qtd</th>
+                                  <th>Valor</th>
+                                  <th></th>
+                                  <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="item-produto">
+                                    <td class="nome">Nome do produto</td>
+                                    <td>1x</td>
+                                    <td>R$ --</td>
+                                    <td><a href="#" class="add"><span class="material-icons">add_circle_outline</span></a><br>
+                                    <a href="#" class="remove"><span class="material-icons">remove_circle_outline</span></a></td>
+                                    <td><a href="#"><span class="material-icons">delete</span></a></td>
+                                </tr>
+                                <tr class="item-produto">
+                                    <td class="nome">Nome do produto</td>
+                                    <td>1x</td>
+                                    <td>R$ --</td>
+                                    <td><a href="#" class="add"><span class="material-icons">add_circle_outline</span></a><br>
+                                    <a href="#" class="remove"><span class="material-icons">remove_circle_outline</span></a></td>
+                                    <td><a href="#"><span class="material-icons">delete</span></a></td>
+                                </tr>
+                                <tr class="item-produto">
+                                    <td class="nome">Nome do produto</td>
+                                    <td>1x</td>
+                                    <td>R$ --</td>
+                                    <td><a href="#" class="add"><span class="material-icons">add_circle_outline</span></a><br>
+                                    <a href="#" class="remove"><span class="material-icons">remove_circle_outline</span></a></td>
+                                    <td><a href="#"><span class="material-icons">delete</span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h2>Total da compra</h3>
+                        <div class="total-compra"><h3>R$ --,--</h3></div>
+                    </div>
+                    <div class="button-pay">
+                        <h2>Método de pagamento</h3>
+                        <button class="pay">Pix</button>
+                        <button class="pay">Dinheiro</button>
+                        <button class="pay">A prazo</button>
+                        <button>Comprar</button>
+                    </div>                 
+                    <div class="tamanho"><!-- Para o menu e o total não sobrepor conteúdo--></div> 
+                </div>
+            </section>
+        </article>
+    </main>
+    <script src="../Script/indexMain.js"></script>
+</body>
+</html>

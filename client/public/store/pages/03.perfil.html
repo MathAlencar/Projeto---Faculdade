@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/store/css/03.perfil.css">
+        <link rel="stylesheet" href="/store/css/menu.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <title>perfil</title>
+</head>
+<body>
+    <header>
+    <nav class="menu">
+        <div>
+          <a href="#"><span class="material-icons">home</span></a>
+          <a href="#"><span class="material-icons" id="activate">person_outline</span></a>
+          <a href="#"><span class="material-icons">description</span></a>
+        </div>
+    </nav>
+    </header>
+    <main>
+        <article class="section-all">
+            <section class="content-section">
+                <!-- Sessão de informações como nome do usuario -->
+                <div class="profile-info">
+                    <h1>Meu perfil</h1>
+                    <div><a href="#"><span class="material-icons" id="logoutIcon">exit_to_app</span></a></div>
+                    <p>Vizualize e acompanhe todas suas informações.</p>                                                                          
+                </div>
+            </section>
+
+            <section class="content-main">
+                    <h2>Informações do perfil</h2>
+                    <span class="material-icons" id="accountIcon">account_circle</span>
+                    <button><span class="material-icons-outlined">add_a_photo</span></button>
+                    <div>
+                        <p id="name-text">Nome:</p>
+                        <input type="name" id="input-name"placeholder="Nome completo"> 
+                    </div>
+                    <div class="email">
+                        <p>Email:</p>
+                        <input type="email" id="input-email"placeholder="xxxxxxxxxxx@xxxxxx.xxxx"> 
+                    </div>
+                    <div class="password">
+                        <p>Senha:</p>
+                        <input type="password" id="input-password"placeholder="********"> 
+                    </div>
+                    <div class="contact">
+                        <p>Contato:</p>
+                        <input type="contact" id="input-contact"placeholder="(xx)xxxxxxxx"> 
+                    </div>
+            </section>
+            <section class="bottom-section">
+                <div><button>Salvar alterações</button></div>
+            </section>
+            <!-- MENU -->
+        </article>
+    </main>
+    <script src="../Script/indexMain.js"></script>
+</body>
+</html>

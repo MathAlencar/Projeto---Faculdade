@@ -1,0 +1,275 @@
+:root{
+    --primary-color: #E8E8E8;
+    --background-color-: #224864;
+    --text-aligh-h1-h6: start;
+    --input-date-width: 35vw;
+    --input-date-height: 27vh;
+    --input-width: 31vw; 
+    --input-height: 4vh;   
+    --font-size-placeholder: 2vh;
+    --font-size-buttons: 3vh;
+    --font-family: 'Inter', sans-serif;
+}
+
+body{
+    font-family: var(--font-family);
+    background-color: var(--background-color-);
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box !important;
+    width: 100%;
+}
+
+/*Definição da estrutura da pagina*/
+.section-all{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 15vh auto;
+    grid-template-areas: 
+    "info"
+    "main";
+}
+.section-all section:nth-child(1){ /*define info*/
+    background-color: var(--background-color-);
+    display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+}
+.section-all section:nth-child(2){ /*o restante da page*/
+    background-color: #ffff;
+    border-radius: 40px 40px 0 0;
+    display: grid;
+    justify-content: center;
+    align-content: start;
+}
+
+
+.profile-info{
+    width: 90vw;
+    display: grid;
+    place-content: center;
+    grid-template-columns: 72px auto 26px;
+    grid-template-rows: 5vh 10vh;
+    grid-template-areas: 
+    "img text exit";
+}   
+
+
+.profile-info a{
+    text-decoration: none;
+    color: #ffff;
+    font-size: 15px;
+    line-height: 0;
+}
+
+.profile-info h1 {
+    position: absolute;
+    font-size: 24px;
+    line-height: 32px;
+    color: #fff;
+    margin-left: 5.5vh;
+    top: 1vh;
+}
+
+#logoutIcon{
+    font-size: 30px;
+}
+
+.profile-info a{
+    color: #fff;
+    left: 36vh;
+    position: absolute;
+    top: 5vh;
+}
+
+.content-section .profile-info p {
+    position: absolute;
+    font-size: 14px;
+    color: #fff;
+    line-height: 16.94px;
+    width: 22.95vh;
+    top: 15vw;
+    left: 8vh;
+}
+
+.content-main {
+    scroll-behavior: smooth;
+
+}
+
+.content-main h2 {
+    position: absolute;
+    margin-top: 4.55%;
+    margin-left: 6.65%;
+}
+
+#accountIcon {
+    position: absolute;
+    font-size: 106px;
+    color: #E8E8E8;
+    margin-left: 4.80%;
+    margin-top: 15.35%;
+}
+
+#name-text{
+    position: absolute;
+    margin-top: 19.53%;
+    margin-left: -14.75%;
+}
+
+#input-name {
+    position: absolute;
+    width: 57vw;
+    height: 11.1vw;
+    margin-top: 27.75vw;;
+    margin-left: -17vw;
+    border-radius: 10px;
+    padding-left: 5.75%;
+    background-color: #E6E6E6;
+    border: 0;
+}
+.content-main div p {
+    margin-top: -75px;
+    margin-bottom: 35px;
+    font-weight: 600;
+    margin-left: 139px;
+    font-size: 15px;
+    color: #3D3D46;
+}
+
+.content-main .email{
+    position: absolute;
+    margin-top: 294px;
+    margin-left: 18.9px;
+}
+
+.content-main .email input{
+    position: absolute;
+    width: 86vw;
+    height: 11.1vw;
+    margin-top: -4vw;
+    padding-left: 5vw;
+    border-radius: 10px;
+    background-color: #E6E6E6;
+    border: 0;
+}
+
+.content-main .email p{
+    margin-left: 17px;
+}
+
+.content-main button{
+    position: absolute;
+    margin-top: 130px;
+    border-radius: 100px;
+    width: 32px;
+    height: 32px;
+    margin-left: 88px;
+    background-color: #224864;
+    border: 0;
+}
+.material-icons-outlined{
+    color: #fff;
+    font-size: 18px !important;
+}
+.content-main .password{
+    position: absolute;
+    margin-top: 408px;
+    margin-left: 18.9px;
+}
+
+.content-main .password p{
+    margin-left: 17px;
+}
+
+.content-main .password input{
+    width: 86vw;
+    height: 11.1vw;
+    margin-top: -4vw;
+    padding-left: 5vw;
+    border-radius: 10px;
+    background-color: #E6E6E6;
+    border: 0;
+}
+.content-main .contact{
+    position: absolute;
+    margin-top: 522px;
+    margin-left: 18.9px;
+}
+
+.content-main .contact p{
+    margin-left: 17px;
+}
+
+.content-main .contact input{
+    width: 86vw;
+    height: 11.1vw;
+    margin-top: -4vw;
+    padding-left: 5vw;
+    border-radius: 10px;
+    background-color: #E6E6E6;
+    border: 0;
+}
+
+
+.bottom-section{
+background-color: #fff;
+position: absolute;
+}
+
+.bottom-section button{
+    position: absolute;
+    font-size: 3.75vw;
+    width: 42vw;
+    height: 13.75vw;
+    border: 0;
+    top: 82vh;
+    left: 29vw;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #224864;
+}
+
+@media only screen and (max-width:376px) {
+    .profile-info h1 {
+        position: absolute;
+        font-size: 24px;
+        line-height: 10px;
+        color: #fff;
+        margin-left: 5.5vh;
+        top: 1vh;
+    }
+    .content-section .profile-info p {
+        position: absolute;
+        font-size: 14px;
+        color: #fff;
+        line-height: 13.94px;
+        width: 22.95vh;
+        top: 11vw;
+        left: 8vh;
+    }
+    .profile-info a {
+        color: #fff;
+        left: 40vh;
+        position: absolute;
+        top: 6vh;
+    }
+    .content-main .password p{
+        margin-left: 17px;
+        margin-top: -22vh;
+    }
+    .content-main .contact p{
+        margin-left: 17px;
+        margin-top: -25vh;
+    }
+    .content-main div p {
+        margin-top: -18vh;
+        margin-bottom: 19px;
+        font-weight: 600;
+        margin-left: 139px;
+        font-size: 15px;
+        color: #3D3D46;
+    }
+}

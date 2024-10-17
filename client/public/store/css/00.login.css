@@ -32,7 +32,7 @@ body{
 
 /* Esqueleto da página */
 
-.section-all{
+.section-bem-vindo{
     margin: 0;
     display: grid;
     grid-template-columns: 40vw 60vw;
@@ -41,7 +41,7 @@ body{
     "Section Section";
 }
 
-.section-all section:nth-child(1){ 
+.section-bem-vindo section:nth-child(1){ 
     line-height: 7vh;
     background-color: var(--background-color-);
     display: flex;
@@ -50,7 +50,7 @@ body{
     height: auto;
 }
 
-.section-all form:nth-child(2){
+.section-bem-vindo section:nth-child(2){
     background-color: var(--primary-color);
     display: flex;
     justify-content: center;
@@ -59,7 +59,7 @@ body{
 }
 
 /*SEÇÃO 1 - BOAS VINDAS */
-.content-section{
+/* .content-section{
     height: 70vh;
     width: 28vw;
     display: grid;
@@ -72,7 +72,46 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
+
+.content-section{
+    height: 70vh;
+    width: 26vw;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 13vh 25vh 25vh;
+    grid-template-areas:
+    "div"
+    "div"
+    "div";
+  }
+  
+  .content-section div:nth-child(1){
+    height: var(--section-one-height-blocks);
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .content-section div:nth-child(2){
+    height: var(--section-one-height-blocks);
+    width: var(--section-one-width-blocks);
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: var(--text-aligh-h1-h6);
+    font-size: var(--section-one-font-size-h1);
+  }
+  
+  .content-section div:nth-child(3){
+    height: var(--section-one-height-blocks);
+    width: var(--section-one-width-blocks);
+    text-align: start;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: var(--text-aligh-h1-h6);
+    font-size: 25px;
+  }   
 
 
 
@@ -98,6 +137,7 @@ body{
     align-items: center;
     font-size: 40px;
 }
+
 .content-section-02 div:nth-child(2){
     display: flex;
     justify-content: center;
@@ -118,8 +158,8 @@ body{
 
 /* Section 1: tela de boas-vindas*/
 #img-logo{
-    height: 140px;
-    width: 159px;
+    height: 16vh;
+    width: 9vw;
 }
 
 
@@ -174,7 +214,7 @@ body{
 /* responsividade da página */
 
 @media (max-width: 1200px)and (min-width: 550px){
-    .section-all{
+    .section-bem-vindo{
         width: 100%;
         margin: 0;
         padding: 0;
@@ -186,7 +226,7 @@ body{
         "Section";
     }
     
-    .section-all section:nth-child(1){
+    .section-bem-vindo section:nth-child(1){
         width: 100%;
         line-height: 7vh;
         background-color: var(--background-color-);
@@ -196,7 +236,7 @@ body{
         height: auto;
     }
     
-    .section-all section:nth-child(2){
+    .section-bem-vindo section:nth-child(2){
         border-radius: 40px 40px 0px 0px;
         width: 100%;
         background-color: var(--primary-color);
@@ -224,8 +264,9 @@ body{
 
 /* Section 1: tela de boas-vindas*/
 #img-logo{
-    height: 140px;
-    width: 140px;
+    margin-top: 7vh;
+    height: 14vh;
+    width: 14vw;
 }
 
 :root{
@@ -244,7 +285,7 @@ body{
 }
 
 @media screen and (max-width: 550px){
-    .section-all{
+    .section-bem-vindo{
         width: 100%;
         margin: 0;
         padding: 0;
@@ -255,7 +296,7 @@ body{
         "Section"
         "Section";
     }
-    .section-all section:nth-child(1){
+    .section-bem-vindo section:nth-child(1){
         width: 100%;
         line-height: 7vh;
         background-color: var(--background-color-);
@@ -265,7 +306,7 @@ body{
         height: auto;
     }
     
-    .section-all section:nth-child(2){
+    .section-bem-vindo section:nth-child(2){
         border-radius: 40px 40px 0px 0px;
         width: 100%;
         background-color: var(--primary-color);
@@ -293,9 +334,11 @@ body{
 
 /* Section 1: tela de boas-vindas*/
 #img-logo{
-    height: 140px;
-    width: 140px;
+    margin-top: 7vh;
+    height: 13vh;
+    width: 20vw;
 }
+
 
 :root{
     --height-bottom-enter: 8vh;

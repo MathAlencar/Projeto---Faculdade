@@ -3,6 +3,8 @@ const router = express.Router();
 const login = require('./../middlware/login')
 const path = require('path');
 
+// Rotas das paginas do admin
+
 router.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, './../', 'public', 'admin', 'pages/00.login.html'));
 })
@@ -62,12 +64,33 @@ router.get('/funcionarios/editar', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/08.editFuncionarios.html'));
 })
 
-router.get('/login/usuario', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname,'./../','public', 'admin', 'pages/1000.loginUser.html'));
+// router.get('/login/usuario', login.login, (req, res) => {
+//     res.sendFile(path.join(__dirname,'./../','public', 'admin', 'pages/1000.loginUser.html'));
+// })
+
+// router.get('/home', login.login, (req, res) => {
+//     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/1001.mobile.menu.html'));
+// })
+
+//rotas da pagina do store
+router.get('/loginStore', (req, res) => {
+    res.sendFile(path.join(__dirname, './../', 'public', 'store', 'pages/00.login.html'));
 })
 
 router.get('/home', login.login, (req, res) => {
-    res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/1001.mobile.menu.html'));
+    res.sendFile(path.join(__dirname, './..', 'public', 'store', '01.pages/home.html'));
+})
+
+router.get('/pedidos', login.login, (req, res) => {
+    res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/02.pedidos.html'));
+})
+
+router.get('/perfil', login.login, (req, res) => {
+    res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/03.perfil.html'));
+})
+
+router.get('/carrinho', login.login, (req, res) => {
+    res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/04.carrinho.html'));
 })
 
 module.exports = router;
