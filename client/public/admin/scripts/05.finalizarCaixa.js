@@ -2,6 +2,9 @@
 const produtos = JSON.parse(sessionStorage.getItem('compra'));
 // Pegando o tipo de pagamento escolhido pelo usuário.
 const opc_pagamento = document.querySelector('#metodo')
+const total_compra = document.querySelector('#total')
+let listaDeCompras = []; 
+let listaNaoCompras = [];
 
 
 // Buscando o nome e email do usuário.
@@ -20,7 +23,7 @@ function getCookie(name) {
 // <-- FIM
 
 // --> Definindo variáveis a serem usadas no front-end - Nome e E-mail que serão enviadas ao banco de dados;
-const nameUSer_real_prod = getCookie('name'); 
+const nameUSer_real_prod = getCookie('name');
 const emailUSer_real_prod = getCookie('email');
 
 function criaTabela(produtos){
@@ -65,13 +68,11 @@ buttonComprar.addEventListener('click', (e) =>{
     }
 
     lista_produtos_ja_contabilizados = [] // Esse array garante que cada produto seja somado, pois após rodar o loop ele irá armazenar neste array o nome do produto.
-    lista_produtos_nao_foi_possivel_realizar_a_compra = [] // Criando lista que irá armazenar os itens que não foi possível realizar a compra.
-    lista_produtos_que_foi_possivel_realizar_a_compra = [] // Criando lista que irá armazenar os itens que foi possível realizar a compra.
 
     // Validando a compra, verificando a quantidade solicitada pelo usuário de cada produto.
     for(let i=0; i<produtos.length; i++){
 
-      let somando_qtd_produto_carrinho = 0; // Irá receber a quantidade solicitada.
+      let somando_qtd_produto_carrinho = 10; // Irá receber a quantidade solicitada.
       let prod_nome = produtos[i].nome; // Nome do produto que será verificado.
       let produto_ja_contabilizado = false; // Flag que irá auxiliar se o produto foi ou não já contabilizado.
 
@@ -139,18 +140,20 @@ buttonComprar.addEventListener('click', (e) =>{
                 return response.json();
               })
               .then(data => {
+
+                listaDeCompras.push(prod_nome);
+                sessionStorage.setItem('listaDeCompras', JSON.stringify(listaDeCompras));
+
               })
               .catch(error => {
                 console.error('Erro:', error);
               });
-
-              pedido.produtos_solicitados.push(prod_nome)
-
             }
 
             if(somando_qtd_produto_carrinho >= quantidade_produto){
 
-              lista_produtos_nao_foi_possivel_realizar_a_compra.push(prod_nome)
+              listaNaoCompras.push(prod_nome);
+              sessionStorage.setItem('listaNaoCompras', JSON.stringify(listaNaoCompras));
 
             }
 
@@ -164,14 +167,34 @@ buttonComprar.addEventListener('click', (e) =>{
       }
     }
 
-    pedido.tipo_pagamento = opc_pagamento.value
-    console.log(pedido.produtos_solicitados)
+    let produtosNoCarrinho = JSON.parse(sessionStorage.getItem('listaDeCompras'));
 
-    if(lista_produtos_nao_foi_possivel_realizar_a_compra.length > 1){
-      popup(`Não foi possível realizar a compra deste produtos: ${lista_produtos_nao_foi_possivel_realizar_a_compra}, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
-      sessionStorage.clear()
+    // let produtosNaoComprados = JSON.parse(sessionStorage.getItem('listaNaoCompras')); 
 
-    }else {
+    // console.log('a', produtosNoCarrinho)
+    // console.log('b', produtosNaoComprados)
+
+    // if(produtosNaoComprados != null){
+    //   popup(`Não foi possível realizar a compra deste produtos: ${produtosNaoComprados}, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
+      
+    //   sessionStorage.clear()
+
+    // }
+
+    // console.log('a', produtosNaoComprados)
+
+    if(10>9){
+
+      // console.log('voce entrou aqui')
+      
+      pedido.tipo_pagamento = opc_pagamento.value
+      pedido.valor_compra = parseFloat(total_compra.value.replace('R$', ''))
+      
+      // for(let i=0; i<produtosNoCarrinho.length; i++){
+      //   pedido.produtos_solicitados[i] = produtosNoCarrinho[i]
+      // }
+
+      // console.log(produtosNoCarrinho)
 
       let dados = {
         request: pedido
@@ -191,11 +214,11 @@ buttonComprar.addEventListener('click', (e) =>{
         return response.json();
       })
       .then(data => {
+        console.log(data.message)
       })
       .catch(error => {
         console.error('Erro:', error);
       });
-
 
       popup("Pedido realizado com sucesso!")
 
@@ -239,12 +262,13 @@ function popup(mensagem){
 }
 
 // Função que cria o usuário para mandar as informações ao banco de dados.
-function Obj_compra_usuario(name, e_mail, opc_pag){
+function Obj_compra_usuario(name, e_mail, opc_pag, total_compra_feita){
   return {
     nome: name,
     email: e_mail,
     tipo_pagamento: opc_pag,
-    produtos_solicitados: ['']
+    valor_compra: total_compra_feita,
+    produtos_solicitados: []
   }
 }
 

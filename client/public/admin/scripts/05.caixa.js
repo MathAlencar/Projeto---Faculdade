@@ -210,3 +210,14 @@ function filtrar() {
     }
   }
 }
+
+sessionStorage.clear()
+
+
+// let produtosNoCarrinho = JSON.parse(sessionStorage.getItem('listaDeCompras'));
+
+// let produtosNaoComprados = JSON.parse(sessionStorage.getItem('listaNaoCompras')); 
+
+// console.log('a', produtosNoCarrinho)
+// console.log('b', produtosNaoComprados)
+
