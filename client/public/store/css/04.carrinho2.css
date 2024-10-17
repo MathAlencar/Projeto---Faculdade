@@ -1,0 +1,105 @@
+html{
+    font-family: sans-serif;
+}
+
+#checkIcon{
+    font-size: 57vw;
+    margin: 13vh 11.5vh 3.3vh 11.5vh;
+    color: #224864;
+}
+
+h1 {
+    margin: 4vh 2%;
+    width: 45vh;
+    font-size: 3.5vh;
+    font-weight: 700;
+    line-height: 4vh;
+    text-align: center;
+    color: #3D3D46;
+}
+
+div p {
+    font-size: 2.2vh;
+    font-weight: 600;
+    line-height: 2.65vh;
+    text-align: center;
+    width: 49vh;
+    color: #224864;
+    margin: 0;
+}
+
+div button  {
+    position: absolute;
+    margin: 0 17%;
+    font-weight: 600;
+    border-radius: 10px;
+    font-size: 3.75vw;
+    width: 70vw;
+    height: 13.75vw;
+}
+
+div button:nth-child(1){
+    border: 0;
+    top: 77vh;
+    color: #fff;
+    background-color: #224864;
+}
+
+div button:nth-child(2){
+    top: 87vh;
+    border-color: #224864;
+    color: #224864;
+    background-color: #fff;
+}
+
+@media only screen and (max-width: 376px) and (max-height: 668px) {
+    #checkIcon {
+        font-size: 43vw;
+        margin: 19vw 28vw 2vw;
+        color: #224864;
+    }
+
+    h1 {
+        margin: 4vh 3%;
+        width: 52vh;
+        font-size: 3.47vh;
+        font-weight: 700;
+        line-height: 3.5vh;
+        text-align: center;
+        color: #3D3D46;
+    }
+
+    div p {
+        font-size: 2.5vh;
+        font-weight: 600;
+        line-height: 2.65vh;
+        text-align: center;
+        width: 49vh;
+        color: #224864;
+        margin: 0 6%;
+    }
+
+    div button {
+        margin: 0 13%;
+        font-weight: 600;
+        border-radius: 10px;
+        position: absolute;
+        font-size: 3.75vw;
+        width: 70vw;
+        height: 13.75vw;
+    }
+
+    div button:nth-child(1) {
+        border: 0;
+        top: 68vh;
+        color: #fff;
+        background-color: #224864;
+    }
+
+    div button:nth-child(2) {
+        top: 80vh;
+        border-color: #224864;
+        color: #224864;
+        background-color: #fff;
+    }
+}
