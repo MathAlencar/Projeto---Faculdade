@@ -51,15 +51,30 @@
 }
 
 #searchbar{
-    width: 30vw;
-    height: 7vh;
-    border-radius: 10px;
-    border-color: #00000026;
-    padding-left: 2vh;
-    font-size: 1.5rem;
-    outline: none;
+  width: 352px;
+  height: 40px;
+  border: #0000001e solid 1.5px;
+  border-radius: 8px;
+  padding-left: 0.5rem;
 }
 
 #searchbar::placeholder{
     color: #00000026;
+}
+
+input[type="checkbox"] {
+  appearance: none; /* Remove o estilo padrão */
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: red;
+  border-radius: 50%; /* Para cantos arredondados */
+  /* position: relative; */
+  cursor: pointer;
+}
+
+/* Estilo quando o checkbox está marcado */
+input[type="checkbox"]:checked {
+  background-color: #28a745; /* Cor de fundo */
+  border-color: #28a745; /* Cor da borda */
 }
