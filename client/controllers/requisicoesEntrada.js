@@ -1,5 +1,4 @@
 const express = require('express'); // Chamando a biblioteca express
-const { get } = require('http');
 const router = express.Router(); // Exportando para fora;
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const data = new Date().toISOString().slice(0, 10); // PEgando a data no formatado desejado para o banco;
@@ -151,6 +150,61 @@ exports.confirmandoCompra = (req, res, next) => {
         if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
 
         const query = `UPDATE pedidos_realizados SET ativo = ? WHERE id = ?;`
+
+        conn.query(query, [1, id], (err, result) => {
+            conn.release();
+            if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+
+            if(result.affectedRows == 0) return res.json({message: "Erro ao atualizar status do produto!"})
+
+            return res.json({message: "Pedido atualizado com sucesso!"});
+
+        })
+    })
+}
+
+exports.chamandoSaida = (req, res, next) => {
+
+    mysql.getConnection((err, conn) => {
+        if (err) return res.json({message: "Erro ao conectar com o banco de dados"});
+
+        const query = `SELECT * FROM tbl_saida;`;
+
+        conn.query(query, (err, result) => {
+            conn.release();
+            if (err) return res.json({message: "Erro ao conectar com o banco de dados"});
+
+            if (result.length == 0) return res.json({message: "Nenhuma saida foi encontrado"});
+
+            const response = {
+                quantidade: result.length,
+                produtos: result.map(prod => {
+                    return {
+                        codidog_pedido: prod.codigo_pedido,
+                        codigo_produto: prod.codigo_produto,
+                        funcionario: prod.funcionario,
+                        data_saida: prod.data_saida,
+                        qtd_comprada: prod.qtd_comprada,
+                        nome_produto: prod.nome_produto,
+                        forma_pagamento: prod.forma_pagamento,
+                        valor_compra: prod.valor_compra
+                    }
+                })
+            }
+
+            return res.json(response);
+        })
+    })
+}
+
+exports.negativandoCompra = (req, res, next) => {
+
+    const {id} = req.body;
+        
+    mysql.getConnection((err, conn) => {
+        if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+
+        const query = `UPDATE pedidos_realizados SET status = ? WHERE id = ?;`
 
         conn.query(query, [1, id], (err, result) => {
             conn.release();

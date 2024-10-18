@@ -1,5 +1,6 @@
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const path = require('path');
+const data = new Date().toISOString().slice(0, 10); // PEgando a data no formatado desejado para o banco;
 
 
 exports.cadastrandoProduto = (req, res, next) => {
@@ -50,7 +51,6 @@ exports.cadastrandoProduto = (req, res, next) => {
 exports.deletandoProduto = (req, res, next) => {
 
     const { nome, codigo, valor } = req.body;
-    console.log(nome, codigo, valor);
     
     mysql.getConnection((err, conn) => {
         conn.release();
@@ -167,8 +167,6 @@ exports.atualizandoProdutoPreco = (req, res, next) => {
 
         const query = `SELECT * FROM tbl_Produto WHERE cod_Prd = ?;`
 
-        console.log(codigo)
-
         conn.query(query, [codigo], (err, result) => {
             conn.release();
 
@@ -242,3 +240,58 @@ exports.realizandoCompra = (req, res, next) => {
 
     })
 }
+
+exports.cadastrandoPedidoRealizado = (req, res, next) => {
+
+    const {nome, email, tipo_pagamento, valor_compra, produtos_solicitados} = req.body.request
+
+    mysql.getConnection((err, conn) => {
+
+        if(err) return res.json({message: "Erro ao conectar com o banco de dados"});
+
+        const query = `SELECT MAX(id) AS last_id FROM pedidos_realizados;`
+
+        conn.query(query, (err, result) => {
+
+            if(err) return res.json({message: "Erro ao conectar com o banco de dados!!" });
+
+            let codigo_pedido = result[0].last_id
+
+            for(let i=0; i<produtos_solicitados.length; i++){
+
+                let tipoProduto = produtos_solicitados[i].nome_produto;
+                let qtd_comprada = produtos_solicitados[i].qtd_comprada
+
+                const query = `SELECT * FROM tbl_Produto WHERE nome_Prd = ?;`
+            
+                conn.query(query, [tipoProduto], (err, result) => {
+                    conn.release();
+
+                    if(err) return res.json({message: "Erro ao conectar com o banco de dados!!" });
+
+                    if( result.length == 0) return res.json({message: "Produto não localizado em nosso sistema!"});
+
+                    let codigo_produto = result[0].cod_Prd;
+                    let preco_produto = result[0].vlr_Unit;
+
+                    let calculando_vlr_total_prod = preco_produto * produtos_solicitados[i].qtd_comprada;
+
+                    const query = `INSERT INTO tbl_saida (codigo_pedido, codigo_produto, data_saida, forma_pagamento ,funcionario, qtd_comprada, valor_compra, nome_produto) VALUES(?,?,?,?,?,?,?,?);`
+                    
+                    conn.query(query, [codigo_pedido, codigo_produto, data, tipo_pagamento, nome, qtd_comprada, calculando_vlr_total_prod, tipoProduto], (err, result) => {
+                        conn.release();
+
+                        if(err) return res.json({message: "Erro ao conectar com o banco de dados!!" });
+
+                    })
+                    
+                })
+            }
+
+        })
+
+    })
+
+
+}
+

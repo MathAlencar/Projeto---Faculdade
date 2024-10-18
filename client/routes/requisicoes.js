@@ -12,6 +12,7 @@ router.get('/chamada/produto', produtosAPI.chamandoProduto);
 router.patch('/chamada/produto/especifico', produtosAPI.chamandoProdutoEspec);
 router.patch('/atualizando/produto', produtosAPI.atualizandoProdutoPreco);
 router.patch('/realizando/compra', produtosAPI.realizandoCompra);
+router.post('/cadastrando/pedido', produtosAPI.cadastrandoPedidoRealizado);
 
 // Chamando API referente a funcionarios.
 
@@ -20,12 +21,13 @@ router.get('/chamada/especifica', funcionariosAPI.chamadaFuncionarioEspec);
 router.delete('/delete', funcionariosAPI.deletandoUser);
 router.patch('/atualizando', funcionariosAPI.atualizandoUser);
 
-// Chamada API referente as entradas.
+// Chamada API referente as entradas/saidas.
 
 router.post('/entrada/produto', entradasAPI.entradaProduto);
 router.get('/entradas/produtos', entradasAPI.entradasProdutos);
 router.post('/realizandoCompra', entradasAPI.catalogandoPedido);
 router.get('/chamada/pedidosRealizados', entradasAPI.historicoPedidosRealizados);
-
+router.get('/saida/produto', entradasAPI.chamandoSaida);
+router.patch('/negativando/compra', entradasAPI.negativandoCompra);
 
 module.exports = router;

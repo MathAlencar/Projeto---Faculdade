@@ -128,9 +128,11 @@ function addCarinho(tr,td){
     popup('Não foi possivel adicionar ao carrinho, quantidade não pode ser zero');
     return false;
   }
+
   let compra = JSON.parse(sessionStorage.getItem('compra')) || [];
   compra.push({nome, qtd, valor});
   sessionStorage.setItem('compra', JSON.stringify(compra)); // Salva temporiamente essas informações
+
   return true;
 }
 
@@ -210,8 +212,6 @@ function filtrar() {
     }
   }
 }
-
-sessionStorage.clear()
 
 
 // let produtosNoCarrinho = JSON.parse(sessionStorage.getItem('listaDeCompras'));
