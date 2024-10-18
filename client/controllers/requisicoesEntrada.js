@@ -121,7 +121,7 @@ exports.historicoPedidosRealizados = (req, res, next) => {
 
         conn.query(query, (err, result) => {
             conn.release();
-            if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+            if(err) return res.json({message: "Erro ao conectar com o banco de dados!!"});
 
             const response = {
                 quantidade: result.length,

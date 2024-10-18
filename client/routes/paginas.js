@@ -81,7 +81,7 @@ router.get('/home', login.login, (req, res) => {
     res.sendFile(path.join(__dirname, './..', 'public', 'store', '01.pages/home.html'));
 })
 
-router.get('/pedidos', login.login, (req, res) => {
+router.get('/pedidosUser', login.login, (req, res) => {
     res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/02.pedidos.html'));
 })
 

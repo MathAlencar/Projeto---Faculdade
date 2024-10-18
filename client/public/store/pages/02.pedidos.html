@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/store/css/02.pedidos.css">
-        <link rel="stylesheet" href="/store/css/menuMobile.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-        <title>meus pedidos</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/store/css/02.pedidos.css">
+    <link rel="stylesheet" href="/store/css/menu.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <title>meus pedidos</title>
 </head>
+
 <body>
     <header>
-    <nav class="menu">
-        <div>
-          <a href="#"><span class="material-icons">home</span></a>
-          <a href="#"><span class="material-icons">person_outline</span></a>
-          <a href="#"><span class="material-icons" id="activate">description</span></a>
-        </div>
-    </nav>
+        <nav class="menu">
+            <div>
+                <a href="#"><span class="material-icons">home</span></a>
+                <a href="#"><span class="material-icons">person_outline</span></a>
+                <a href="#"><span class="material-icons" id="activate">description</span></a>
+            </div>
+        </nav>
     </header>
     <main>
         <article class="section-all">
             <section class="content-section">
                 <div class="profile-info">
+                    <span class="material-icons-outlined" id="leftArrow">chevron_left</span>
                     <h1>Meus pedidos</h1>
-                    <div><a href="#"><span class="material-icons" id="logoutIcon">exit_to_app</span></a></div>                                                                         
+                    <div><a href="#"><span class="material-icons" id="logoutIcon">exit_to_app</span></a></div>
                 </div>
             </section>
             <section class="content-main">
@@ -40,7 +43,11 @@
                             <p>1x Amendoim</p>
                             <p>1x Twix</p>
                         </div>
-                        <div class="price"><p>25/04/2024</p><h3>R$14,00</h3></div>
+                        <div class="price">
+                            <p class="date">25/04/2024</p>
+                            <h4 id="total">Total</h4>
+                            <h3>R$14,00</h3>
+                        </div>
                     </div>
                     <div class="square">
                         <h2>ID do pedido: xxxx</h2>
@@ -52,7 +59,11 @@
                             <p>2x Amendoim</p>
                             <p>1x Itubaína</p>
                         </div>
-                        <div class="price"><p>10/04/2024</p><h3>R$10,00</h3></div>
+                        <div class="price">
+                            <p class="date">10/04/2024</p>
+                            <h4 id="total">Total</h4>
+                            <h3>R$10,00</h3>
+                        </div>
                     </div>
                     <div class="square">
                         <h2>ID do pedido: xxxx</h2>
@@ -65,7 +76,11 @@
                             <p>1x Amendoim</p>
                             <p>1x Twix</p>
                         </div>
-                        <div class="price"><p>01/04/2024</p><h3>R$14,00</h3></div>
+                        <div class="price">
+                            <p class="date">01/04/2024</p>
+                            <h4 id="total">Total</h4>
+                            <h3>R$14,00</h3>
+                        </div>
                     </div>
                     <div class="square">
                         <h2>ID do pedido: xxxx</h2>
@@ -76,7 +91,11 @@
                         <div class="elements">
                             <p>5x Twix</p>
                         </div>
-                        <div class="price"><p>30/03/2024</p><h3>R$10,00</h3></div>
+                        <div class="price">
+                            <p id="dateX">30/03/2024</p>
+                            <h4 id="total">Total</h4>
+                            <h3>R$10,00</h3>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -84,4 +103,5 @@
     </main>
     <script src="../Script/indexMain.js"></script>
 </body>
+
 </html>

@@ -59,12 +59,11 @@
         <hr><!--LINHA --></hr>
 
         <div>
-          <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar pedido"
-            onkeyup="buscarPedido()">
+          <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar pedido" onkeyup="filtrar()">
         </div>
 
         <div class="content-table">
-          <table>
+          <table id="tabelaProdutos">
             <thead>
               <tr>
                 <th>CÓDIGO DO PEDIDO</th>
@@ -75,6 +74,18 @@
                 <th>STATUS DO PAGAMENTO</th>
               </tr>
             </thead>
+
+            <!-- Molde para usar no javascript -->
+            <template id="produto-template">
+              <tr>
+                <td id="codigo"></td>
+                <td id="funcionario"></td>
+                <td id="contato"></td>
+                <td id="formaPagamento"></td>
+                <td id="valorCompra"></td>
+                <td id="status"><input id="status_pgto" class="quebra-linha" type="checkbox" name="ativo"></td>
+              </tr>
+            </template>
             <tbody id="tbody"></tbody>
           </table>
         </div>
