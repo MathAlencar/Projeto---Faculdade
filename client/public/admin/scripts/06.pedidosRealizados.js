@@ -5,8 +5,8 @@ fetch('/chamada/pedidosRealizados')
   return response.json();
 })
 .then(data => {
-  console.log(data)
-  construirTabela(data)
+  construirTabela(data);
+  exportarTabela(data);
 })
 .catch(error => console.error('Erro:', error));
 
@@ -21,7 +21,7 @@ function construirTabela(dados){
     if(item.qtd_TotProduto <= 0) return;
     const td = template.content.cloneNode(true);  // Clona o conteúdo do template
 
-    // Popula o conteúdo do clone com os dados do produto
+    // Popula o conteúdo do clone com os dados dos pedidos
     td.querySelector('#codigo').textContent = item.numero_pedido;
     td.querySelector('#funcionario').textContent = item.funcionario;
     td.querySelector('#contato').textContent = item.contato;
@@ -41,6 +41,22 @@ function construirTabela(dados){
   verificaClick(tabela); // Chama a função que verifica os clicks na tabela
 }
 
+function exportarTabela(dados){
+  pedidos = dados.pedidos;
+  document.getElementById('exportarExcel').addEventListener('click', function() {
+    // Converter tabela para uma planilha (workbook)
+    const planilha = XLSX.utils.json_to_sheet(pedidos);
+
+    const arquivoExcel = XLSX.utils.book_new();
+
+    // Adiciona a planilha no arquivo criado com um nome
+    XLSX.utils.book_append_sheet(arquivoExcel, planilha, 'pedidos 1');
+
+    // Gerar o arquivo Excel e faz o download
+    XLSX.writeFile(arquivoExcel, 'pedidos.xlsx');
+  })
+} 
+
 function verificaClick(tabela){
   tabela.addEventListener('click', (e) => {
     const tag = e.target;
@@ -49,14 +65,51 @@ function verificaClick(tabela){
     console.log(tr)
 
     if(tag.id === 'status_pgto'){
-      console.log('estou aquiiii')
+      const pedido = {
+        id: tr.querySelector('#codigo').innerHTML
+      }
+
+      fetch('/atualiza/pagamento', {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pedido)
+      })
+      .then(response => {
+        if(!response.ok) throw new Error;
+        return response.json();
+      })
+      .then(response => popup(response.message))
+      .catch(error => console.error('Erro:', error))
     }
-    
+
+  })
+}
+
+function popup(mensagem){
+  console.log(mensagem.message)
+  const popUp = document.querySelector('#popup');
+  popUp.style.display = 'flex'; // Torna o popup visivel
+
+  //Seleciona os itens do popup
+  const btnClose = document.querySelector('.close-btn');
+  const icon = document.querySelector('.icon');
+  const message = document.querySelector('.message');
+  message.innerHTML = mensagem; // Exibe mensagem de retorno
+
+  if(mensagem.includes('sucesso')){
+    icon.innerHTML = 'task_alt';
+  }else{
+    icon.innerHTML = 'cancel';
+  }
+  btnClose.addEventListener('click', (e) =>{
+    popUp.style.display = 'none';
   })
 }
 
 function filtrar() {
-  let input,tabela,tr,td_nome;
+  let input,tabela,tr;
   input = document.querySelector('#searchbar');
   tabela = document.querySelector('#tabelaProdutos');
   filter = input.value.toUpperCase();

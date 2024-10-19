@@ -60,32 +60,47 @@
         <hr><!--LINHA --></hr>
 
         <div>
-          <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar saída"
-            onkeyup="buscarProduto()">
+          <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar saída" onkeyup="filtrar()">
+          <a href="#" id="exportarExcel">
+            <span class="material-icons-outlined">file_download</span>
+          </a>
         </div>
 
         <div class="content-table">
-          <table>
-            <thead>
-              <tr>
-                <th>CÓDIGO DO PRODUTO</th>
-                <th>CÓDIGO DA VENDA</th>
-                <th>FUNCIONÁRIO(A)</th>
-                <th>PRODUTO</th>
-                <th>DATA DA SAÍDA</th>
-                <th>QTD COMPRADA</th>
-                <th>VALOR DA COMPRA</th>
-                <th>FORMA DE PAGAMENTO</th>
-              </tr>
-            </thead>
+          <table id="tabelaProdutos">
+              <thead>
+                <tr>
+                  <th>CÓDIGO DO<br>PRODUTO</th>
+                  <th>CÓDIGO DA<br>VENDA</th>
+                  <th id="funcionarioTh">FUNCIONÁRIO(A)</th>
+                  <th>PRODUTO</th>
+                  <th>DATA DA SAÍDA</th>
+                  <th>QTD<br>COMPRADA</th>
+                  <th>VALOR DA<br>COMPRA</th>
+                  <th>FORMA DE<br>PAGAMENTO</th>
+                </tr>
+              </thead>
 
+              <!-- Molde para usar no javascript -->
+              <template id="produto-template">
+                <tr>
+                  <td id="codigo_produto"></td>
+                  <td id="codigo_venda"></td>
+                  <td id="funcionario"></td>
+                  <td id="produto"></td>
+                  <td id="data_saida"></td>
+                  <td id="qtd"></td>
+                  <td id="valorCompra"></td>
+                  <td id="forma_pgto"></td>
+                </tr>
+              </template>
             <tbody id="tbody"></tbody>
           </table>
         </div>
       </section> <!-- Fechando a tag section que estava aberta -->
     </article>
   </main>
-
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="/admin/scripts/04.tbsaidas.js"></script>
   <script src="/admin/scripts/01.menu.js"></script>
 </body>

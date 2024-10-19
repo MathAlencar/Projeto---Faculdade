@@ -1,55 +1,63 @@
-.content-header {
-    width: 68vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .content-table {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .content-table table {
-    width: 68vw;
-    overflow: auto;
-    box-shadow: 4px 4px 50px 0px #00000026;
-    border-collapse: collapse;
-    font-family: Inter;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 30px;
-    text-align: center;
-    color: #7A7786;
-  }
-  
-  .content-table table th {
-    background-color: #F9F9F9;
-    padding: 2vh;
-  }
-  
-  .linha-par {
-    background-color: #F0F9FF;
-  }
-  
-  .linha-impar {
-    background-color: #FFFFFF;
-  }
-  
-  .button-pg{
-    background-color: #224864;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 3rem;
-    width: 10rem;
-  }
-
-#resolvendoProblema{
-    text-decoration: none;
+:root {
+  --primary-color: #E8E8E8;
+  --background-color-: #224864;
+  --border-width-buttons: 0.2rem;
+  --font-size-buttons: 3vh;
+  --font-family: 'Inter', sans-serif;
 }
 
+/* Estrutura da pagina */
+.content-header {
+  width: 100%;
+  height: 12vh;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content-table {
+  width: 70vw;
+  height: 50vh;
+  margin-top: 15px;
+  /* display: flex; */
+  justify-content: center;
+  overflow-y: scroll;
+  box-shadow: 4px 4px 50px 0px #00000026;
+  padding: 10px;
+  background-color: #F9F9F9;
+}
+
+/* estilização da tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Inter;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  color: #7A7786;
+}
+tr th{
+  line-height: 15px;
+}
+.content-table tr td{
+  max-height: 5vh;
+}
+table th {
+  background-color: #F9F9F9;
+}
+
+.linha-par {
+  background-color: #F0F9FF;
+}
+
+.linha-impar {
+  background-color: #FFFFFF;
+}
+
+
+/* Estilização do input de pesquisaq */
 #searchbar{
   width: 352px;
   height: 40px;
@@ -62,12 +70,13 @@
     color: #00000026;
 }
 
+/* Estilização do checkbox */
 input[type="checkbox"] {
   appearance: none; /* Remove o estilo padrão */
   width: 20px;
   height: 20px;
   border: none;
-  background-color: red;
+  background-color: rgb(237, 21, 21);
   border-radius: 50%; /* Para cantos arredondados */
   /* position: relative; */
   cursor: pointer;
@@ -78,3 +87,5 @@ input[type="checkbox"]:checked {
   background-color: #28a745; /* Cor de fundo */
   border-color: #28a745; /* Cor da borda */
 }
+
+

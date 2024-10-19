@@ -29,18 +29,6 @@ button{
   font-size: 1.8vh;
   font-weight: bold;
 }
-.aprovado {
-  color: green;
-  display: flex;
-  align-content: center;
-}
-
-.pendente {
-  color: red;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
 
 .content-table {
   height: 50vh;
@@ -49,7 +37,8 @@ button{
   justify-content: center;
   overflow-y: scroll;
   box-shadow: 4px 4px 50px 0px #00000026;
-  padding: 10px 0px 10px 20px;
+  padding: 10px;
+  background-color: #F9F9F9;
 }
 
 /* estilização da tabela */

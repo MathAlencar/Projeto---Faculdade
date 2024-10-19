@@ -144,12 +144,12 @@ exports.historicoPedidosRealizados = (req, res, next) => {
 
 exports.confirmandoCompra = (req, res, next) => {
 
-    const {id} = res.body;
+    const {id} = req.body;
         
     mysql.getConnection((err, conn) => {
         if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
 
-        const query = `UPDATE pedidos_realizados SET ativo = ? WHERE id = ?;`
+        const query = `UPDATE pedidos_realizados SET status = ? WHERE id = ?;`
 
         conn.query(query, [1, id], (err, result) => {
             conn.release();
@@ -164,7 +164,6 @@ exports.confirmandoCompra = (req, res, next) => {
 }
 
 exports.chamandoSaida = (req, res, next) => {
-
     mysql.getConnection((err, conn) => {
         if (err) return res.json({message: "Erro ao conectar com o banco de dados"});
 
@@ -180,7 +179,7 @@ exports.chamandoSaida = (req, res, next) => {
                 quantidade: result.length,
                 produtos: result.map(prod => {
                     return {
-                        codidog_pedido: prod.codigo_pedido,
+                        codido_pedido: prod.codigo_pedido,
                         codigo_produto: prod.codigo_produto,
                         funcionario: prod.funcionario,
                         data_saida: prod.data_saida,

@@ -27,7 +27,8 @@ router.post('/entrada/produto', entradasAPI.entradaProduto);
 router.get('/entradas/produtos', entradasAPI.entradasProdutos);
 router.post('/realizandoCompra', entradasAPI.catalogandoPedido);
 router.get('/chamada/pedidosRealizados', entradasAPI.historicoPedidosRealizados);
-router.patch('/chamada/atualizaPagamento', entradasAPI.confirmandoCompra);
+router.patch('/atualiza/Pagamento', entradasAPI.confirmandoCompra);
+router.get('/saida/produto', entradasAPI.chamandoSaida);
 
 
 module.exports = router;

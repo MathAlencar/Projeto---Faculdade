@@ -60,18 +60,22 @@
 
         <div>
           <input class="search" type="text" id="searchbar" name="searchbar" placeholder="Pesquisar pedido" onkeyup="filtrar()">
+          <a href="#" id="exportarExcel">
+            <span class="material-icons-outlined">file_download</span>
+          </a>
+          
         </div>
 
         <div class="content-table">
           <table id="tabelaProdutos">
             <thead>
               <tr>
-                <th>CÓDIGO DO PEDIDO</th>
+                <th>CÓDIGO DO <br>PEDIDO</th>
                 <th>FUNCIONÁRIO(A)</th>
                 <th>CONTATO</th>
-                <th>FORMA DE PAGAMENTO</th>
+                <th>FORMA DE <br>PAGAMENTO</th>
                 <th>VALOR DA COMPRA</th>
-                <th>STATUS DO PAGAMENTO</th>
+                <th>STATUS DO <br>PAGAMENTO</th>
               </tr>
             </thead>
 
@@ -89,9 +93,17 @@
             <tbody id="tbody"></tbody>
           </table>
         </div>
+        <div id="popup" class="popup">
+          <div class="popup-content">
+              <span class="material-icons-outlined close-btn">close</span>
+              <span class="material-icons-outlined icon"></span>
+              <p class="message"></p>
+          </div>
+        </div>
       </section> <!-- Fechando a tag section que estava aberta -->
     </article>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <Script src="/admin/scripts/06.pedidosRealizados.js"></Script>
   <script src="/admin/scripts/01.menu.js"></script>
 </body>
