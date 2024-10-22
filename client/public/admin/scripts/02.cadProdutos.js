@@ -84,8 +84,6 @@ function popup(mensagem){
   })
 }
 
-
-
 // Código para excluir produto, foi criado para fins de teste, porém precisa ser validado.
 
 // buttonExcluir.addEventListener('click', (e) => {

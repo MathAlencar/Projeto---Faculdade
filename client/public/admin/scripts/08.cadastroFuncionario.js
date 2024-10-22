@@ -20,9 +20,9 @@ buttonCadastro.addEventListener('click', (e) => {
         email: formatandoDados.get('email'),
         number: formatandoDados.get('number'),
         senha: formatandoDados.get('senha'),
-        confirmarSenha: formatandoDados.get('confirmarSenha')
+        confirmarSenha: formatandoDados.get('confirmarSenha'),
+        tipo_user: formatandoDados.get('tipoUser')
     }
-    console.log(dados);
 
     fetch('/funcionarios/cadastro', {
         method: "POST",
@@ -77,7 +77,7 @@ function popup(mensagem){
       e.preventDefault();
       window.location.href = '/funcionarios'
     })
-  }
+}
 
 
 

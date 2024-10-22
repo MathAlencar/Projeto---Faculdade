@@ -4,7 +4,6 @@ const mysql = require('../aa.db').pool; // chamando as credenciais do banco de d
 const data = new Date().toISOString().slice(0, 10); // PEgando a data no formatado desejado para o banco;
 const path = require('path');
 
-
 exports.entradaProduto = (req, res, next) => {
 
     const {codigo, quantidade, valorUnitario, valorTotal, tipoProduto} = req.body;
@@ -164,6 +163,7 @@ exports.confirmandoCompra = (req, res, next) => {
 }
 
 exports.chamandoSaida = (req, res, next) => {
+
     mysql.getConnection((err, conn) => {
         if (err) return res.json({message: "Erro ao conectar com o banco de dados"});
 
