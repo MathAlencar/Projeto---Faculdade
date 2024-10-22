@@ -5,6 +5,7 @@ fetch('/chamada/pedidosRealizados')
   return response.json();
 })
 .then(data => {
+  console.log(data)
   construirTabela(data);
   exportarTabela(data);
 })
@@ -26,6 +27,7 @@ function construirTabela(dados){
     td.querySelector('#funcionario').textContent = item.funcionario;
     td.querySelector('#contato').textContent = item.contato;
     td.querySelector('#formaPagamento').textContent = item.forma_pagamento;
+    td.querySelector('#data').textContent = item.data_pedido;
     td.querySelector('#valorCompra').textContent = item.valor_compra;
     const checkbox = td.querySelector('#status_pgto');
 

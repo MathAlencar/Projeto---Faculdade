@@ -1,7 +1,7 @@
 const express = require('express'); // Chamando a biblioteca express
 const router = express.Router(); // Exportando para fora;
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
-const data = new Date().toISOString().slice(0, 10); // PEgando a data no formatado desejado para o banco;
+const data = new Date().toISOString(); // PEgando a data no formatado desejado para o banco;
 const path = require('path');
 
 exports.entradaProduto = (req, res, next) => {
@@ -78,7 +78,7 @@ exports.entradasProdutos = (req, res, next) => {
 
 exports.catalogandoPedido = (req, res, next) => {
 
-    const {nome, email, tipo_pagamento, valor_compra ,produtos_solicitados } = req.body.request
+    const {nome, email, tipo_pagamento, valor_compra , produtos_solicitados } = req.body.request
 
     mysql.getConnection((err, conn) => {
         
@@ -95,9 +95,9 @@ exports.catalogandoPedido = (req, res, next) => {
             
             let contato = result[0].telefone;
 
-            const query = `INSERT INTO pedidos_realizados (contato, status, forma_pagamento, funcionario, valor_compra) VALUES (?,?,?,?,?); `;
+            const query = `INSERT INTO pedidos_realizados (contato, status, forma_pagamento, funcionario, valor_compra, data_pedido) VALUES (?,?,?,?,?,?); `;
 
-            conn.query(query, [contato, 0, tipo_pagamento, nome, valor_compra], (err, result) => {
+            conn.query(query, [contato, 0, tipo_pagamento, nome, valor_compra, data], (err, result) => {
                 conn.release();
 
                 if(err) return res.json({message: "Erro ao conectar com o banco de dados!!"});
@@ -131,6 +131,7 @@ exports.historicoPedidosRealizados = (req, res, next) => {
                         status: pedidos.status,
                         contato: pedidos.contato,
                         valor_compra: pedidos.valor_compra,
+                        data_pedido: pedidos.data_pedido
                     }
                 })
             }

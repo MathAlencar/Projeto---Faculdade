@@ -1,6 +1,6 @@
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const path = require('path');
-const data = new Date().toISOString().slice(0, 10); // PEgando a data no formatado desejado para o banco;
+const data = new Date().toISOString(); // PEgando a data no formatado desejado para o banco;
 
 exports.cadastrandoProduto = (req, res, next) => {
 
