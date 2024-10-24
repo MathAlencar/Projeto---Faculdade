@@ -24,11 +24,14 @@ fetch('/chamada/produto')
         td_quantidade.setAttribute('id', 'id_qtd');
         let td_preco = document.createElement('td');
         td_preco.setAttribute('id', 'id_preco');
+        let td_tipo_produto = document.createElement('td');
+        td_tipo_produto.setAttribute('id', 'td_tipo_produto');
 
         td_id.innerText = item.cod_Prd;
         td_nome.innerText = item.nome_Prd;
         td_quantidade.innerText = item.qtd_TotProduto;
         td_preco.innerText = `R$ ${item.vlr_Unit}`;
+        td_tipo_produto.innerText = item.tipo_produto;
 
         //Coluna para editar o contato 
         let  td_edit = document.createElement('td');
@@ -47,6 +50,7 @@ fetch('/chamada/produto')
 
         tr.appendChild(td_id);
         tr.appendChild(td_nome);
+        tr.appendChild(td_tipo_produto);
         tr.appendChild(td_quantidade);
         tr.appendChild(td_preco);
         tr.appendChild(td_edit);

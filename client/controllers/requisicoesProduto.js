@@ -4,7 +4,7 @@ const data = new Date().toISOString(); // PEgando a data no formatado desejado p
 
 exports.cadastrandoProduto = (req, res, next) => {
 
-    const { nome, codigo, valor } = req.body;
+    const { nome, codigo, valor, tipo_produto } = req.body;
 
     mysql.getConnection((err, conn) => {
         if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
@@ -31,9 +31,8 @@ exports.cadastrandoProduto = (req, res, next) => {
                 mysql.getConnection((err, conn) => {
                     conn.release();
                     if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
-
-                    const query = `INSERT INTO tbl_Produto (cod_Prd, nome_Prd, vlr_Unit, qtd_TotProduto) VALUES(?,?,?,?);`
-                    conn.query(query, [codigo, nome, valor, 0], (err, results) => {
+                    const query = `INSERT INTO tbl_Produto (cod_Prd, nome_Prd, vlr_Unit, qtd_TotProduto, tipo_produto) VALUES(?,?,?,?,?);`
+                    conn.query(query, [codigo, nome, valor, 0, tipo_produto], (err, results) => {
 
                         if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
@@ -109,6 +108,7 @@ exports.chamandoProduto = (req, res, next) => {
                         nome_Prd: prod.nome_Prd,
                         qtd_TotProduto: prod.qtd_TotProduto,
                         vlr_Unit: prod.vlr_Unit,
+                        tipo_produto: prod.tipo_produto
                     }
                 })
             }

@@ -21,6 +21,7 @@ fetch('/chamada/funcionarios')
     return response.json();
   })
   .then(data => {
+    console.log(data)
     let funcionarios = data.usuarios; // tratando os dados;
 
     let i = 0;
@@ -36,8 +37,9 @@ fetch('/chamada/funcionarios')
       td_email.setAttribute('id', 'id_email');
       let  td_telefone = document.createElement('td');
       td_telefone.setAttribute('id', 'td_telefone');
+      let  td_tipo_user = document.createElement('td');
+      td_telefone.setAttribute('id', 'td_tipo_user');
       
-
       //Coluna para editar o contato 
       let  td_edit = document.createElement('td');
       td_edit.setAttribute('id', 'buttonEditar');
@@ -62,9 +64,16 @@ fetch('/chamada/funcionarios')
       td_email.innerHTML = item.email
       td_telefone.innerHTML =  item.telefone
 
+      if(item.tipo_funcionario == 1){
+        td_tipo_user.innerHTML = 'Administrador'
+      }else{
+        td_tipo_user.innerHTML = 'Funcionário'
+      }
+
       tr.appendChild(td_nome_fun)
       tr.appendChild(td_email)
       tr.appendChild(td_telefone)
+      tr.appendChild(td_tipo_user)
       tr.appendChild(td_status)
       tr.appendChild(td_edit)
 

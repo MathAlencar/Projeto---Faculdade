@@ -22,7 +22,7 @@
     "name sobrenome"
     "email contato"
     "senha Nsenha"
-    "bottom bottom";
+    "bottom checkBox";
 }
 .form div:nth-child(1){
     grid-area: name;
@@ -46,7 +46,16 @@
     grid-area: bottom;
     display: flex;
     justify-content:center;
-    padding-right: 5vh;
+    padding-right: 0vh;
+}
+.form div:nth-child(8){
+    margin-top: 0.8rem;
+    grid-area: checkBox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 10rem;
 }
 .quebra-linha{
     display: block;
@@ -55,15 +64,16 @@
 /*estilização do bloco formulario*/
 input{
     width: 30vh;
-    height: 6vh;
+    height: 5vh;
     border: #0000001e solid 1.5px;
     border-radius: 8px;
     padding-left: 0.5rem;
     }
 
 button{
-    height: 46px;
-    width: 50vh;
+    height: 55px;
+    width: 30vh;
+    margin-right: 20px;
     font-size: var(--font-size-buttons);
     font-weight: bold;
 }

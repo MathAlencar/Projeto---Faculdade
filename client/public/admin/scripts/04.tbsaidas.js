@@ -18,12 +18,15 @@ function construirTabela(dados){
   const tabela = document.querySelector('#tabelaProdutos');
 
   for(let produto of produtos){
+
+    let transformando_data = new Date(produto.data_saida).toLocaleDateString()
+
     const td = template.content.cloneNode(true);  // Clona o conteúdo do template
-    td.querySelector('#codigo_produto').textContent = produto.codido_pedido;
-    td.querySelector('#codigo_venda').textContent = produto.codigo_produto;
+    td.querySelector('#codigo_produto').textContent = produto.codigo_produto
+    td.querySelector('#codigo_venda').textContent = produto.codido_pedido;
     td.querySelector('#funcionario').textContent = produto.funcionario;
     td.querySelector('#produto').textContent = produto.nome_produto;
-    td.querySelector('#data_saida').textContent = produto.data_saida;
+    td.querySelector('#data_saida').textContent = transformando_data;
     td.querySelector('#qtd').textContent = produto.qtd_comprada;
     td.querySelector('#valorCompra').textContent = produto.valor_compra;
     td.querySelector('#forma_pgto').textContent = produto.forma_pagamento;

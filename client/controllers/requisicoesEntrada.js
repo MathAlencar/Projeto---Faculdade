@@ -145,21 +145,38 @@ exports.historicoPedidosRealizados = (req, res, next) => {
 exports.confirmandoCompra = (req, res, next) => {
 
     const {id} = req.body;
-        
+
     mysql.getConnection((err, conn) => {
         if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
 
-        const query = `UPDATE pedidos_realizados SET status = ? WHERE id = ?;`
+        const query = `SELECT * FROM pedidos_realizados WHERE id = ?;`
 
-        conn.query(query, [1, id], (err, result) => {
+        conn.query(query,[id], (err, result) => {
             conn.release();
             if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
 
-            if(result.affectedRows == 0) return res.json({message: "Erro ao atualizar status do produto!"})
+            let status = result[0].status;
+            let status_enviado = 1;
 
-            return res.json({message: "Pedido atualizado com sucesso!"});
+            if(status == 1){
+                status_enviado = 0
+            }
+
+            const query = `UPDATE pedidos_realizados SET status = ? WHERE id = ?;`
+
+            conn.query(query, [status_enviado, id], (err, result) => {
+                conn.release();
+                if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+
+                if(result.affectedRows == 0) return res.json({message: "Erro ao atualizar status do produto!"})
+
+                return res.json({message: "Pedido atualizado com sucesso!"});
+
+            })
 
         })
+
+            
     })
 }
 
@@ -193,27 +210,6 @@ exports.chamandoSaida = (req, res, next) => {
             }
 
             return res.json(response);
-        })
-    })
-}
-
-exports.negativandoCompra = (req, res, next) => {
-
-    const {id} = req.body;
-        
-    mysql.getConnection((err, conn) => {
-        if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
-
-        const query = `UPDATE pedidos_realizados SET status = ? WHERE id = ?;`
-
-        conn.query(query, [1, id], (err, result) => {
-            conn.release();
-            if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
-
-            if(result.affectedRows == 0) return res.json({message: "Erro ao atualizar status do produto!"})
-
-            return res.json({message: "Pedido atualizado com sucesso!"});
-
         })
     })
 }

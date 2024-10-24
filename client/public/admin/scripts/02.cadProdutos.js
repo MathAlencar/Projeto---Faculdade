@@ -27,7 +27,8 @@ buttonCadastro.addEventListener('click', (e) => {
       const dados = {
         nome: formatandoDados.get('nome'),
         codigo: formatandoDados.get('codigo'),
-        valor: valorFormatado
+        valor: valorFormatado,
+        tipo_produto: formatandoDados.get('tipoProduto')
       }
 
       fetch('/cadastrando/produto', {
@@ -83,52 +84,6 @@ function popup(mensagem){
     window.location.href = '/tabela/produto'
   })
 }
-
-// Código para excluir produto, foi criado para fins de teste, porém precisa ser validado.
-
-// buttonExcluir.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   const form = document.querySelector('#formularioProduto');
-//   const formatandoDados = new FormData(form);
-
-//   const dados = {
-//     codigo: formatandoDados.get('codigo'),
-//   }
-
-//   fetch('/deletando/produto', {
-//     method: "DELETE",
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(dados)
-//   })
-//   .then (response => {
-//     if(!response.ok) {
-//       throw new Error('Erro ao deletar dados')
-//     }
-
-//     return response.json();
-//   })
-//   .then(data => {
-
-//     prod_nome.value = '';
-//     prod_codigo.value = '';
-//     prod_valor.value = '';
-
-//     alert(data.message);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   })
-
-// })
-
-
-
-
-
-
-
 
 
 

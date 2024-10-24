@@ -1,4 +1,5 @@
 // Relatorios dos pedidos   
+
 fetch('/chamada/pedidosRealizados')
 .then(response => {
   if (!response.ok) throw new Error('Erro ao buscar os dados');
@@ -22,12 +23,15 @@ function construirTabela(dados){
     if(item.qtd_TotProduto <= 0) return;
     const td = template.content.cloneNode(true);  // Clona o conteúdo do template
 
+    let transformando_data = new Date(item.data_pedido).toLocaleDateString()
+
+
     // Popula o conteúdo do clone com os dados dos pedidos
     td.querySelector('#codigo').textContent = item.numero_pedido;
     td.querySelector('#funcionario').textContent = item.funcionario;
     td.querySelector('#contato').textContent = item.contato;
     td.querySelector('#formaPagamento').textContent = item.forma_pagamento;
-    td.querySelector('#data').textContent = item.data_pedido;
+    td.querySelector('#data').textContent = transformando_data;
     td.querySelector('#valorCompra').textContent = item.valor_compra;
     const checkbox = td.querySelector('#status_pgto');
 
@@ -64,11 +68,11 @@ function verificaClick(tabela){
     const tag = e.target;
     let span = tag.parentElement;
     const tr = span.parentElement;
-    console.log(tr)
 
     if(tag.id === 'status_pgto'){
+
       const pedido = {
-        id: tr.querySelector('#codigo').innerHTML
+        id: tr.querySelector('#codigo').innerHTML,
       }
 
       fetch('/atualiza/pagamento', {

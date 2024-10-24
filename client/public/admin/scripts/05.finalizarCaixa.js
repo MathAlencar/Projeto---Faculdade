@@ -167,7 +167,7 @@ buttonComprar.addEventListener('click', (e) =>{
                 console.error('Erro:', error);
               });
             }
-
+            
             if(somando_qtd_produto_carrinho > quantidade_produto){
 
                 compras_nao.push(prod_nome)

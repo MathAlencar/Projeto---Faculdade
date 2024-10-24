@@ -24,6 +24,7 @@ exports.chamandoFuncionarios = (req, res, next) => {
                         nome: user.nome,
                         email: user.email_Login,
                         telefone: user.telefone,
+                        tipo_funcionario: user.admin,
                         status: user.ativo
                     }
                 })
