@@ -10,7 +10,7 @@ exports.cadastrandoProduto = (req, res, next) => {
         if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
         if(!nome || !codigo || !valor){
-            return res.json({message: "Por favor preencha todos os campos!"});  
+            return res.json({message: "Todos os campos (nome, código e valor) devem ser preenchidos."});  
         }
 
         const query = `SELECT * FROM tbl_Produto WHERE nome_Prd = ?;`
@@ -19,14 +19,14 @@ exports.cadastrandoProduto = (req, res, next) => {
             conn.release();
             if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
-            if (result.length > 0) return res.json({ message: "Produto com este nome já está cadastrado no sistema" });
+            if (result.length > 0) return res.json({ message: "Já existe um produto cadastrado com este nome no sistema." });
 
             const query = `SELECT * FROM tbl_Produto WHERE cod_Prd = ?;`
 
             conn.query(query, [codigo], (err, result) => {
                 if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
-                if(result.length > 0) return res.json( {message: "Produto com este código já está cadastrado em nosso sistema" })
+                if(result.length > 0) return res.json( {message: "Já existe um produto cadastrado com este código no sistema." })
 
                 mysql.getConnection((err, conn) => {
                     conn.release();
@@ -36,7 +36,7 @@ exports.cadastrandoProduto = (req, res, next) => {
 
                         if (err) return res.json({ message: "Erro ao conectar ao banco de dados" });
 
-                        return res.json({ message: "Produto cadastrado com sucesso" });
+                        return res.json({ message: "Produto cadastrado com sucesso!" });
                     })
                 })
 
@@ -55,7 +55,7 @@ exports.deletandoProduto = (req, res, next) => {
         if(err) return res.json({message: "Erro ao conectar no banco de dados!"})
 
         if(!codigo){
-            return res.json({message: `Por favor preencha o campo de "Código" para realizar a exclusão `});  
+            return res.json({message: `O campo "Código" é obrigatório para realizar a exclusão do produto.`});  
         }
 
         const query = `SELECT * FROM tbl_Produto WHERE cod_Prd = ?;`

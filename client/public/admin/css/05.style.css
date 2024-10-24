@@ -28,7 +28,7 @@
 .content-table {
   height: 50vh;
   margin-top: 15px;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   overflow-y: scroll;
   box-shadow: 4px 4px 50px 0px #00000026;
@@ -38,7 +38,7 @@
 
 /* estilização da tabela */
 table {
-  width: 70vw;
+  width: 100%;
   border-collapse: collapse;
   font-family: Inter;
   font-size: 0.9rem;

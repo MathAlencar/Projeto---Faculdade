@@ -1,8 +1,60 @@
 // Carrega os itens que foram adicionados no carrinho
 const produtos = JSON.parse(sessionStorage.getItem('compra'));
+criaTabela(produtos);
+
+function criaTabela(produtos){
+  //Se nenhum item foi adicionado ao carrinho
+  if(!carrinhoVazio(produtos)) return;
+  let soma = 0;
+  const tabela = document.querySelector('#tabelaProdutos');
+  const template = document.querySelector('#produto-template');
+  const valorTotal = document.querySelector('#total');
+
+  for(let produto of produtos){
+    const tr = template.content.cloneNode(true); // Clona o conteúdo do template no HTML
+
+    tr.querySelector('.nome').textContent = produto.nome;
+    tr.querySelector('.tdQtd').textContent = produto.qtd; 
+    tr.querySelector('.tdValor').textContent = `${produto.valor}`;
+    tabela.appendChild(tr); // Adiciona a linha à tabela
+
+    soma += parseFloat(produto.valor.replace(/^R\$ /, '').replace(/\./g, '').replace(/(\d{2})$/, '.$1'));
+  }
+  valorTotal.value =`R$ ${soma.toFixed(2)}`;
+  deletarProduto(tabela,soma);
+}
+
+// Função que retira o produto selecionado do carrinho
+function deletarProduto(tabela,soma){
+  const valorTotal = document.querySelector('#total');
+  tabela.addEventListener('click', (e) =>{
+    const tag = e.target;
+
+    if(tag.classList.contains('delete')){
+      const tdDelete = tag.parentElement;
+      const tr = tdDelete.parentElement;
+
+      let indice = tr.rowIndex-1; // Obtém o índice da linha do produto 
+      produtos.splice(indice,1); // Remove o produto do array contendo todos os produtos do carrinho
+      sessionStorage.setItem('compra', JSON.stringify(produtos))  // Atualiza o sessionStorage com a nova lista de produtos
+      tabela.deleteRow(tr.rowIndex); // Retira o produto da tabela renderizada
+
+      // Atualiza a soma total dos valores
+      let tdValor = tr.querySelector('.tdValor').textContent;
+      tdValor = parseFloat(tdValor.replace(/^R\$ /, '').replace(/\./g, '').replace(/(\d{2})$/, '.$1'));
+      soma -= tdValor;
+      valorTotal.value =`R$ ${soma.toFixed(2)}`;
+    }
+  })
+}
+
+function carrinhoVazio(produtos){
+  if(produtos == null) return false; // Verifica se foi adicionado itens no carrinho
+  
+  return true;
+}
 
 // Pegando o tipo de pagamento escolhido pelo usuário.
-
 const opc_pagamento = document.querySelector('#metodo')
 const total_compra = document.querySelector('#total')
 
@@ -29,43 +81,13 @@ function getCookie(name) {
 const nameUSer_real_prod = getCookie('name');
 const emailUSer_real_prod = getCookie('email');
 
-function criaTabela(produtos){
-  //Se nenhum item foi adicionado ao carrinho
-  if(!carrinhoVazio(produtos)) return;
-  let soma = 0;
-  const tabela = document.querySelector('#tabelaProdutos');
-  const template = document.querySelector('#produto-template');
-  const valorTotal = document.querySelector('#total');
-
-  for(let produto of produtos){
-    const tr = template.content.cloneNode(true); // Clona o conteúdo do template no HTML
-
-    tr.querySelector('.nome').textContent = produto.nome;
-    tr.querySelector('.tdQtd').textContent = produto.qtd; 
-    tr.querySelector('.tdValor').textContent = `${produto.valor}`;
-    tabela.appendChild(tr); // Adiciona a linha à tabela
-
-    soma += parseFloat(produto.valor.replace(/^R\$ /, '').replace(/\./g, '').replace(/(\d{2})$/, '.$1'));
-  }
-  valorTotal.value =`R$ ${soma.toFixed(2)}`;
-}
-window.onload = criaTabela(produtos);
-
-function carrinhoVazio(produtos){
-  if(produtos == null) return false; // Verifica se foi adicionado itens no carrinho
-
-  return true;
-
-}
 
 // Criando pedido.
 let pedido = Obj_compra_usuario(nameUSer_real_prod, emailUSer_real_prod);
 
 // Envio do formulario
 const buttonComprar = document.querySelector('#compra-btn');
-
 buttonComprar.addEventListener('click', (e) =>{
-
     e.preventDefault();
     if(!carrinhoVazio(produtos)) {
       popup('Carrinho está vazio');

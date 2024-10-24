@@ -19,7 +19,7 @@ exports.entradaProduto = (req, res, next) => {
             conn.release();
             if(err) return res.json({message: "Erro na requisição SQL!"});
 
-            if(result.length == 0) return res.json({message: "Nenhum produto foi localizado, contante o suporte!"});
+            if(result.length == 0) return res.json({message: "Nenhum produto localizado, entre em contato com o suporte!"});
 
             mysql.getConnection((err, conn) => {
                 const query2 = `INSERT INTO tbl_entrada2 (codigo_produto, nome_produto , preco_total, preco_unitario, qtd_comprada, data_entrada) VALUES (?,?,?,?,?,?);`
@@ -170,7 +170,7 @@ exports.confirmandoCompra = (req, res, next) => {
 
                 if(result.affectedRows == 0) return res.json({message: "Erro ao atualizar status do produto!"})
 
-                return res.json({message: "Pedido atualizado com sucesso!"});
+                return res.json({message: "Pagamento atualizado com sucesso!"});
 
             })
 

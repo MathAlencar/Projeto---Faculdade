@@ -12,6 +12,7 @@ function construirTabela(dados){
   const produtos = dados.produtos;
 
   const tabela = document.querySelector('#tabelaProdutos');
+  console.log(tabela)
   const template = document.querySelector('#produto-template');
 
   produtos.forEach(item => {
@@ -25,7 +26,6 @@ function construirTabela(dados){
     td.querySelector('#vlrUnitario').textContent = `R$ ${item.vlr_Unit}`;
     let tr = td.querySelector('tr');
     tabela.appendChild(td); // Adiciona a linha à tabela
-
     if (i % 2 == 0) tr.setAttribute('class', 'linha-par');
     else tr.setAttribute('class', 'linha-impar');
     i++

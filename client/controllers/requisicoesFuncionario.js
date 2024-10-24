@@ -77,9 +77,9 @@ exports.deletandoUser = (req, res, next) => {
             conn.query(query, [email], (err, result) => {
                 if (err) return res.json({message: "Erro na requisição MySQL!", status: "default"});
 
-                if (result.affectedRows == 0) return res.json({message: "Funcionário excluido com sucesso!", status: "default"}); 
+                if (result.affectedRows == 0) return res.json({message: "Funcionário excluído com sucesso!", status: "default"}); 
 
-                return res.json({message: "Funcionário excluido com sucesso!", status: "sucesso!"}); 
+                return res.json({message: "Funcionário excluído com sucesso!", status: "sucesso!"}); 
             })        
     })
 }
@@ -157,8 +157,8 @@ exports.atualizandoUser = (req, res, next) => {
 
             }
 
-            if (status_ativo == 'on') retorno = "Funcionário ativado com sucesso! agora ele poderá realizar o acesso a plataforma de compras."
-            if (status_desativo == 'on') retorno = "Funcionário desativado com sucesso! agora ele não poderá mais realizar o acesso a plataforma de compras."
+            if (status_ativo == 'on') retorno = "Funcionário ativado com sucesso!"
+            if (status_desativo == 'on') retorno = "Funcionário desativado com sucesso!"
 
             return res.json({message: retorno}); 
             
