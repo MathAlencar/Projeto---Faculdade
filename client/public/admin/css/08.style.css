@@ -17,12 +17,13 @@
     background-color: #ffffff;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 12vh 12vh 15vh 0vh;
+    grid-template-rows: 12vh 12vh 6vh 13vh;
     grid-template-areas: 
     "name sobrenome"
     "email contato"
     "senha Nsenha"
-    "bottom checkBox";
+    "checkBox checkBox"
+    "bottom bottom";
 }
 .form div:nth-child(1){
     grid-area: name;
@@ -43,20 +44,18 @@
     grid-area: Nsenha;
 }
 .form div:nth-child(7){
+    grid-area: checkBox;
+    display: flex;
+    justify-content:left;
+    align-items: center;
+}
+.form div:nth-child(8){
     grid-area: bottom;
     display: flex;
     justify-content:center;
     padding-right: 0vh;
 }
-.form div:nth-child(8){
-    margin-top: 0.8rem;
-    grid-area: checkBox;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 3rem;
-    width: 10rem;
-}
+
 .quebra-linha{
     display: block;
 }
@@ -72,7 +71,7 @@ input{
 
 button{
     height: 55px;
-    width: 30vh;
+    width: 40vh;
     margin-right: 20px;
     font-size: var(--font-size-buttons);
     font-weight: bold;
@@ -102,3 +101,20 @@ input#valor-uni{
     margin-left: 1000px;
     background-color: red;
 }
+
+/* Estilização do checkbox */
+input[type="checkbox"] {
+    appearance: none; 
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: rgb(237, 21, 21);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  /* Estilo quando o checkbox está marcado */
+  input[type="checkbox"]:checked {
+    background-color: #28a745; /* Cor de fundo */
+    border-color: #28a745; /* Cor da borda */
+  }

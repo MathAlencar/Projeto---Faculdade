@@ -49,7 +49,7 @@
             </header>
      <article class="section-one">
                 <section class="section-main">
-                    <div><h1><span class="material-icons">reply_all</span> Cadastrar funcionários</h1><hr></hr></div>
+                    <div><h1><a href="/funcionarios"><span class="material-icons">reply_all</span></a> Cadastrar funcionários</h1><hr></hr></div>
                     <div><h2>Dados do funcionário</h2></div>
             
                     <form class="form" id="formularioFuncionario" action="/funcionarios/cadastro" method="POST">
@@ -66,16 +66,16 @@
                        
                         <div><label for="checkPassword">Senha:</label><input id="checkPassword" class="quebra-linha" type="password" placeholder="confirme a senha" name="confirmarSenha" required></div>
                         
-                        <div><button id="cadastroFuncionario"> Cadastar funcionário</button></div>
-
-                        <div><label for="checkBox">O usuário será Administrador?</label><input id="checkBox" type="checkbox" name="tipoUser"></div>
+                        <div><label for="checkBox">Acesso administrativo? </label><input id="checkBox" type="checkbox" name="tipoUser"></div>                        
+                        
+                        <div><button id="cadastroFuncionario"> Cadastrar funcionário</button></div>
 
                         <div id="popup" class="popup">
                             <div class="popup-content">
                                 <span class="material-icons-outlined close-btn">close</span>
                                 <span class="material-icons-outlined icon"></span>
                                 <p class="message"></p>
-                                <button class="back-btn">Voltar para "ver funcionarios"</button>
+                                <button class="back-btn">Voltar para "ver funcionários"</button>
                             </div>
                         </div>
 

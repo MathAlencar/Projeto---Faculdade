@@ -20,7 +20,6 @@ body{
     width: 100%;
 }
 
-/*Definição da estrutura da pagina*/
 .section-all{
     width: 100%;
     height: 100vh;
@@ -31,13 +30,13 @@ body{
     "info"
     "main";
 }
-.section-all section:nth-child(1){ /*define info*/
+.section-all section:nth-child(1){
     background-color: var(--background-color-);
     display: flex;
     justify-content: center;
     padding-top: 5vh;
 }
-.section-all section:nth-child(2){ /*o restante da page*/
+.section-all section:nth-child(2){ 
     background-color: #ffff;
     border-radius: 40px 40px 0 0;
     display: grid;
@@ -73,6 +72,12 @@ body{
     top: 1vh;
 }
 
+#leftArrow {
+    color: white;
+    margin: 2.5vh -34vw;
+    font-size: 32px;
+}
+
 #logoutIcon{
     font-size: 30px;
 }
@@ -90,7 +95,7 @@ body{
     color: #fff;
     line-height: 16.94px;
     width: 22.95vh;
-    top: 15vw;
+    top: 7vh;
     left: 8vh;
 }
 
@@ -101,38 +106,34 @@ body{
 
 .content-main h2 {
     position: absolute;
-    margin-top: 4.55%;
-    margin-left: 6.65%;
+    margin: 2.3vh 7vw;
 }
 
 #accountIcon {
     position: absolute;
-    font-size: 106px;
+    font-size: 29vw;
     color: #E8E8E8;
-    margin-left: 4.80%;
-    margin-top: 15.35%;
+    margin: 7vh 3vw;
 }
 
 #name-text{
     position: absolute;
-    margin-top: 19.53%;
-    margin-left: -14.75%;
+    margin: 9vh -14vw;
 }
 
 #input-name {
     position: absolute;
     width: 57vw;
     height: 11.1vw;
-    margin-top: 27.75vw;;
-    margin-left: -17vw;
+    margin: 13vh -17vw;
     border-radius: 10px;
     padding-left: 5.75%;
     background-color: #E6E6E6;
     border: 0;
 }
 .content-main div p {
-    margin-top: -75px;
-    margin-bottom: 35px;
+    margin-top: -10vh;
+    margin-bottom: 4vh;
     font-weight: 600;
     margin-left: 139px;
     font-size: 15px;
@@ -162,15 +163,14 @@ body{
 
 .content-main button{
     position: absolute;
-    margin-top: 130px;
     border-radius: 100px;
     width: 32px;
     height: 32px;
-    margin-left: 88px;
+    margin: 15vh 22vw;
     background-color: #224864;
     border: 0;
 }
-.material-icons-outlined{
+.content-main .material-icons-outlined{
     color: #fff;
     font-size: 18px !important;
 }
@@ -223,9 +223,9 @@ position: absolute;
     position: absolute;
     font-size: 3.75vw;
     width: 42vw;
-    height: 13.75vw;
+    height: 5.75vh;
     border: 0;
-    top: 82vh;
+    top: 80vh;
     left: 29vw;
     border-radius: 10px;
     color: #fff;
@@ -247,7 +247,7 @@ position: absolute;
         color: #fff;
         line-height: 13.94px;
         width: 22.95vh;
-        top: 11vw;
+        top: 7vh;
         left: 8vh;
     }
     .profile-info a {
@@ -255,6 +255,9 @@ position: absolute;
         left: 40vh;
         position: absolute;
         top: 6vh;
+    }
+    #leftArrow {
+        margin: 3vh -35vw;
     }
     .content-main .password p{
         margin-left: 17px;
@@ -271,5 +274,95 @@ position: absolute;
         margin-left: 139px;
         font-size: 15px;
         color: #3D3D46;
+    }
+    .content-main button {
+        margin: 18vh 22vw;
+    }
+    .bottom-section button{
+        top: 82vh;
+    }
+}
+
+@media only screen and (min-width: 700px){
+    #logoutIcon {
+        margin-left: 69vw;
+        font-size: 32px;
+    }
+    .profile-info h1 {
+        font-size: 31px;
+        margin: 3.8vh 6vw;
+        white-space: nowrap;
+    }
+    .content-main h2 {
+        margin: 2.3vh 7vw;
+        font-size: 21px;
+    }
+    #leftArrow {
+        font-size: 39px;
+        margin: 2vh -40vw;
+    }
+    #accountIcon {
+        font-size: 8vw;
+        margin: 8vh 7vw;
+    }
+    .content-main button {
+        width: 34px;
+        height: 34px;
+        margin: 18vh 12.5vw;
+    }
+    .content-section .profile-info p {
+        font-size: 12px;
+        left: 11vw;
+        top: 8vh;
+        white-space: nowrap;
+    }
+    #name-text {
+        margin: 12vh -29vw;
+    }
+    #input-name {
+        width: 31.27vw;
+        height: 6.5vh;
+        margin: 16vh -30vw;
+        border-radius: 10px;
+        padding-left: 3vw;
+    }
+    .content-main .email p {
+        margin-left: 6vw;
+        margin-top: -15vh;
+    }
+    #input-email {
+        width: 45vw;
+        height: 6.5vh;
+        margin: -3vh 5vw;
+        padding-left: 3vw;
+    }
+    .content-main .password p {
+        margin-left: 6vw;
+        margin-top: -17vh;
+        margin-bottom: 4vh;
+    }
+    #input-password {
+        width: 45vw;
+        height: 6.5vh;
+        padding-left: 3vw;
+        margin: -3vh 5vw;
+    }
+    .content-main .contact p {
+        margin-left: 6vw;
+        margin-top: -18vh;
+        margin-bottom: 4vh;
+
+    }
+    #input-contact {
+        width: 45vw;
+        height: 6.5vh;
+        padding-left: 3vw;
+        margin: -3vh 5vw;
+    }
+    .bottom-section button {
+        font-size: 1vw;
+        width: 15vw;
+        height: 6vh;
+        margin: 8vh -7vw;
     }
 }

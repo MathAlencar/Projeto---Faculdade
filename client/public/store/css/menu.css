@@ -60,5 +60,17 @@
   color: #FFFFFF;
   font-size: 53px;
   background: #224564;
-  border-radius: 8px;
+  border-radius: 8px;
+}
+
+@media only screen and (min-width: 1025px){
+.menu{
+  height: 8%;
+}
+.menu .material-icons {
+  font-size: 30px;
+}
+#activate{
+font-size: 36px;
+}
 }
