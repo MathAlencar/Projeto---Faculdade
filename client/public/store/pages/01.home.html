@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,18 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>home</title>
 </head>
+
 <body>
     <main>
         <article class="section-all">
 
             <section class="content-section">
-                <!-- Sessão de informações como nome do usuario -->
                 <div class="profile-info">
                     <div class="logo-account"><span class="material-icons">account_circle</span></div>
-                    <div class="text"><h1>Olá usuário!</h1> <a href="#">Ver perfil ></a></div>
-                    <div class="logo-exit"><a href="#"><span class="material-icons">exit_to_app</span></a></div>                                                                                  
+                    <div class="text">
+                        <h1>Olá usuário!</h1> <a href="#">Ver perfil ></a>
+                    </div>
+                    <div class="logo-exit"><a href="#"><span class="material-icons">exit_to_app</span></a></div>
                 </div>
             </section>
 
@@ -26,13 +29,13 @@
                     <h2>Categorias</h2>
                     <button><a href="#Doces"><span class="material-icons">cake</span><br>Doces</a></button>
                     <button><a href="#Salgados"><span class="material-icons">food_bank</span><br>Salgados</a></button>
-                    <button><a href="#Bebidas"><span class="material-icons">emoji_food_beverage</span><br>Bebidas</a></button>
+                    <button><a href="#Bebidas"><span
+                                class="material-icons">emoji_food_beverage</span><br>Bebidas</a></button>
                 </nav>
                 <div class="produtos">
                     <h2>Produtos</h2>
                     <div id="Doces">
                         <h3>Doces</h3>
-                        <!-- ADICIONAR ITENS, conforme add um produto no banco é só duplica a class item-produto -->
                         <div class="item-produto">
                             <p>nome do produto</p>
                             <p>preço do produto</p>
@@ -43,7 +46,6 @@
                     </div>
                     <div id="Salgados">
                         <h3>Salgados</h3>
-                        <!-- ADICIONAR ITENS -->
                         <div class="item-produto">
                             <p>nome do produto</p>
                             <p>preço do produto</p>
@@ -54,7 +56,6 @@
                     </div>
                     <div id="Bebidas">
                         <h3>Bebidas</h3>
-                        <!-- ADICIONAR ITENS -->
                         <div class="item-produto">
                             <p>nome do produto</p>
                             <p>preço do produto</p>
@@ -62,29 +63,27 @@
                             <a href="#" class="remove"><span class="material-icons">remove_circle_outline</span></a>
                             <span class="material-icons">insert_photo</span>
                         </div>
-                    <div class="tamanho"><!-- Para o menu e o total não sobrepor conteúdo--></div> 
+                        <div class="tamanho"></div>
                     </div>
                 </div>
             </section>
-
-            <!-- a class total será ativa quando clicar + para adicionar ITEM -->
             <div class="total">
                 <p>Total carrinho</p>
                 <p>R$ --- / - itens</p>
                 <button>Ver carrinho</button>
             </div>
-            <!-- MENU -->
             <header>
-            <nav class="menu">
-                <div>
-                  <a href="#"><span class="material-icons" id="activate">home</span></a>
-                  <a href="#"><span class="material-icons" >person_outline</span></a>
-                  <a href="#"><span class="material-icons">description</span></a>
-                </div>
-            </nav>
-        </header>
+                <nav class="menu">
+                    <div>
+                        <a href="#"><span class="material-icons" id="activate">home</span></a>
+                        <a href="#"><span class="material-icons">person_outline</span></a>
+                        <a href="#"><span class="material-icons">description</span></a>
+                    </div>
+                </nav>
+            </header>
         </article>
     </main>
     <script src="../Script/indexMain.js"></script>
 </body>
+
 </html>
