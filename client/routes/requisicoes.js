@@ -17,9 +17,10 @@ router.post('/cadastrando/pedido', produtosAPI.cadastrandoPedidoRealizado);
 // Chamando API referente a funcionarios.
 
 router.get('/chamada/funcionarios', funcionariosAPI.chamandoFuncionarios);
-router.get('/chamada/especifica', funcionariosAPI.chamadaFuncionarioEspec);
+router.get('/pesquisa/:email', funcionariosAPI.chamadaFuncionarioEspec);
 router.delete('/delete', funcionariosAPI.deletandoUser);
 router.patch('/atualizando', funcionariosAPI.atualizandoUser);
+router.patch('/atualiza/funcionario', funcionariosAPI.atualizaStore);
 
 // Chamada API referente as entradas/saidas.
 

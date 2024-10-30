@@ -113,55 +113,46 @@ body{
 }
 .item-produto{
     color: #595760;
-    line-height: 0;
+    line-height: 1;
     border-top: 1px solid #E5E8EA;
     border-bottom: 1px solid #E5E8EA;
     display: grid;
-    grid-template-columns: auto 12px 66px;
-    grid-template-rows: 5vh 5vh;
+    /* grid-template-columns: 0px 0px 0px; */
+    grid-template-rows: 5vh;
     grid-template-areas: 
-    "item add photo"
-    "valor remove photo";
+    "item valor qtd";
 }
-.item-produto p:nth-child(1){
+.item-produto div:nth-child(1){
     grid-area: item;
+    justify-self: start;
+    align-self: center;
+    width: 30vw;
 }
 .item-produto p:nth-child(2){
     grid-area: valor;
-}
-.item-produto a:nth-child(3){
-    grid-area: add;
     justify-self: center;
     align-self: center;
 }
-.item-produto a:nth-child(4){
-    grid-area: remove;
-    justify-self: center;
-    align-self: center;
-}
-.item-produto span:nth-child(5){
-    grid-area: photo;
+.item-produto div:nth-child(3){
+    grid-area: qtd;
     justify-self: end;
     align-self: center;
 }
-.item-produto a .add{
-    grid-area: add;
-    justify-self: center;
-    align-self: center;
+
+.p{
+    word-break: break-word;
+    white-space: normal;
+}
+#qtd .material-icons{
+    color: #595760;
+    cursor: pointer;
 }
 
-.item-produto .material-icons{
-    font-size: 80px;
-    color: #595760
+#qtd span{
+    font-size: 1.2rem;
+    letter-spacing: 3px;
 }
-.add .material-icons{
-    font-size: 20px;
-    color: #595760
-}
-.remove .material-icons{
-    font-size: 20px;
-    color: #595760
-}
+
 .total{
     width: 100%;
     display: grid;
@@ -170,21 +161,27 @@ body{
     bottom: 8%;
     position: fixed;
     height: 11%;
-    grid-template-columns: auto 100px;
+    grid-template-columns: auto auto auto 100px;
     grid-template-rows: 3vh;
     grid-template-areas: 
-    "text button"
-    "total button";
+    "text total item button";
 }
 .total p:nth-child(1){
     grid-area: text;
     padding-right: 12vw;
+    align-self: center;
 }
 .total p:nth-child(2){
     grid-area: total;
     padding-right: 12vw;
+    align-self: center;
 }
-.total button:nth-child(3){
+.total p:nth-child(3){
+    grid-area: item;
+    padding-right: 12vw;
+    align-self: center;
+}
+.total button:nth-child(4){
     grid-area: button;
     border-style: solid var(--background-color-);
     border-radius: 5px;
@@ -235,6 +232,8 @@ body{
 }
 .logo-exit .material-icons {
     font-size: 30px; /* Tamanho do ícone */
+    cursor: pointer;
+    color: #ffff;
 }
 .logo-account,.logo-exit{
     height: 80px;

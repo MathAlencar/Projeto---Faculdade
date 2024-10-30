@@ -12,7 +12,6 @@ function construirTabela(dados){
   const produtos = dados.produtos;
 
   const tabela = document.querySelector('#tabelaProdutos');
-  console.log(tabela)
   const template = document.querySelector('#produto-template');
 
   produtos.forEach(item => {
@@ -105,7 +104,7 @@ function verificaClick(tabela){
           popup(`Não é possível adicionar o produto no carrinho, escolha uma quantidade menor ou igual a: ${quantidade_produto} (Em Estoque)`); // Exibe popup avisando o usario que o item foi adicionado
         }
         else {
-          if(!addCarinho(tr,span)) return; //Chama a função que adiciona os itens na aba "finalizar compra" 
+          if(!addCarinho(tr)) return; //Chama a função que adiciona os itens na aba "finalizar compra" 
 
           limpaItem(span,tr); //Chama a função que limpa os itens na tabela após add no carrinho
           popup('Produto adicionado no carrinho com sucesso!'); // Exibe popup avisando o usario que o item foi adicionado
@@ -117,25 +116,39 @@ function verificaClick(tabela){
       });
     }
   })
-}
+};
 
-function addCarinho(tr,td){
+// Inicializa o array 'compra' com dados armazenados no sessionStorage
+let compra = JSON.parse(sessionStorage.getItem('compra')) || [];
+
+function addCarinho(tr){
   const nome = tr.querySelector('#prod').textContent; // Obtem o nome do produto
   const valor = tr.querySelector('#vlrTotal').textContent; // Obtem o valor
-  const qtd = td.textContent// Obtem a quantidade
+  let qtd = tr.querySelector('.qtdAtual').textContent;
+  qtd = Number(qtd);
 
-  if(parseInt(qtd) <= 0){
-    popup('Não foi possivel adicionar ao carrinho, quantidade não pode ser zero');
+  if(qtd <= 0){
+    popup('Quantidade tem que ser maior que zero');
     return false;
   }
 
-  let compra = JSON.parse(sessionStorage.getItem('compra')) || [];
-  compra.push({nome, qtd, valor});
-  sessionStorage.setItem('compra', JSON.stringify(compra)); // Salva temporiamente essas informações
+  // Filtra os produtos para atualizar a qtd ou remover se for 0
+  let igual = false; // booleano para verificar se o produto já existe no sessionStorage
+  compra = compra.filter(produto => {
+      if(nome == produto.nome){
+          produto.qtd += qtd;
+          igual = true;
+      }
+      return produto.qtd > 0;
+  })
+
+  // Se o produto não for encontrado no sessionStorage, adiciona-o como um novo item
+  if(!igual) compra.push({nome, qtd, valor});
+
+  sessionStorage.setItem('compra', JSON.stringify(compra)); 
 
   return true;
 }
-
 
 
 function popup(mensagem){
@@ -212,12 +225,3 @@ function filtrar() {
     }
   }
 }
-
-
-// let produtosNoCarrinho = JSON.parse(sessionStorage.getItem('listaDeCompras'));
-
-// let produtosNaoComprados = JSON.parse(sessionStorage.getItem('listaNaoCompras')); 
-
-// console.log('a', produtosNoCarrinho)
-// console.log('b', produtosNaoComprados)
-
