@@ -195,10 +195,6 @@ body{
     cursor: pointer;
     scale: 1.01;
 }
-
-
-
-/* estização dos textos/botões/logo */
 .categorias button{
     background-color: var(--background-color-);
     width: 100px;
@@ -225,10 +221,9 @@ body{
     color: #ffff;
     line-height: 0;
 }
-
 .logo-account .material-icons {
     color: #ffff;
-    font-size: 60px; /* Tamanho do ícone */
+    font-size: 60px;
 }
 .logo-exit .material-icons {
     font-size: 30px; /* Tamanho do ícone */
@@ -238,23 +233,17 @@ body{
 .logo-account,.logo-exit{
     height: 80px;
     display: flex;
-    justify-content: center; /* Alinha horizontalmente no centro */
-    align-items: center; /* Alinha verticalmente no centro */
+    justify-content: center;
+    align-items: center;
 }
 .logo-account{
     width: 80px;
 }
-
 .produtos h3{
     color: var(--background-color-);
 }
 
-
-
-
-
 @media screen and (max-width:340px) {
-    /*redefinindo tamanhos*/
     h2{
         font-size: 20px;
     }
@@ -262,19 +251,17 @@ body{
         font-size: 22px;
     }
     .logo-account .material-icons {
-        font-size: 50px; /* Tamanho do ícone */
+        font-size: 50px;
     }
     .logo-account{
         height: 70px;
     }
     .logo-exit .material-icons {
-        font-size: 20px; /* Tamanho do ícone */
+        font-size: 20px;
     }
     .profile-info a{
         font-size: 13px;
     }
-
-
     .profile-info{
         grid-template-columns: 72px auto 40px;
     }
