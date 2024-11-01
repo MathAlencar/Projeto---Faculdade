@@ -32,7 +32,7 @@ function exibirProdutos(produtos){
                 // Atualiza a qtd total
                 let qtdElemento = document.querySelector('#qtdItens');
                 let qtdText = qtdElemento.textContent.split(' ');
-                qtdElemento.textContent = Number(qtdText[0]) +  i.quantidade;
+                qtdElemento.textContent = `${Number(qtdText[0]) +  i.quantidade} itens`;
 
 
                 // Carrega o valor total
@@ -110,6 +110,10 @@ function atualizaValorTotal (span,click){
 
     tagQtd.innerHTML = qtd;
     valorTotal.innerHTML = `R$ ${resultado}`;
+
+    sessionStorage.setItem('total', JSON.stringify(parseFloat(resultado).toFixed(2))); 
+    console.log(sessionStorage.getItem('total'))
+    
     armazenarCompra(span);
 }
 
@@ -134,5 +138,4 @@ function armazenarCompra(span){
     if(!igual) compra.push({nome, quantidade, valor});
 
     sessionStorage.setItem('store', JSON.stringify(compra)); 
-    console.log(sessionStorage.getItem('store'))
 }
