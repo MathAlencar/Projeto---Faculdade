@@ -37,8 +37,9 @@ exports.chamandoFuncionarios = (req, res, next) => {
 
 exports.chamadaFuncionarioEspec = (req, res, next) => {
 
-    const email = req.query.buscaFuncionario; // Corrigindo para req.query.buscaFuncionario
-
+    // const email = req.query.buscaFuncionario; // Corrigindo para req.query.buscaFuncionario
+    const email = req.params.email; 
+    console.log(req.params.email)
     mysql.getConnection((err, conn) => {
         if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'));
 
@@ -166,5 +167,58 @@ exports.atualizandoUser = (req, res, next) => {
 
     })
 
+}
+
+// API do sistema "store" para o usuário
+exports.atualizaStore = (req, res, next) => {
+    const { nome, email, senha, telefone} = req.body;
+
+    if(telefone.length != 11) return res.json({message: "Tamanho de número inválido!"});
+
+    let retorno = "Dados do funcionário atualizados com sucesso!";
+    let query = "";
+    let body = [];
+
+    // Construção da query e parâmetros dinamicamente
+    if (nome && telefone) {
+        query = `
+            UPDATE tbl_User
+            SET nome = ?, telefone = ?
+            WHERE email_Login = ?;
+        `;
+        body = [nome, telefone, email];
+    } else if (nome && !telefone) {
+        query = `
+            UPDATE tbl_User
+            SET nome = ?
+            WHERE email_Login = ?;
+        `;
+        body = [nome, email];
+    } else if (telefone && !nome) {
+        query = `
+            UPDATE tbl_User
+            SET telefone = ?
+            WHERE email_Login = ?;
+        `;
+        body = [telefone, email];
+    } else {
+        return res.json({ message: "Nenhum dado para atualizar!" });
+    }
+
+    mysql.getConnection((err, conn) => {
+        if (err) return res.json({ message: "Erro ao conectar com o banco de dados!" });
+
+        conn.query(query, body, (err, results) => {
+            conn.release();
+
+            if (err) return res.json({ message: "Erro ao atualizar os dados no banco de dados!" });
+
+            if (results.affectedRows === 0) {
+                return res.json({ message: "Funcionário não localizado" });
+            }
+
+            return res.json({ message: retorno });
+        });
+    });
 }
 

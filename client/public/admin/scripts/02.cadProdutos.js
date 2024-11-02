@@ -65,7 +65,7 @@ function popup(mensagem){
   message.innerHTML = mensagem; // Exibe mensagem de retorno
 
   
-  if(mensagem == 'Produto cadastrado com sucesso'){
+  if(mensagem.includes('sucesso')){
     icon.innerHTML = 'task_alt';
     btnBack.style.display = '';
   }else{

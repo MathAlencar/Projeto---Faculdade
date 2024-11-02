@@ -69,6 +69,8 @@ router.get('/loginStore', (req, res) => {
     res.sendFile(path.join(__dirname, './../', 'public', 'store', 'pages/00.login.html'));
 })
 
+
+// Rotas das paginas "store"
 router.get('/home', login_user.loginUser, (req, res) => {
     res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/01.home.html'));
 })
