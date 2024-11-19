@@ -1,6 +1,6 @@
 .tabela-container {
     width: 70%; /* Ajuste conforme necessário */
-    margin: 20px 20px 10px 250px; /* Margin: Top Right Bottom Left */
+   /* Margin: Top Right Bottom Left */
     background-color: white;
     padding: 20px; /* Padding geral */
     border-radius: 15px;
@@ -9,12 +9,7 @@
     overflow-y: auto; 
 }
 
-h1 {
-    text-align: left;
-    color: #002855;
-    margin: 0; /* Remove margens do título */
-    padding-bottom: 10px; /* Adiciona um pouco de espaço abaixo do título */
-}
+
 
 table {
     width: 100%; 
@@ -47,15 +42,13 @@ tr:hover {
 
 .filtrar {
     text-align: right;
-    margin: 10px 0; 
 }
 
 .titu {
-    margin: 20px 0; 
-    color: rgb(10, 10, 119); 
-    font-size: 26px; 
-    font-weight: bold; 
-    text-align: left; 
+    color: #224864; 
+    font-size: 24px; 
+    font-weight: 700; 
+    text-align: start; 
 }
 
 .linha2 {
@@ -72,4 +65,100 @@ tr:hover {
 
 #filtro{
     cursor: pointer;
+}
+
+/* painel */
+.box-info {
+    width: 90%; 
+    /* margin: 40px auto;  */
+    display: flex; 
+    justify-content: space-between; 
+    flex-wrap: wrap;
+} 
+
+
+.box-info-single {
+    flex: 1; 
+    margin: 10px; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    padding: 10px;
+    background-color: #f0f0f0; 
+    border-radius: 10px; 
+    color: black; 
+    box-sizing: border-box; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra padrão */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
+}
+
+/* Efeito de flutuação ao passar o mouse */
+.box-info-single:hover {
+    transform: translateY(-5px); /* Move a caixa para cima */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Aumenta a sombra */
+}
+
+
+.info-text {
+    position: relative;
+    padding-right: 30px; 
+}
+
+.icon {
+    position: absolute;
+    right: 10px; 
+    top: 30%;
+    transform: translateY(-50%); 
+    font-size: 40px;
+    color: red;
+}
+
+.icon2 {
+    position: absolute;
+    right: 10px; 
+    top: 30%;
+    transform: translateY(-50%); 
+    font-size: 40px;
+    color: green;
+}
+
+.icon3 {
+    position: absolute;
+    right: 10px; 
+    top: 30%;
+    transform: translateY(-50%); 
+    font-size: 40px;
+    color: blue;
+}
+
+.large-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.cor {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.linha {
+    width: 95%;
+    height: 2px;
+    margin-left: 100px;
+    background-color: gray;
+    border: none;
+}
+
+.dash {
+    margin-left: 100px;
+    margin-top: 50px;
+}
+
+.segundotitulo {
+    margin-left: 2vh;
+}
+
+h2{
+    font-size: 20px;
+    color: #224864;
 }

@@ -51,9 +51,9 @@ body{
 .shopping-cart{
     width: 90vw;
     display: grid;
-    place-content: center;
+    /* place-content: center; */
     align-self: center;
-    grid-template-columns: auto auto;
+    grid-template-columns: 10vw 60vw;
     grid-template-rows: auto;
     grid-template-areas: 
     "img text";
@@ -61,7 +61,7 @@ body{
 .shopping-cart a:nth-child(1){
     grid-area: img;
     align-self: center;
-    justify-self: center;
+    justify-self: start;
     margin-right: 2vh;
     height: 50px;
 }
@@ -76,6 +76,7 @@ body{
 
 /*Estruturas da tabela*/
 .content-table {
+    width: 100%;
     height: 40vh;
     margin-top: 15px;
     justify-content: center;
@@ -83,6 +84,9 @@ body{
     padding: 10px;
 }
 
+.produtos{
+    width: 60vw;
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -138,25 +142,28 @@ table {
     grid-template-rows: auto 10vh;
     grid-template-areas: 
     "title title title"
-    "one two tree"
+    "tree tree tree"
     "pay pay pay";
 }
-.button-pay h3:nth-child(1){
+.button-pay h2:nth-child(1){
     grid-area: title;
 }
-.button-pay button:nth-child(2){
-    grid-area: one;
+
+.button-pay select:nth-child(2){
+    grid-area: tree;
     justify-self: start;
+    width: 12vw;
+    height: 8vh;
+    padding: 10px;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    cursor: pointer;
 }
 .button-pay button:nth-child(3){
-    grid-area: two;
-    justify-self:center;
-}
-.button-pay button:nth-child(4){
-    grid-area: tree;
-    justify-self: end;
-}
-.button-pay button:nth-child(5){
     grid-area: pay;
     width: 175px;
     height: 46px;
@@ -182,6 +189,11 @@ button:hover{
     scale: 1.01;
     background-color: #000000;
     color: #ffff;
+}
+
+select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /*Para garantir que o menu e o card de total não sobreponha conteúdo*/

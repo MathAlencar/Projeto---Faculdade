@@ -79,7 +79,7 @@ function criando_elemento_main(id, status, total_value, data, dados_saida){
     let span = document.createElement('span');
     span.setAttribute('class','material-icons-outlined');
 
-    let p_confi_pay = document.createElement('p');
+    let p_confi_pay = document.createElement('span');
     
     if(status == 0){
         p_confi_pay.innerHTML = 'Aguardando confirmação';
