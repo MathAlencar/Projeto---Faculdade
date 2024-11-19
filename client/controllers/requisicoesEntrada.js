@@ -29,10 +29,10 @@ exports.entradaProduto = (req, res, next) => {
 
                     mysql.getConnection((err, conn) => {
                         const query3 = `UPDATE tbl_produto
-                        SET qtd_TotProduto = qtd_TotProduto + ?, vlr_Unit = ?
+                        SET qtd_TotProduto = qtd_TotProduto + ?
                         WHERE cod_Prd = ?;`
 
-                        conn.query(query3, [quantidade, valorUnitario, codigo], (err, result) => {
+                        conn.query(query3, [quantidade, codigo], (err, result) => {
                             conn.release();
                             if(err) return res.json({message: "Erro ao atualizar a quantidade do produto!"});
 
@@ -46,15 +46,12 @@ exports.entradaProduto = (req, res, next) => {
 }
 
 exports.entradasProdutos = (req, res, next) => {
-    
     mysql.getConnection((err, conn) => {
-        if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '03.entrada.html'),  console.log("Erro ao conectar com o banco de dados"));
-
+        if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
         const query = `SELECT * FROM tbl_entrada2;`;
-
         conn.query(query, (err, result) => {
             conn.release();
-            if(err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '03.entrada.html'), console.log("Erro na requisição"));
+            if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
 
             const response = {
                 quantidade: result.length,
@@ -69,9 +66,7 @@ exports.entradasProdutos = (req, res, next) => {
                     }
                 })
             }
-
             return res.json(response);
-
         })
     })
 }
@@ -95,9 +90,9 @@ exports.catalogandoPedido = (req, res, next) => {
             
             let contato = result[0].telefone;
 
-            const query = `INSERT INTO pedidos_realizados (contato, status, forma_pagamento, funcionario, valor_compra, data_pedido) VALUES (?,?,?,?,?,?); `;
+            const query = `INSERT INTO pedidos_realizados (contato, email_User, status, forma_pagamento, funcionario, valor_compra, data_pedido) VALUES (?,?,?,?,?,?,?); `;
 
-            conn.query(query, [contato, 0, tipo_pagamento, nome, valor_compra, data], (err, result) => {
+            conn.query(query, [contato, email ,0, tipo_pagamento, nome, valor_compra, data], (err, result) => {
                 conn.release();
 
                 if(err) return res.json({message: "Erro ao conectar com o banco de dados!!"});
@@ -126,6 +121,7 @@ exports.historicoPedidosRealizados = (req, res, next) => {
                 pedidos: result.map( pedidos => {''
                     return {
                         numero_pedido: pedidos.id,
+                        email_user: pedidos.email_User,
                         funcionario: pedidos.funcionario,
                         forma_pagamento: pedidos.forma_pagamento,
                         status: pedidos.status,
@@ -169,14 +165,21 @@ exports.confirmandoCompra = (req, res, next) => {
                 if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
 
                 if(result.affectedRows == 0) return res.json({message: "Erro ao atualizar status do produto!"})
+                    
+                const query = `UPDATE tbl_saida SET status = ? WHERE codigo_pedido = ?;`
 
-                return res.json({message: "Pagamento atualizado com sucesso!"});
+                conn.query(query, [status_enviado, id], (err, result) => {
+                    conn.release();
 
+                    if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+
+                    if(result.affectedRows == 0) return res.json({message: "Erro ao atualizar status do produto!"})
+                    
+                    return res.json({message: "Pagamento atualizado com sucesso!"});
+
+                })
             })
-
         })
-
-            
     })
 }
 
@@ -204,7 +207,8 @@ exports.chamandoSaida = (req, res, next) => {
                         qtd_comprada: prod.qtd_comprada,
                         nome_produto: prod.nome_produto,
                         forma_pagamento: prod.forma_pagamento,
-                        valor_compra: prod.valor_compra
+                        valor_compra: prod.valor_compra,
+                        status_compra: prod.status
                     }
                 })
             }

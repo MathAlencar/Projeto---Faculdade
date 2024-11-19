@@ -53,11 +53,11 @@ router.get('/dashboard', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/07.dashboard.html'));
 })
 
-router.get('/funcionarios', login.login, (req, res) => {
+router.get('/funcionarios', (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/08.funcionarios.html'));
 })
 
-router.get('/funcionarios/cadastro', login.login, (req, res) => {
+router.get('/funcionarios/cadastro',  (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/08.cadastrarFuncionarios.html'));
 })
 
@@ -68,7 +68,6 @@ router.get('/funcionarios/editar', login.login, (req, res) => {
 router.get('/loginStore', (req, res) => {
     res.sendFile(path.join(__dirname, './../', 'public', 'store', 'pages/00.login.html'));
 })
-
 
 // Rotas das paginas "store"
 router.get('/home', login_user.loginUser, (req, res) => {
@@ -86,5 +85,7 @@ router.get('/perfil', login_user.loginUser, (req, res) => {
 router.get('/carrinho', login_user.loginUser, (req, res) => {
     res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/04.carrinho.html'));
 })
+
+
 
 module.exports = router;

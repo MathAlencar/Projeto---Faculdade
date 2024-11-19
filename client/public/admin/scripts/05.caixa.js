@@ -150,7 +150,6 @@ function addCarinho(tr){
   return true;
 }
 
-
 function popup(mensagem){
     const popUp = document.querySelector('#popup');
     popUp.style.display = 'flex'; // Torna o popup visivel

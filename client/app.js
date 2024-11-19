@@ -33,7 +33,6 @@ const db = mysql.createConnection({
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASEYES
-    
 })
 
 db.connect( (err) => {

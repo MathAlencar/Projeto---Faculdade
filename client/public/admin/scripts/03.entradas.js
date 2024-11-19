@@ -32,7 +32,7 @@ buttonEntrada.addEventListener('click', (e) => {
     tipoProduto: formatandoDados.get('tipoProduto')
   }
 
-  if(dados.quantidade == 0 || dados.valorTotal == 0 ||  dados.valorUnitario == 0){
+  if(dados.quantidade == 0 || dados.valorTotal == 0 ||  dados.valorUnitario == 0 || dados.valorTotal == 'R$ 0.00' || dados.valorUnitario == ''){
     alert('Por favor valide os valores antes de realizar a entrada de novos produtos!');
   }else {
     fetch('/entrada/produto', {
@@ -49,7 +49,6 @@ buttonEntrada.addEventListener('click', (e) => {
       return response.json();
     })
     .then(data => {
-      console.log(data.message)
       popup(data.message);
     })
     .catch(error => {
@@ -103,6 +102,7 @@ function popup(mensagem){
 
   btnClose.addEventListener('click', (e) =>{
     popUp.style.display = 'none';
+    window.location.href = '/entrada/pedido'
   })
   btnBack.addEventListener('click', (e) => {
     e.preventDefault();
@@ -129,8 +129,6 @@ function buscandoProduto(){
     tipoProduto: formatandoDados.get('tipoProduto')
   }
   
-  console.log(dados)
-
   fetch('/chamada/produto/especifico', {
     method: "PATCH",
     headers: {

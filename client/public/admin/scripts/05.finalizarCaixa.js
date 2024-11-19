@@ -1,5 +1,6 @@
 // Carrega os itens que foram adicionados no carrinho
 const produtos = JSON.parse(sessionStorage.getItem('compra'));
+
 criaTabela(produtos);
 
 function criaTabela(produtos){
@@ -81,14 +82,15 @@ function getCookie(name) {
 const nameUSer_real_prod = getCookie('name');
 const emailUSer_real_prod = getCookie('email');
 
-
 // Criando pedido.
 let pedido = Obj_compra_usuario(nameUSer_real_prod, emailUSer_real_prod);
 
 // Envio do formulario
 const buttonComprar = document.querySelector('#compra-btn');
+
 buttonComprar.addEventListener('click', (e) =>{
     e.preventDefault();
+
     if(!carrinhoVazio(produtos)) {
       popup('Carrinho está vazio');
       return;
@@ -134,7 +136,6 @@ buttonComprar.addEventListener('click', (e) =>{
 
           promises.push(
 
-
           fetch('/chamada/produto/especifico', {
             method: "PATCH",
             headers: {
@@ -163,8 +164,6 @@ buttonComprar.addEventListener('click', (e) =>{
                       verificando = true
                   }
               }
-
-
               if(verificando == false){
                 compras.push(obj_comprado(prod_nome, somando_qtd_produto_carrinho))
               }
@@ -200,23 +199,60 @@ buttonComprar.addEventListener('click', (e) =>{
           .catch(error => {
             console.error('Erro:', error);
           })
-
-
         )
       }else{
         continue
       }
-    
-    } 
+    }
 
     Promise.all(promises).then(() => {
 
     pedido.tipo_pagamento = opc_pagamento.value
-    pedido.valor_compra = parseFloat(total_compra.value.replace('R$', ''))
+    let somando_valores = 0;
 
-    for(let i=0; i<compras.length; i++){
-      pedido.produtos_solicitados[i] = compras[i]
+    if(compras_nao.length > 0){
+
+      for(let i=0; i<produtos.length; i++){
+
+        let verificando_prod = produtos[i].nome;
+        let adicionar = true;
+
+        for(let i=0; i<compras_nao.length; i++){
+            if(verificando_prod == compras_nao[i].nome){
+                adicionar = false;
+            }
+        }
+
+        if(adicionar == true){
+            // Nesse script estou somando apenas os valores da compra.
+            let valor_compra = parseFloat((produtos[i].valor).replace('R$', ''));
+            let multiplicador = produtos[i].qtd;
+
+            valor_compra = valor_compra * multiplicador;
+
+            somando_valores+=valor_compra;
+
+            pedido.produtos_solicitados.push(produtos[i])
+        }else {
+            continue;
+        }
     }
+
+    }else {
+      for(let i=0; i<compras.length; i++){
+
+        pedido.produtos_solicitados.push(produtos[i]);
+                    
+        let valor_compra = parseFloat((produtos[i].valor).replace('R$', ''));
+        let multiplicador = produtos[i].qtd;
+
+        valor_compra = valor_compra * multiplicador;
+
+        somando_valores+=valor_compra;
+      }
+    }
+
+    pedido.valor_compra = somando_valores;
 
     let dados = {
       request: pedido
@@ -226,6 +262,7 @@ buttonComprar.addEventListener('click', (e) =>{
     let promises_arm_pedido = []
 
     promises_arm_pedido.push(
+
       fetch('/realizandoCompra', {
         method: "POST",
         headers: {
@@ -241,57 +278,50 @@ buttonComprar.addEventListener('click', (e) =>{
       })
       .then(data => {
 
-        console.log(pedido)
       })
       .catch(error => {
         console.error('Erro:', error);
       })
     )
 
-    // Aqui estou enviando o pedido para ser tratado e armazenado no banco de dados.
-    // Promise.all(promises).then(() => {
-      
-      Promise.all(promises_arm_pedido).then(() => {
+  // Aqui estou enviando o pedido para ser tratado e armazenado no banco de dados.
+    Promise.all(promises_arm_pedido).then(() => {
 
-        fetch('/cadastrando/pedido', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(dados)
-        })
-        .then (response => {
-          if(!response.ok) {
-            throw new Error('Erro ao enviar dados')
-          }
-          return response.json();
-        })
-        .then(data => {
-        })
-        .catch(error => {
-          console.error('Erro:', error);
-        });
-  
-  
-  
-        if(compras_nao.length > 0){
-          popup(`Não foi possível realizar a compra deste produtos: ${produtosNaoComprados}, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
-          
-          sessionStorage.clear()
-  
-        }else {
-          popup("Pedido realizado com sucesso!")
-          
-          sessionStorage.clear()
-        }
-
-
+      fetch('/cadastrando/pedido', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
       })
-      
+      .then (response => {
+        if(!response.ok) {
+          throw new Error('Erro ao enviar dados')
+        }
+        return response.json();
+      })
+      .then(data => {
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
 
-      });    
+      if(compras_nao.length > 0){
+        popup(`Não foi possível realizar a compra deste produtos:, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
+        sessionStorage.clear();
+
+      }else {
+        popup("Pedido realizado com sucesso!")
+        
+        sessionStorage.clear()
+      }
+
+    })
+
+    });    
     
 })
+
 
 
 function clearCart() {

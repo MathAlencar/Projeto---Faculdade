@@ -242,7 +242,7 @@ exports.realizandoCompra = (req, res, next) => {
 
 exports.cadastrandoPedidoRealizado = (req, res, next) => {
 
-    const {nome, email, tipo_pagamento, valor_compra, produtos_solicitados} = req.body.request
+    const {nome, email, tipo_pagamento, valor_compra, produtos_solicitados} = req.body.request  
 
     mysql.getConnection((err, conn) => {
 
@@ -259,7 +259,7 @@ exports.cadastrandoPedidoRealizado = (req, res, next) => {
             for(let i=0; i<produtos_solicitados.length; i++){
 
                 let tipoProduto = produtos_solicitados[i].nome_produto;
-                let qtd_comprada = produtos_solicitados[i].qtd_comprada
+                let qtd_comprada = produtos_solicitados[i].qtd_comprada;
 
                 const query = `SELECT * FROM tbl_Produto WHERE nome_Prd = ?;`
             

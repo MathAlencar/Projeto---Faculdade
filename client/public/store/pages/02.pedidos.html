@@ -15,88 +15,45 @@
     <header>
         <nav class="menu">
             <div>
-              <a href="/home"><span class="material-icons" >home</span></a>
-              <a href="/perfil"><span class="material-icons" >person_outline</span></a>
-              <a href="/pedidosUser"><span class="material-icons" id="activate">description</span></a>
+                <a href="/home"><span class="material-icons">home</span></a>
+                <a href="/perfil"><span class="material-icons" >person_outline</span></a>
+                <a href="/pedidosUser"><span class="material-icons" id="activate">description</span></a>
             </div>
         </nav>
     </header>
+    
     <main>
         <article class="section-all">
+
             <section class="content-section">
                 <div class="profile-info">
-                    <span class="material-icons-outlined" id="leftArrow">chevron_left</span>
+                    <a href="/home" class="logo-account"><span class="material-icons-outlined" id="leftArrow">chevron_left</span></a>
                     <h1>Meus pedidos</h1>
-                    <div><a href="#"><span class="material-icons" id="logoutIcon">exit_to_app</span></a></div>
+                    <a href="#"><span class="material-icons" id="logoutIcon">exit_to_app</span></a>
                 </div>
             </section>
+
             <section class="content-main">
                 <div class="squares">
-                    <div class="square">
-                        <h2>ID do pedido: xxxx</h2>
-                        <div class="text-status">
-                            <span class="material-icons-outlined" id="hGlassIcon">hourglass_empty</span>
-                            <p>Aguardando confirmação pix</p>
-                        </div>
-                        <div class="elements">
-                            <p>1x Coca Cola 250 mL</p>
-                            <p>1x Amendoim</p>
-                            <p>1x Twix</p>
-                        </div>
-                        <div class="price">
+                    <template class="pedidosUser">
+                        <div class="square">
+                            <h2>ID do pedido:</h2>
+                            <div class="text-status">
+                                <span class="material-icons-outlined" id="hGlassIcon">hourglass_empty</span>
+                                <span>Aguardando confirmação pix</span>
+                            </div>
+                            <div class="elements">
+                                <p>1x Coca Cola 250 mL</p>
+                                <p>1x Amendoim</p>
+                                <p>1x Twix</p>
+                            </div>
                             <p class="date">25/04/2024</p>
-                            <h4 id="total">Total</h4>
-                            <h3>R$14,00</h3>
+                            <div class="price">
+                                <span id="total">Total</span>
+                                <span id="valor">R$ 14,00</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="square">
-                        <h2>ID do pedido: xxxx</h2>
-                        <div class="text-status">
-                            <span class="material-icons" id="checkIcon">check_circle</span>
-                            <p>Pagamento confirmado</p>
-                        </div>
-                        <div class="elements">
-                            <p>2x Amendoim</p>
-                            <p>1x Itubaína</p>
-                        </div>
-                        <div class="price">
-                            <p class="date">10/04/2024</p>
-                            <h4 id="total">Total</h4>
-                            <h3>R$10,00</h3>
-                        </div>
-                    </div>
-                    <div class="square">
-                        <h2>ID do pedido: xxxx</h2>
-                        <div class="text-status">
-                            <span class="material-icons-outlined" id="hGlassIcon">hourglass_empty</span>
-                            <p>Aguardando confirmação dinheiro</p>
-                        </div>
-                        <div class="elements">
-                            <p>1x Coca Cola 250 mL</p>
-                            <p>1x Amendoim</p>
-                            <p>1x Twix</p>
-                        </div>
-                        <div class="price">
-                            <p class="date">01/04/2024</p>
-                            <h4 id="total">Total</h4>
-                            <h3>R$14,00</h3>
-                        </div>
-                    </div>
-                    <div class="square">
-                        <h2>ID do pedido: xxxx</h2>
-                        <div class="text-status">
-                            <span class="material-icons-outlined" id="hGlassIcon">hourglass_empty</span>
-                            <p>Aguardando confirmação pix</p>
-                        </div>
-                        <div class="elements">
-                            <p>5x Twix</p>
-                        </div>
-                        <div class="price">
-                            <p id="dateX">30/03/2024</p>
-                            <h4 id="total">Total</h4>
-                            <h3>R$10,00</h3>
-                        </div>
-                    </div>
+                    </template>
                 </div>
             </section>
         </article>
