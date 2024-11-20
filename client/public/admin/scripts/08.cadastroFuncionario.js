@@ -62,12 +62,6 @@ function popup(mensagem){
     }else{
       icon.innerHTML = 'cancel';
       btnBack.style.display = 'none';
-      nomeInput.value = '';
-      sobrenomeInput.value = '';
-      emailInput.value = '';
-      telInput.value = '';
-      senhaInput.value = '';
-      nsenhaInput.value = '';
     }
   
     btnClose.addEventListener('click', (e) =>{

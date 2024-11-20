@@ -35,3 +35,4 @@ buttonLogout.addEventListener('click', () => {
 });
 
 // <-- FIM
+

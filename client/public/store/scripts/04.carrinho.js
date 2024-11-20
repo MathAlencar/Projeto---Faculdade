@@ -302,24 +302,24 @@ btnCompra.addEventListener('click', (e) => {
 
         promises_arm_pedido.push(
 
-        fetch('/realizandoCompra', {
-            method: "POST",
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dados)
-        })
-        .then (response => {
-            if(!response.ok) {
-            throw new Error('Erro ao enviar dados')
-            }
-            return response.json();
-        })
-        .then(data => {
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-        })
+            fetch('/realizandoCompra', {
+                method: "POST",
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dados)
+            })
+            .then (response => {
+                if(!response.ok) {
+                throw new Error('Erro ao enviar dados')
+                }
+                return response.json();
+            })
+            .then(data => {
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            })
         )
 
         Promise.all(promises_arm_pedido).then(() => {
@@ -352,12 +352,13 @@ btnCompra.addEventListener('click', (e) => {
                 alert(`Não foi possível realizar a compra desses produtos: ${pedidosNaoRealizados}, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
                 sessionStorage.clear()
                 compras = [];
-                window.location.href = '/carrinho'
+                window.location.href = '/home'
             }else{
                 alert("Pedido realizado com sucesso!")
                 sessionStorage.clear()
-                window.location.href = '/carrinho'
+                window.location.href = '/home'
             }
+            
         })
     })
 })

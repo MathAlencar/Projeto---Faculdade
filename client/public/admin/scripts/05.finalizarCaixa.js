@@ -210,6 +210,8 @@ buttonComprar.addEventListener('click', (e) =>{
     pedido.tipo_pagamento = opc_pagamento.value
     let somando_valores = 0;
 
+    console.log(compras_nao);
+
     if(compras_nao.length > 0){
 
       for(let i=0; i<produtos.length; i++){
@@ -218,11 +220,13 @@ buttonComprar.addEventListener('click', (e) =>{
         let adicionar = true;
 
         for(let i=0; i<compras_nao.length; i++){
-            if(verificando_prod == compras_nao[i].nome){
+            if(verificando_prod == compras_nao[i]){
                 adicionar = false;
             }
         }
 
+        console.log(adicionar);
+        
         if(adicionar == true){
             // Nesse script estou somando apenas os valores da compra.
             let valor_compra = parseFloat((produtos[i].valor).replace('R$', ''));
@@ -232,7 +236,14 @@ buttonComprar.addEventListener('click', (e) =>{
 
             somando_valores+=valor_compra;
 
-            pedido.produtos_solicitados.push(produtos[i])
+            let obj_produto = {
+              nome_produto: produtos[i].nome,
+              qtd_comprada: produtos[i].qtd,
+              valor: produtos[i].valor
+            }
+    
+            pedido.produtos_solicitados.push(obj_produto)
+
         }else {
             continue;
         }
@@ -241,7 +252,15 @@ buttonComprar.addEventListener('click', (e) =>{
     }else {
       for(let i=0; i<compras.length; i++){
 
-        pedido.produtos_solicitados.push(produtos[i]);
+        // A lista de produtos foi definida com atributos diferentes ao usado no banco de dados, para solucionar, resetei a um padrão
+        // usado pelo outro script.
+        let obj_produto = {
+          nome_produto: produtos[i].nome,
+          qtd_comprada: produtos[i].qtd,
+          valor: produtos[i].valor
+        }
+
+        pedido.produtos_solicitados.push(obj_produto);
                     
         let valor_compra = parseFloat((produtos[i].valor).replace('R$', ''));
         let multiplicador = produtos[i].qtd;
@@ -258,7 +277,6 @@ buttonComprar.addEventListener('click', (e) =>{
       request: pedido
     }
 
-    // Aqui estou realizando a decrementação no banco de dados.
     let promises_arm_pedido = []
 
     promises_arm_pedido.push(
@@ -285,41 +303,40 @@ buttonComprar.addEventListener('click', (e) =>{
     )
 
   // Aqui estou enviando o pedido para ser tratado e armazenado no banco de dados.
-    Promise.all(promises_arm_pedido).then(() => {
+      Promise.all(promises_arm_pedido).then(() => {
 
-      fetch('/cadastrando/pedido', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dados)
-      })
-      .then (response => {
-        if(!response.ok) {
-          throw new Error('Erro ao enviar dados')
-        }
-        return response.json();
-      })
-      .then(data => {
-      })
-      .catch(error => {
-        console.error('Erro:', error);
-      });
+          fetch('/cadastrando/pedido', {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+          })
+          .then (response => {
+            if(!response.ok) {
+              throw new Error('Erro ao enviar dados')
+            }
+            return response.json();
+          })
+          .then(data => {
+          })
+          .catch(error => {
+            console.error('Erro:', error);
+          });
 
-      if(compras_nao.length > 0){
-        popup(`Não foi possível realizar a compra deste produtos:, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
-        sessionStorage.clear();
+          if(compras_nao.length > 0){
+            popup(`Não foi possível realizar a compra deste produtos:, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
+            sessionStorage.clear();
 
-      }else {
-        popup("Pedido realizado com sucesso!")
-        
-        sessionStorage.clear()
-      }
+          }else {
+            popup("Pedido realizado com sucesso!")
+            sessionStorage.clear()
+          }
+
+      })
 
     })
-
-    });    
-    
+        
 })
 
 

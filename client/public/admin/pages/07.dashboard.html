@@ -22,11 +22,11 @@
                 </div>
                 <ul>
                     <li><a href="/menu"><span class="material-icons-outlined">home</span>Home</a></li>
-                    <li><a href="/tabela/produto"><span class="material-icons">add_circle_outline</span> Cadastrar <br>produtos</a></li>
-                    <li><a href="/entrada"><span class="material-icons">north_east</span> Entradas</a></li>
-                    <li><a href="/saida"><span class="material-icons">south_west</span> Saídas</a></li>
-                    <li><a href="/caixa"><span class="material-icons">attach_money</span> Abrir caixa</a></li>
-                    <li><a href="/pedidos"><span class="material-icons-outlined">check_circle</span> Pedidos realizados</a></li>
+                    <li><a href="/tabela/produto"><span class="material-icons">add_circle_outline</span> Administração de <br>produtos</a></li>
+                    <li><a href="/entrada"><span class="material-icons">north_east</span> Entrada Estoque</a></li>
+                    <li><a href="/saida"><span class="material-icons">south_west</span> Saída Estoque</a></li>
+                    <li><a href="/caixa"><span class="material-icons">attach_money</span> Abrir venda <br> produtos </a></li>
+                    <li><a href="/pedidos"><span class="material-icons-outlined">check_circle</span> Pedidos <br> realizados</a></li>
                     <li><a href="/dashboard" id="activate"><span class="material-icons-outlined">leaderboard</span> Dashboard</a></li>
                     <li><a href="/funcionarios"><span class="material-icons">people</span> Ver funcionários</a></li>
                 </ul>
@@ -64,21 +64,21 @@
                         <div class="box-info-single">
                             <div class="info-text">
                                 <span class="material-icons icon">arrow_downward</span>
-                                <p><span class="cor">VALOR GASTO / ENTRADAS</span></p>
+                                <p><span class="cor">VALOR GASTO COM ENTRDAS DE PRODUTOS</span></p>
                                 <p><span class="large-value" id="waste">R$0,00</span></p>
                             </div>
                         </div>
                         <div class="box-info-single">
                             <div class="info-text">
                                 <span class="material-icons icon2">arrow_upward</span>
-                                <p><span class="cor">RECEITA GERADA / SAÍDAS</span></p>
+                                <p><span class="cor">RECEITA GERADA / VENDAS</span></p>
                                 <p><span class="large-value" id="exits">R$0,00</span></p>
                             </div>
                         </div>
                         <div class="box-info-single">
                             <div class="info-text">
                                 <span class="material-icons icon3">attach_money</span>
-                                <p><span class="cor">LUCRO</span></p>
+                                <p><span class="cor">SUBTRAINDO ENTRADAS DE SAÍDA</span></p>
                                 <p><span class="large-value" id="profit">R$0,00</span></p>
                             </div>
                         </div>
@@ -94,9 +94,9 @@
                             <thead>
                                 <tr>
                                     <th class="local">PRODUTO</th>
-                                    <th class="local">VALOR GASTO</th>
-                                    <th class="local">RECEITA GERADA</th>
-                                    <th class="local">LUCRO/DÉFIT</th>
+                                    <th class="local">VALOR GASTO  COM ENTRADA DE PRODUTOS</th>
+                                    <th class="local">RECEITA GERADA / VENDAS</th>
+                                    <th class="local">SUBTRAINDO ENTRADAS DE SAÍDA</th>
                                 </tr>
                             </thead>
                             <tbody id="table">

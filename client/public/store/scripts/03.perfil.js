@@ -10,7 +10,6 @@ fetch(`/pesquisa/${emailUSer}`)
 }) //Chama a função que constroi a tabela e exibe os produtos encontrados
 .catch(error => console.error('Erro:', error));
 
-
 function carregaDados(dados){
     // selecionando elementos do HTML
     const inputNome = document.querySelector('#input-name');
@@ -53,7 +52,7 @@ function atualizaDados() {
             return response.json();
         })
         .then(data => {
-           console.log(data.message)
+           alert(data.message)
         })
         .catch(error => {
             console.error('Erro:', error);

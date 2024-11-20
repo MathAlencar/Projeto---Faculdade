@@ -193,4 +193,3 @@ exports.logout = (req, res) => {
     return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '00.login.html'));
 }
 
-exports

@@ -267,7 +267,7 @@ exports.cadastrandoPedidoRealizado = (req, res, next) => {
                     conn.release();
 
                     if(err) return res.json({message: "Erro ao conectar com o banco de dados!!" });
-
+                    
                     if( result.length == 0) return res.json({message: "Produto não localizado em nosso sistema!"});
 
                     let codigo_produto = result[0].cod_Prd;

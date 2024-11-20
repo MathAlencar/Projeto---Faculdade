@@ -2,6 +2,8 @@ const express = require('express'); // Chamando a biblioteca express
 const router = express.Router(); // Exportando para fora;
 const mysql = require('../aa.db').pool; // chamando as credenciais do banco de dados;
 const path = require('path');
+const bcrypt = require('bcrypt'); // Chamando a biblioteca que irá fazer a criptografia da senha;
+
 
 exports.chamandoFuncionarios = (req, res, next) => {
 
@@ -12,9 +14,9 @@ exports.chamandoFuncionarios = (req, res, next) => {
 
         conn.query(query, (err, result) => {
             conn.release();
-            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
+            if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'))
 
-            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'), console.log("não tem nada aqui"));
+            if (result.length == 0) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'))
 
             const response = {
                 quantidade: result.length,
@@ -47,7 +49,7 @@ exports.chamadaFuncionarioEspec = (req, res, next) => {
 
             conn.query(query, [email], (err, results) => {
                 conn.release();
-                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'), console.log("deu erro menor"));
+                if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'))
 
                 const response = {
                     quantidade: results.length,
@@ -145,8 +147,6 @@ exports.atualizandoUser = (req, res, next) => {
 
                 if(status_desativo == 'on'){
 
-                    console.log(status_desativo, email);
-        
                     conn.query(query, [0, email], (err, result) => {
                         if(err) return res.json({message: "Erro ao desativar usuário!"});
             
@@ -170,8 +170,11 @@ exports.atualizandoUser = (req, res, next) => {
 }
 
 // API do sistema "store" para o usuário
-exports.atualizaStore = (req, res, next) => {
+exports.atualizaStore = async (req, res, next) => {
     const { nome, email, senha, telefone} = req.body;
+
+    // Regex validar de senha;
+    let regex_senha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if(telefone.length != 11) return res.json({message: "Tamanho de número inválido!"});
 
@@ -179,28 +182,58 @@ exports.atualizaStore = (req, res, next) => {
     let query = "";
     let body = [];
 
+    let hashPassword = await bcrypt.hash(senha, 8);
+
     // Construção da query e parâmetros dinamicamente
-    if (nome && telefone) {
+    if (nome && telefone && senha) {
+        query = `
+            UPDATE tbl_User
+            SET nome = ?, telefone = ?, password_Login = ?
+            WHERE email_Login = ?;
+        `;
+        body = [nome, telefone, hashPassword, email];
+    } else if (nome && telefone && !senha) {
         query = `
             UPDATE tbl_User
             SET nome = ?, telefone = ?
             WHERE email_Login = ?;
         `;
         body = [nome, telefone, email];
-    } else if (nome && !telefone) {
+    } else if (nome && !telefone && senha) {
+        query = `
+            UPDATE tbl_User
+            SET nome = ?, password_Login = ?
+            WHERE email_Login = ?;
+        `;
+        body = [nome, hashPassword, email];
+    } else if (nome && !telefone && !senha) {
         query = `
             UPDATE tbl_User
             SET nome = ?
             WHERE email_Login = ?;
         `;
         body = [nome, email];
-    } else if (telefone && !nome) {
+    } else if (!nome && telefone && senha) {
+        query = `
+            UPDATE tbl_User
+            SET telefone = ?, password_Login = ?
+            WHERE email_Login = ?;
+        `;
+        body = [telefone, hashPassword, email];
+    } else if (!nome && telefone && !senha) {
         query = `
             UPDATE tbl_User
             SET telefone = ?
             WHERE email_Login = ?;
         `;
         body = [telefone, email];
+    } else if (!nome && !telefone && senha) {
+        query = `
+            UPDATE tbl_User
+            SET password_Login = ?
+            WHERE email_Login = ?;
+        `;
+        body = [hashPassword, email];
     } else {
         return res.json({ message: "Nenhum dado para atualizar!" });
     }
@@ -220,5 +253,6 @@ exports.atualizaStore = (req, res, next) => {
             return res.json({ message: retorno });
         });
     });
+
 }
 
