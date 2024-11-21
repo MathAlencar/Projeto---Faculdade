@@ -110,7 +110,6 @@ fetch('/chamada/produto')
 
   document.addEventListener('click', (e) =>{
     const tag = e.target;
-    console.log(tag)
     if(tag.classList.contains('material-icons-outlined')){
       e.preventDefault();
       const a = tag.parentElement;

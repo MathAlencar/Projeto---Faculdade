@@ -21,7 +21,6 @@ fetch('/chamada/funcionarios')
     return response.json();
   })
   .then(data => {
-    console.log(data)
     let funcionarios = data.usuarios; // tratando os dados;
 
     let i = 0;
@@ -37,7 +36,6 @@ fetch('/chamada/funcionarios')
       td_email.setAttribute('id', 'id_email');
       let  td_telefone = document.createElement('td');
       td_telefone.setAttribute('id', 'td_telefone');
-      console.log(td_telefone)
       let  td_tipo_user = document.createElement('td');
       td_telefone.setAttribute('id', 'td_tipo_user');
       
@@ -132,7 +130,6 @@ document.addEventListener('click', (e) =>{
     const nome = tr.querySelector('#id_nome_fun').textContent; // Obtem o nome do funcionario
     const email = tr.querySelector('#id_email').textContent; // Obtem o email do funcionario
     const contato = tr.querySelector('#td_tipo_user').textContent; // Obtem o telefone do funcionario
-    console.log(contato)
     let status = tr.querySelector('#status'); // Obtem o telefone do funcionario
 
   if(status.classList.contains('aprovado')){

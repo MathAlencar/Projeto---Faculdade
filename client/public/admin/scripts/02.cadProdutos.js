@@ -48,7 +48,7 @@ buttonCadastro.addEventListener('click', (e) => {
           popup(data.message);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
 })
 

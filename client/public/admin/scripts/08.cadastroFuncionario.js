@@ -11,7 +11,6 @@ buttonCadastro.addEventListener('click', (e) => {
     e.preventDefault();
 
     const form = document.querySelector('#formularioFuncionario');
-    console.log(form);
     const formatandoDados = new FormData(form);
 
     const dados = {
@@ -41,7 +40,7 @@ buttonCadastro.addEventListener('click', (e) => {
         popup(data.message);
     })
     .catch(error => {
-        console.log(error);
+        console.error(error);
     })
 })
 

@@ -40,9 +40,7 @@ function construirTabela(dados){
 }
 
 function exportarTabela(dados){
-  console.log(dados)
   produtos = dados.produtos;
-  console.log(produtos)
   document.getElementById('exportarExcel').addEventListener('click', function() {
     // Converter tabela para uma planilha (workbook)
     const planilha = XLSX.utils.json_to_sheet(produtos);

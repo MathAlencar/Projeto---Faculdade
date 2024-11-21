@@ -41,7 +41,6 @@ exports.chamadaFuncionarioEspec = (req, res, next) => {
 
     // const email = req.query.buscaFuncionario; // Corrigindo para req.query.buscaFuncionario
     const email = req.params.email; 
-    console.log(req.params.email)
     mysql.getConnection((err, conn) => {
         if (err) return res.sendFile(path.join(__dirname, '..', 'public', 'admin', 'pages', '08.funcionarios.html'));
 

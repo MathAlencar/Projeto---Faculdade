@@ -131,3 +131,21 @@ function criando_elemento_main(id, status, total_value, data, dados_saida){
 
     return div_main;
 }
+
+// Realizando a seleção de elementos da página
+const buttonLogout = document.querySelector('#logoutIcon');
+
+// Realiza o logout do sistema
+
+buttonLogout.addEventListener('click', () => {
+    sessionStorage.removeItem('store');
+    fetch('/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});

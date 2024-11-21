@@ -210,8 +210,6 @@ buttonComprar.addEventListener('click', (e) =>{
     pedido.tipo_pagamento = opc_pagamento.value
     let somando_valores = 0;
 
-    console.log(compras_nao);
-
     if(compras_nao.length > 0){
 
       for(let i=0; i<produtos.length; i++){
@@ -224,8 +222,6 @@ buttonComprar.addEventListener('click', (e) =>{
                 adicionar = false;
             }
         }
-
-        console.log(adicionar);
         
         if(adicionar == true){
             // Nesse script estou somando apenas os valores da compra.

@@ -86,6 +86,10 @@ router.get('/carrinho', login_user.loginUser, (req, res) => {
     res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/04.carrinho.html'));
 })
 
+router.get('/carrinho/status', login_user.loginUser, (req, res) => {
+    res.sendFile(path.join(__dirname, './..', 'public', 'store', 'pages/04.carrinhoPop.html'));
+})
+
 
 
 module.exports = router;

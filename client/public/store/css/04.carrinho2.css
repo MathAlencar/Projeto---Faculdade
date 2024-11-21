@@ -49,6 +49,9 @@ div button:nth-child(2) {
     color: #224864;
     background-color: #fff;
 }
+button{
+    cursor: pointer;
+}
 
 
 @media (max-width: 1060px) {

@@ -145,7 +145,6 @@ function buscandoProduto(){
   })
   .then(data => {
     inputCod.value = data.produto[0].cod_Prd;
-    console.log(inputCod)
   })
   .catch(error => {
     console.error('Erro:', error);

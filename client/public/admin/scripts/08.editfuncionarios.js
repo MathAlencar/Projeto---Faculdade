@@ -90,7 +90,6 @@ button_atualizar.addEventListener('click', (e) => {
         status_desativo: formatandoDados.get('desativo')
     }
 
-    console.log(dados);
 
     fetch('/atualizando', {
         method: "PATCH",

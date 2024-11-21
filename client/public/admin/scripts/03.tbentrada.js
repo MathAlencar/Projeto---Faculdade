@@ -81,7 +81,6 @@ function filtrar() {
   ul = document.querySelector('#tabelaProdutos');
 
   filter = input.value.toUpperCase();
-  console.log('estou aqui')
   tr = ul.getElementsByTagName("tr");
 
   // Esconde todas as linhas da tabela

@@ -52,7 +52,7 @@ function atualizaDados() {
             return response.json();
         })
         .then(data => {
-           alert(data.message)
+            popup(data.message);
         })
         .catch(error => {
             console.error('Erro:', error);
@@ -73,5 +73,38 @@ function getCookie(email) {
         }
     }
     return null
+}
+
+// Realizando a seleção de elementos da página
+const buttonLogout = document.querySelector('#logoutIcon');
+
+// Realiza o logout do sistema
+
+buttonLogout.addEventListener('click', () => {
+    sessionStorage.removeItem('store');
+    fetch('/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
+
+function popup(mensagem){
+    console.log(mensagem)
+    const popUp = document.querySelector('.popup');
+    document.querySelector('.message').textContent = mensagem
+    popUp.style.display = 'flex'; // Torna o popup visivel
+  
+    //Seleciona os itens do popup
+    const btnconfirmar = document.querySelector('.confirmar');
+
+    btnconfirmar.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = '/perfil'
+    })
 }
 

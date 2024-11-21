@@ -98,8 +98,7 @@ function verificarClick(sessaoDoce){
               .then(data => {
 
                 let quantidade_produto = data.produto[0].qtd_Prd; // Recebe a quantidade armazenada no banco de dados.
-                
-                console.log(quantidade_produto);
+          
 
                 let qtd_prod = parseFloat(spanQtd.innerHTML) // Recebe a quantidade solicitada pelo usuário.
 
@@ -254,7 +253,6 @@ function atualizaValorTotal (span,click){
     valorTotal.innerHTML = `R$ ${resultado}`;
 
     sessionStorage.setItem('total', JSON.stringify(parseFloat(resultado).toFixed(2))); 
-    console.log(sessionStorage.getItem('total'))
     
     armazenarCompra(span);
 }
@@ -281,3 +279,42 @@ function armazenarCompra(span){
 
     sessionStorage.setItem('store', JSON.stringify(compra)); 
 }
+
+
+// Realizando a seleção de elementos da página
+const buttonLogout = document.querySelector('.logo-exit');
+const nome = document.querySelector('#nameUser');
+
+function getCookie(name) {
+    const cookie = document.cookie;
+    const separandoCookie = cookie.split('; ');
+    for( let buscando of separandoCookie) {
+        const [cookieNome, cookieValor] = buscando.split('=');
+        if(cookieNome === name) {
+            return decodeURIComponent(cookieValor);
+        }
+    }
+    return null
+}
+
+// --> Definindo variáveis a serem usadas no front-end - Nome;
+let nameUSer = getCookie('name');
+nameUSer = nameUSer.split(' ');
+nome.textContent = `Olá, ${nameUSer[0]}!`;
+
+// Realiza o logout do sistema
+
+buttonLogout.addEventListener('click', () => {
+    sessionStorage.removeItem('store');
+    fetch('/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
+
+// <-- FIM

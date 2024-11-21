@@ -6,7 +6,6 @@ fetch('/chamada/pedidosRealizados')
   return response.json();
 })
 .then(data => {
-  console.log(data)
   construirTabela(data);
   exportarTabela(data);
 })
@@ -94,7 +93,6 @@ function verificaClick(tabela){
 }
 
 function popup(mensagem){
-  console.log(mensagem.message)
   const popUp = document.querySelector('#popup');
   popUp.style.display = 'flex'; // Torna o popup visivel
 

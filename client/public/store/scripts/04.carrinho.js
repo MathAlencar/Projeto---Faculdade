@@ -354,9 +354,9 @@ btnCompra.addEventListener('click', (e) => {
                 compras = [];
                 window.location.href = '/home'
             }else{
-                alert("Pedido realizado com sucesso!")
+                // alert("Pedido realizado com sucesso!")
                 sessionStorage.clear()
-                window.location.href = '/home'
+                window.location.href = '/carrinho/status'
             }
             
         })

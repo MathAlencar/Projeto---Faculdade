@@ -214,8 +214,6 @@ function criandoTabelaFiltrando(){
 
               let status = item.status_compra; 
 
-              console.log(item);
-
               if(item.nome_produto == nome_produto && status == 1){
                 if(data_mes == mes_selecionado){
                   let valor = Number(item.valor_compra);
