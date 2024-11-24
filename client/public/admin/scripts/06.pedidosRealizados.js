@@ -13,36 +13,38 @@ fetch('/chamada/pedidosRealizados')
 
 
 function construirTabela(dados){
+
   let i = 0;
   const pedidos = dados.pedidos;
   const tabela = document.querySelector('#tabelaProdutos');
   const template = document.querySelector('#produto-template');
 
-  pedidos.forEach(item => {
-    if(item.qtd_TotProduto <= 0) return;
+  for(let i=pedidos.length-1; i>=0; i--){
+
+    // if(pedidos[i].qtd_TotProduto <= 0) return;
     const td = template.content.cloneNode(true);  // Clona o conteúdo do template
 
-    let transformando_data = new Date(item.data_pedido).toLocaleDateString()
-
+    let transformando_data = new Date(pedidos[i].data_pedido).toLocaleDateString()
 
     // Popula o conteúdo do clone com os dados dos pedidos
-    td.querySelector('#codigo').textContent = item.numero_pedido;
-    td.querySelector('#funcionario').textContent = item.funcionario;
-    td.querySelector('#contato').textContent = item.contato;
-    td.querySelector('#formaPagamento').textContent = item.forma_pagamento;
+    td.querySelector('#codigo').textContent = pedidos[i].numero_pedido;
+    td.querySelector('#funcionario').textContent = pedidos[i].funcionario;
+    td.querySelector('#contato').textContent = pedidos[i].contato;
+    td.querySelector('#formaPagamento').textContent = pedidos[i].forma_pagamento;
     td.querySelector('#data').textContent = transformando_data;
-    td.querySelector('#valorCompra').textContent = item.valor_compra;
+    td.querySelector('#valorCompra').textContent = pedidos[i].valor_compra;
     const checkbox = td.querySelector('#status_pgto');
 
-    if(item.status == 1) checkbox.checked = true; 
+    if(pedidos[i].status == 1) checkbox.checked = true; 
 
     let tr = td.querySelector('tr');
     tabela.appendChild(td); // Adiciona a linha à tabela
 
     if (i % 2 == 0) tr.setAttribute('class', 'linha-par');
     else tr.setAttribute('class', 'linha-impar');
-    i++
-  })
+
+  }
+
   verificaClick(tabela); // Chama a função que verifica os clicks na tabela
 }
 

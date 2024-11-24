@@ -13,7 +13,7 @@ fetch('/chamada/produto')
     let i = 0;
     const ul = document.querySelector('#tabelaProdutos');
 
-    produtos.forEach((item) => {
+    for(let i=produtos.length-1; i>=0; i--){
         let tr = document.createElement('tr');
 
         let td_id = document.createElement('td');
@@ -27,23 +27,23 @@ fetch('/chamada/produto')
         let td_tipo_produto = document.createElement('td');
         td_tipo_produto.setAttribute('id', 'td_tipo_produto');
 
-        td_id.innerText = item.cod_Prd;
-        td_nome.innerText = item.nome_Prd;
-        td_quantidade.innerText = item.qtd_TotProduto;
-        td_preco.innerText = `R$ ${item.vlr_Unit}`;
-        td_tipo_produto.innerText = item.tipo_produto;
+        td_id.innerText = produtos[i].cod_Prd;
+        td_nome.innerText = produtos[i].nome_Prd;
+        td_quantidade.innerText = produtos[i].qtd_TotProduto;
+        td_preco.innerText = `R$ ${produtos[i].vlr_Unit}`;
+        td_tipo_produto.innerText = produtos[i].tipo_produto;
 
         //Coluna para editar o contato 
         let  td_edit = document.createElement('td');
         td_edit.setAttribute('id', 'buttonEditar');
-  
+
         let link_edit = document.createElement('a');
         link_edit.setAttribute('href','/tabela/produto/editar')
         link_edit.setAttribute('class','editar');
-  
+
         let icons_edit = document.createElement('span')
         icons_edit.setAttribute('class','material-icons-outlined')
-  
+
         link_edit.appendChild(icons_edit);
         td_edit.appendChild(link_edit);
         icons_edit.innerHTML = 'edit';
@@ -62,8 +62,59 @@ fetch('/chamada/produto')
         }
 
         ul.appendChild(tr);
-        i++;
-    })
+    }
+
+    // produtos.forEach((item) => {
+    //     let tr = document.createElement('tr');
+
+    //     let td_id = document.createElement('td');
+    //     td_id.setAttribute('id', 'id_prod');
+    //     let td_nome = document.createElement('td');
+    //     td_nome.setAttribute('id', 'id_nome');
+    //     let td_quantidade = document.createElement('td');
+    //     td_quantidade.setAttribute('id', 'id_qtd');
+    //     let td_preco = document.createElement('td');
+    //     td_preco.setAttribute('id', 'id_preco');
+    //     let td_tipo_produto = document.createElement('td');
+    //     td_tipo_produto.setAttribute('id', 'td_tipo_produto');
+
+    //     td_id.innerText = item.cod_Prd;
+    //     td_nome.innerText = item.nome_Prd;
+    //     td_quantidade.innerText = item.qtd_TotProduto;
+    //     td_preco.innerText = `R$ ${item.vlr_Unit}`;
+    //     td_tipo_produto.innerText = item.tipo_produto;
+
+    //     //Coluna para editar o contato 
+    //     let  td_edit = document.createElement('td');
+    //     td_edit.setAttribute('id', 'buttonEditar');
+  
+    //     let link_edit = document.createElement('a');
+    //     link_edit.setAttribute('href','/tabela/produto/editar')
+    //     link_edit.setAttribute('class','editar');
+  
+    //     let icons_edit = document.createElement('span')
+    //     icons_edit.setAttribute('class','material-icons-outlined')
+  
+    //     link_edit.appendChild(icons_edit);
+    //     td_edit.appendChild(link_edit);
+    //     icons_edit.innerHTML = 'edit';
+
+    //     tr.appendChild(td_id);
+    //     tr.appendChild(td_nome);
+    //     tr.appendChild(td_tipo_produto);
+    //     tr.appendChild(td_quantidade);
+    //     tr.appendChild(td_preco);
+    //     tr.appendChild(td_edit);
+
+    //     if (i % 2 == 0) {
+    //       tr.setAttribute('class', 'linha-par');
+    //     } else {
+    //       tr.setAttribute('class', 'linha-impar');
+    //     }
+
+    //     ul.appendChild(tr);
+    //     i++;
+    // })
 
   })
   .catch(error => {

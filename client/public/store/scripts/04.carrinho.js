@@ -344,12 +344,14 @@ btnCompra.addEventListener('click', (e) => {
             });
 
             if(compras_nao_realizadas.length > 0){
-                let pedidosNaoRealizados;
+                let pedidosNaoRealizados = '';
 
                 for(let i=0; i<compras_nao_realizadas.length; i++){
-                    pedidosNaoRealizados+= compras_nao_realizadas[i].nome_produto;
+                    pedidosNaoRealizados+=' '+compras_nao_realizadas[i].nome_produto;
                 }
-                alert(`Não foi possível realizar a compra desses produtos: ${pedidosNaoRealizados}, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
+
+                alert(`Não foi possível realizar a compra desses produtos: ${pedidosNaoRealizados}, pois já não estão mais disponiveis`)
+                
                 sessionStorage.clear()
                 compras = [];
                 window.location.href = '/home'

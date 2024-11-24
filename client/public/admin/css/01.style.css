@@ -15,6 +15,7 @@
     grid-template-areas: 
     "back titulo exit";
 }
+
 .profile-info a:nth-child(1){
     grid-area: back;
     align-self: center;
@@ -45,7 +46,7 @@
     color: #696970;
     padding: 10px;
     width: 60vw;
-    height:20vh;
+    height:auto;
     box-shadow: 6px 6px 6px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     display: grid;

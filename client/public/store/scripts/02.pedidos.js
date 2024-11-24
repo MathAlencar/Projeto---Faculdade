@@ -46,7 +46,7 @@ promises.push(
 )
 
 Promise.all(promises).then(() => {
-    for(let i=0; i<dados.length; i++){
+    for(let i=dados.length-1; i>=0; i--){
         if(dados[i].email_user == emailUSer_real_prod){ // Caso o e-mail cadastrado no pedidos_realizado for igual ao do usuário logado, ele irá apresentar os seus pedidos.
             let elemento = criando_elemento_main(dados[i].numero_pedido, dados[i].status, dados[i].valor_compra, dados[i].data_pedido, dados_saida);
             bloco_compras.appendChild(elemento);

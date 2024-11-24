@@ -226,9 +226,6 @@ buttonComprar.addEventListener('click', (e) =>{
         if(adicionar == true){
             // Nesse script estou somando apenas os valores da compra.
             let valor_compra = parseFloat((produtos[i].valor).replace('R$', ''));
-            let multiplicador = produtos[i].qtd;
-
-            valor_compra = valor_compra * multiplicador;
 
             somando_valores+=valor_compra;
 
@@ -259,10 +256,6 @@ buttonComprar.addEventListener('click', (e) =>{
         pedido.produtos_solicitados.push(obj_produto);
                     
         let valor_compra = parseFloat((produtos[i].valor).replace('R$', ''));
-        let multiplicador = produtos[i].qtd;
-
-        valor_compra = valor_compra * multiplicador;
-
         somando_valores+=valor_compra;
       }
     }
@@ -321,7 +314,14 @@ buttonComprar.addEventListener('click', (e) =>{
           });
 
           if(compras_nao.length > 0){
-            popup(`Não foi possível realizar a compra deste produtos:, pois já não estão mais disponiveis, os demais foram realizados com sucesso!`)
+
+            let produtos_nao_comprados = '';
+
+            for(let i=0; i<compras_nao.length; i++){
+              produtos_nao_comprados+=' '+compras_nao[i]
+            }
+
+            popup(`Não foi possível realizar a compra deste produtos:${produtos_nao_comprados}, pois já não estão mais disponiveis`)
             sessionStorage.clear();
 
           }else {

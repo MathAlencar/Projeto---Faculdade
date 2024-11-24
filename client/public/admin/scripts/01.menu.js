@@ -17,6 +17,18 @@ function getCookie(name) {
     return null
 }
 
+buttonLogout.addEventListener('click', () => {
+    fetch('/auth/logout', {
+        method: 'POST',
+    })
+    .then(response => {
+        window.location.href = '/login';
+    })
+    .catch(error => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
+
 // <-- FIM
 
 // --> Definindo variáveis a serem usadas no front-end - Nome e E-mail;
@@ -56,6 +68,7 @@ promises.push(
     return response.json();
     })
     .then(data => {
+
     dados = data.pedidos;
     
     })
@@ -74,18 +87,17 @@ promises.push(
 )
 
 Promise.all(promises).then(() => {
-    for(let i=0; i<dados.length; i++){
-        if(dados[i].email_user == emailUSer_real_prod){ // Caso o e-mail cadastrado no pedidos_realizado for igual ao do usuário logado, ele irá apresentar os seus pedidos.
-            let elemento = criando_elemento_main(dados[i].numero_pedido, dados[i].status, dados[i].valor_compra, dados[i].data_pedido, dados_saida);
-            bloco_compras.appendChild(elemento);
-        }
+    for(let i=dados.length-1; i>=0; i--){
+        // Caso o e-mail cadastrado no pedidos_realizado for igual ao do usuário logado, ele irá apresentar os seus pedidos.
+        let elemento = criando_elemento_main(dados[i].numero_pedido, dados[i].status, dados[i].valor_compra, dados[i].data_pedido, dados_saida);
+        bloco_compras.appendChild(elemento);
     }
 })
 
 function criando_p(qtd, nome_Prd){
-    let p = document.createElement('p');
+    let p = document.createElement('span');
 
-    p.innerHTML = `${qtd}x ${nome_Prd}`;
+    p.innerHTML = `<br>${qtd}x ${nome_Prd} <br>`;
 
     return p;
 }
@@ -124,6 +136,8 @@ function criando_elemento_main(id, status, total_value, data, dados_saida){
 
     let div_class_elements = document.createElement('div');
     div_class_elements.setAttribute('class', 'elements');
+
+    console.log(div_class_elements);
     
     for(let i=0; i<dados_saida.length; i++){
 

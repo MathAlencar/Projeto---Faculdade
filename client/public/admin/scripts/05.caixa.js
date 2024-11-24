@@ -52,15 +52,57 @@ function verificaClick(tabela){
   tabela.addEventListener('click', (e) => {
     const tag = e.target;
     let span = tag.parentElement;
-    const tr = span.parentElement;
+    const itemProduto = span.parentElement;
     const spanQtd = span.querySelector('.qtdAtual');
 
     if(tag.classList.contains('addProdutos')){
-      atualizaValorTotal(tr,'add');
+
+      e.preventDefault();
       
+      const tipoProduto_01 = itemProduto.querySelector('#prod').textContent;
+            
+      // Objeto que será enviado para o banco de dados.
+      const dados = {
+          tipoProduto: tipoProduto_01
+      }
+            
+      // Estou realizando a chamada no banco de dados via API;
+      fetch('/chamada/produto/especifico', {
+          method: "PATCH",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dados)
+        })
+        .then (response => {
+          if(!response.ok) {
+            throw new Error('Erro ao enviar dados')
+          }
+          return response.json();
+        })
+        .then(data => {
+
+          let quantidade_produto = data.produto[0].qtd_Prd; // Recebe a quantidade armazenada no banco de dados.
+    
+
+          let qtd_prod = parseFloat(spanQtd.innerHTML) // Recebe a quantidade solicitada pelo usuário.
+
+          // Verificando se qtd solicitada pelo usuário não é superior ao que está armazenado no banco de
+          if(qtd_prod >= quantidade_produto){
+              popup(`Não é possível adicionar o produto no carrinho, escolha uma quantidade menor ou igual a: ${quantidade_produto} (Em Estoque)`); // Exibe alert avisando o usario que o item foi adicionado
+          }
+          else {
+              atualizaValorTotal(itemProduto,'add');
+          }
+  
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+
     }
     if(tag.classList.contains('removeProdutos')){
-      atualizaValorTotal(tr,'remove');
+      atualizaValorTotal(itemProduto,'remove');
     }
   })
 };
@@ -111,7 +153,6 @@ function armazenarCompra(tr){
   return true;
 }
 
-
 // Função que realiza a filtragem de valores após uma pesquisa
 function filtrar() {
   var input,tabela,tr,td_nome;
@@ -132,4 +173,33 @@ function filtrar() {
       tr[i].style.display = 'table-row'; // Mostra a linha
     }
   }
+}
+
+function popup(mensagem){
+  const popUp = document.querySelector('#popup');
+  popUp.style.display = 'flex'; // Torna o popup visivel
+
+  //Seleciona os itens do popup
+  const btnClose = document.querySelector('.close-btn');
+  const btnBack = document.querySelector('.back-btn');
+  const iconPopup = document.querySelector('.icon');
+  const message = document.querySelector('.message');
+  message.innerHTML = mensagem; // Exibe mensagem de retorno
+  
+  if(mensagem.includes('sucesso')){
+    iconPopup.innerHTML = 'task_alt';
+    btnBack.style.display = '';
+    btnClose.style.color = '';
+  }else{
+    iconPopup.innerHTML = 'cancel';
+    btnBack.style.display = 'none';
+  }
+
+  btnClose.addEventListener('click', (e) =>{
+    popUp.style.display = 'none';
+  })
+  btnBack.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = '/caixa'
+  })
 }

@@ -93,6 +93,7 @@ buttonLogout.addEventListener('click', () => {
     });
 });
 
+// função
 function popup(mensagem){
     console.log(mensagem)
     const popUp = document.querySelector('.popup');

@@ -57,11 +57,6 @@ function exibirProdutos(produtos){
         verificarClick(sessaoBebida);
 }
 
-
-
-
-
-
 function verificarClick(sessaoDoce){
     sessaoDoce.addEventListener('click', (e) => {
         const tag = e.target;

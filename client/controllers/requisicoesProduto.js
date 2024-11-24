@@ -290,7 +290,5 @@ exports.cadastrandoPedidoRealizado = (req, res, next) => {
         })
 
     })
-
-
 }
 

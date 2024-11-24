@@ -175,6 +175,11 @@ exports.atualizaStore = async (req, res, next) => {
     // Regex validar de senha;
     let regex_senha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&]{8,}$/;
 
+    let validando_senha = regex_senha.test(senha);
+
+    if(!validando_senha && senha != '') return res.json({message: "Senha inválida! A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial."})
+
+
     if(telefone.length != 11) return res.json({message: "Tamanho de número inválido!"});
 
     let retorno = "Dados do funcionário atualizados com sucesso!";

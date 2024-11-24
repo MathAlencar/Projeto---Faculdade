@@ -14,8 +14,7 @@ fetch('/entradas/produtos')
   let i = 0;
   const ul = document.querySelector('#tabelaProdutos')
 
-  entrada_produtos.forEach((item) => {
-
+  for(let i=entrada_produtos.length-1; i>=0; i--){
     let tr = document.createElement('tr');
 
     let  td_nome_produto = document.createElement('td');
@@ -30,14 +29,13 @@ fetch('/entradas/produtos')
     td_qtd_comp_prod.setAttribute('id', 'id_qtd_comp_prod');
    
     // tranformando a data em valor válido.
-    let transformando_data = new Date(item.data_entrada).toLocaleDateString()
-    
+    let transformando_data = new Date(entrada_produtos[i].data_entrada).toLocaleDateString()
 
-    td_nome_produto.innerHTML = item.nome_produto
+    td_nome_produto.innerHTML = entrada_produtos[i].nome_produto
     td_data_produto.innerHTML = transformando_data
-    td_preco_total_produto.innerHTML =  `R$ ${item.preco_total}`
-    td_preco_unit_produto.innerHTML = `R$ ${item.preco_unitario}`
-    td_qtd_comp_prod.innerHTML = item.qtd_comprada
+    td_preco_total_produto.innerHTML =  `R$ ${entrada_produtos[i].preco_total}`
+    td_preco_unit_produto.innerHTML = `R$ ${entrada_produtos[i].preco_unitario}`
+    td_qtd_comp_prod.innerHTML = entrada_produtos[i].qtd_comprada
 
     tr.appendChild(td_nome_produto)
     tr.appendChild(td_data_produto)
@@ -52,9 +50,7 @@ fetch('/entradas/produtos')
       }
 
       ul.appendChild(tr);
-      i++
-  })
-
+  }
 
 })
 .catch(error => {

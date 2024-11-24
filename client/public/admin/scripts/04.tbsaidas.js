@@ -17,26 +17,25 @@ function construirTabela(dados){
   const template = document.querySelector('#produto-template');
   const tabela = document.querySelector('#tabelaProdutos');
 
-  for(let produto of produtos){
-
-    let transformando_data = new Date(produto.data_saida).toLocaleDateString()
+  for(let i=produtos.length-1; i>=0; i--){
+    let transformando_data = new Date(produtos[i].data_saida).toLocaleDateString()
 
     const td = template.content.cloneNode(true);  // Clona o conteúdo do template
-    td.querySelector('#codigo_produto').textContent = produto.codigo_produto
-    td.querySelector('#codigo_venda').textContent = produto.codido_pedido;
-    td.querySelector('#funcionario').textContent = produto.funcionario;
-    td.querySelector('#produto').textContent = produto.nome_produto;
+    td.querySelector('#codigo_produto').textContent = produtos[i].codigo_produto
+    td.querySelector('#codigo_venda').textContent = produtos[i].codido_pedido;
+    td.querySelector('#funcionario').textContent = produtos[i].funcionario;
+    td.querySelector('#produto').textContent = produtos[i].nome_produto;
     td.querySelector('#data_saida').textContent = transformando_data;
-    td.querySelector('#qtd').textContent = produto.qtd_comprada;
-    td.querySelector('#valorCompra').textContent = produto.valor_compra;
-    td.querySelector('#forma_pgto').textContent = produto.forma_pagamento;
+    td.querySelector('#qtd').textContent = produtos[i].qtd_comprada;
+    td.querySelector('#valorCompra').textContent = produtos[i].valor_compra;
+    td.querySelector('#forma_pgto').textContent = produtos[i].forma_pagamento;
 
     let tr = td.querySelector('tr');
     tabela.appendChild(tr); // Adiciona a linha à tabela
     if (i % 2 == 0) tr.setAttribute('class', 'linha-par');
     else tr.setAttribute('class', 'linha-impar');
-    i++
   }
+ 
 }
 
 function exportarTabela(dados){

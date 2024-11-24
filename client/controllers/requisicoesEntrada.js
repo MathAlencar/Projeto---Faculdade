@@ -78,6 +78,8 @@ exports.catalogandoPedido = (req, res, next) => {
     mysql.getConnection((err, conn) => {
         
         if(err) return res.json({message: "Erro ao conectar com o banco de dados!"});
+
+        if(valor_compra == 0) return res.json({message: "Valor invalido!"});
         
         const query = `SELECT * FROM tbl_User WHERE email_Login = ?`;
 
