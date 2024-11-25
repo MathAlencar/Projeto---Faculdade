@@ -53,11 +53,11 @@ router.get('/dashboard', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/07.dashboard.html'));
 })
 
-router.get('/funcionarios', (req, res) => {
+router.get('/funcionarios', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/08.funcionarios.html'));
 })
 
-router.get('/funcionarios/cadastro',  (req, res) => {
+router.get('/funcionarios/cadastro', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/08.cadastrarFuncionarios.html'));
 })
 
