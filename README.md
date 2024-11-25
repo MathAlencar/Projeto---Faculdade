@@ -8,4 +8,4 @@ No momento o projeto está com o seu Front-end finalizado onde a equipe respons�
 O banco de dados já está totalmente estruturado.
 
 A parte onde sou responsável é a integração de todas as páginas, e todo o seu backend, desde a interação do funcionário com a página
-até as requisições e API´s de todo o sistema do mercadinho. no momento estou ainda integrando todas ás paginas e aplicando melhorias na experiência do usuário final.
+até as requisições e API´s de todo o sistema do mercadinho. Projeto atualmente finalizado, funcionando dentro das expectativas inciais!
