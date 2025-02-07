@@ -57,7 +57,7 @@ router.get('/funcionarios', login.login, (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/08.funcionarios.html'));
 })
 
-router.get('/funcionarios/cadastro', login.login, (req, res) => {
+router.get('/funcionarios/cadastro',  (req, res) => {
     res.sendFile(path.join(__dirname,'./../', 'public', 'admin', 'pages/08.cadastrarFuncionarios.html'));
 })
 

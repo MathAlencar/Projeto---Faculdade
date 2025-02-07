@@ -30,18 +30,19 @@ function exibirProdutos(produtos){
 
         // Percorre pelo "sessionStorage" para verificar se o produto já foi armazenado
         for(let i of compra){
-            if(i.nome == produto.nome_Prd){
-                p.querySelector('.qtdAtual').textContent = i.quantidade;
+          console.log(i)
+            if(i.nome_produto == produto.nome_Prd){
+                p.querySelector('.qtdAtual').textContent = i.qtd_comprada;
                 
                 // Atualiza a qtd total
                 let qtdElemento = document.querySelector('#qtdItens');
                 let qtdText = qtdElemento.textContent.split(' ');
-                qtdElemento.textContent = `${Number(qtdText[0]) +  i.quantidade} itens`;
+                qtdElemento.textContent = `${Number(qtdText[0]) +  i.qtd_comprada} itens`;
 
                 // Carrega o valor total
                 let totalElemento = document.querySelector('#valorTotal');
                 let totalText = parseFloat(totalElemento.textContent.replace(/^R\$ /, '').replace(/\./g, '').replace(/(\d{2})$/, '.$1'));
-                let pruduto = parseFloat(produto.vlr_Unit) * i.quantidade;
+                let pruduto = parseFloat(produto.vlr_Unit) * i.qtd_comprada;
                 totalElemento.innerHTML = `R$ ${(totalText + pruduto).toFixed(2)}`;
             }
         }
